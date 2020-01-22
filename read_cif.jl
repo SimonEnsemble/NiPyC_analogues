@@ -1,4 +1,5 @@
 using PorousMaterials
+using LightGraphs
 using Printf
 @eval PorousMaterials PATH_TO_CRYSTALS = pwd()
 
