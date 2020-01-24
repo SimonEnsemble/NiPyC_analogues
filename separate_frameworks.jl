@@ -45,6 +45,6 @@ for (comp_num, component) in enumerate(conn_comps)
     comp_f = Framework(comp_name, f_222.box, Atoms(atoms_species, atoms_xf),
                        Charges(charges_q, charges_xf))
     infer_bonds!(comp_f, true, bonding_rules)
-    write_xyz(comp_f, comp_name * "_atoms.xyz")
-    write_bond_information(comp_f, comp_name * "_bonds.vtk")
+    write_xyz(comp_f, joinpath("component_frameworks", comp_name * "_atoms.xyz"))
+    write_bond_information(comp_f, joinpath("component_framework", comp_name * "_bonds.vtk"))
 end
