@@ -10,6 +10,7 @@ wrap_atoms_to_unit_cell!(f)
 
 bonding_rules = [BondingRule(:H, :*, 0.4, 1.2),
                  BondingRule(:N, :Ni, 0.4, 2.5),
+                 BondingRule(:O, :Ni, 0.4, 2.5),
                  BondingRule(:*, :*, 0.4, 1.9)]
 
 rep_factors = (2, 2, 2)
@@ -46,5 +47,5 @@ for (comp_num, component) in enumerate(conn_comps)
                        Charges(charges_q, charges_xf))
     infer_bonds!(comp_f, true, bonding_rules)
     write_xyz(comp_f, joinpath("component_frameworks", comp_name * "_atoms.xyz"))
-    write_bond_information(comp_f, joinpath("component_framework", comp_name * "_bonds.vtk"))
+    write_bond_information(comp_f, joinpath("component_frameworks", comp_name * "_bonds.vtk"))
 end
