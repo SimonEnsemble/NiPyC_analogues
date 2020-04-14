@@ -1,12 +1,13 @@
 module MOFun
+
 ## packages that are used by this module
 using PorousMaterials
 using LightGraphs
 using LinearAlgebra
 using Printf
 ## other necessary files containing function definitions and tests
-include ring_constructor.jl
-include alignment_operations.jl
+include("ring_constructor.jl")
+include("alignment_operations.jl")
 
 ## file paths for crystal files and fragment files
 @eval PorousMaterials PATH_TO_CRYSTALS = pwd() 
