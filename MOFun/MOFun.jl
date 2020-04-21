@@ -147,5 +147,8 @@ export
 	find_rings,
 	
 	# alignment_operations.jl
-	align_fragment
+	align_fragment 
+end
+
+end
 end
