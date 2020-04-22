@@ -47,25 +47,11 @@ function fragment_aro_R_id(fragment::Crystal)
 end
 
 """
-Returns a formatted array with the ids of the atoms needed for the specific type of arene substtution.
-
-Side two is functionalized by default.
-
-ids = [atom_1, anchor, atom_2]
-
-# Notation: 
-- `anchor` referes to the atom on the aromatic ring that the functional group is going to be bonded to.
-- `atom_1` is the atom on the aromatic ring bonded in the direction of the ipso atom.
-- `atom_2` is the atom on the aromatic ring bonded in the direction of the para atom.
+Find the geometric center of the atoms used for the substitution.
 """
-function crystal_aro_triplet_ids(ring::AromaticRing, substitution_position::String, which_side::Int=2)
-    if substitution_position == "meta"
-        return [ring.sides[which_side].ortho.id_C, ring.sides[which_side].meta.id_C, ring.id_C_para]
-    elseif substitution_position == "ortho"
-        return [ring.id_ipso, ring.sides[which_side].ortho.id_C, ring.sides[which_side].meta.id_C]
-    else
-        error("substitution pattern not supported!")
-    end
+function center_of_aro_triplet(crystal::Crystal, aro_triplet_ids::Array{Int, 1})
+    @assert length(aro_triplet_ids) == 3
+    return sum(crystal.atoms.coords.xf[:, aro_triplet_ids], dims=2)[:] / 3
 end
 
 """
@@ -87,7 +73,7 @@ function triplet_locality(crystal::Crystal, ids_aro_triplet::Array{Int64,1})
 end
 
 """
-Align fragment with the corrct part of the aromatic ring using orthogonal procrustes
+Align fragment with the correct part of the aromatic ring using orthogonal procrustes
 """
 function align_fragment(ring::AromaticRing, crystal::Crystal, 
         fragment::Crystal, substitution_position::String; which_side::Int=2)
@@ -103,9 +89,10 @@ function align_fragment(ring::AromaticRing, crystal::Crystal,
     xf_image_center = sum(xf_aro_triplet_crystal, dims=2)[:] / 3
     
     # determine the total coordinate tranlation of the system 
-    #    to be added back in post-rotation 
-    xf_offset = xf_image_center + crystal.atoms.coords.xf[:, ids_aro_triplet_crystal[2]] # Fractional coords
-    
+    #    to be added back in post-rotation
+    # Fractional coords
+    xf_offset = xf_image_center + crystal.atoms.coords.xf[:, ids_aro_triplet_crystal[2]] 
+	 
     # find centers of aro-triplets for the fragment in fractional coords
     xf_center_fragment = center_of_aro_triplet(fragment, ids_aro_triplet_fragment)
     

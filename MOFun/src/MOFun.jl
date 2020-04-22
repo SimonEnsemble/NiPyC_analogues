@@ -10,13 +10,11 @@ include("ring_constructor.jl")
 include("alignment_operations.jl")
 
 ## file paths for crystal files and fragment files
-@eval PorousMaterials PATH_TO_CRYSTALS = pwd() 
+# @eval PorousMaterials PATH_TO_CRYSTALS = pwd() 
 fragment_location = joinpath(pwd(),"fragments")
 
-## create a directory to store the output files
-if ! isdir(remove_extension(crystal))
-    mkdir(remove_extension(crystal))
-end
+## function that will make it easier to name files
+remove_extension(crystal::Crystal) = split(crystal.name, ".")[1]
 
 """
 Create a Crystal from a .xyz file with box=unit_cube() 
@@ -25,16 +23,22 @@ and charges = Charges(0, Float64[], Frac(Array{Float64}(undef,3,0))).
 function read_fragment_from_xyz(name::String)
     filename = joinpath(fragment_location, name * ".xyz")
     atoms_c = read_xyz(filename)
-    atoms_f = Frac(atoms_c, unit_cube()) # contains: number of atoms, atom type (symbol), and position in fraction coords
+    # contains: number of atoms, atom type (symbol), and position in fraction coords
+    atoms_f = Frac(atoms_c, unit_cube()) 
     charges_f = Charges{Frac}(0) # create an empty charge struct
     return Crystal(name, unit_cube(), atoms_f, charges_f)
 end
 
 ## main function
 function functionalize_mof(xtal::Crystal, fragment_name::String, ipso_species::Symbol, r_species::Symbol,
-				bonding_rules::Array{BondingRule,1}; n::Int=6
+				bonding_rules::Array{BondingRule,1}; n::Int=6,
 				side_to_functionalize::Int=2, randomize_side::Bool=true, 
 				arene_substitution_type::String="para")
+	## create a directory to store the output files
+	if ! isdir(remove_extension(crystal))
+		mkdir(remove_extension(crystal))
+	end
+	
 	####
 	# initialize parameters
 	####
@@ -141,12 +145,14 @@ end
 ####
 export
 	# MOFfun.jl
-	read_fragment_from_xyz, functionalize_mof, 
+	remove_extension, read_fragment_from_xyz, functionalize_mof,
 	
 	# ring_constructor.jl
-	find_rings,
+	empty_ring, is_aromatic, find_aromatic_cycles,
+	is_species, have_neighbor, find_ipso_id,
+	cycle_to_ring, find_rings, 
 	
 	# alignment_operations.jl
-	align_fragment 
+	crystal_aro_triplet_ids, fragment_aro_triplet_ids, fragment_aro_R_id,
+	center_of_aro_triplet, triplet_locality, align_fragment
 end
-

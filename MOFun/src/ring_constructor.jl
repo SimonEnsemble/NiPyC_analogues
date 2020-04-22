@@ -27,7 +27,7 @@ empty_CH() = CH(-1, -1)
 empty_ring_side() = RingSide(empty_CH(), empty_CH())
 empty_ring() = AromaticRing(-1, [empty_ring_side(), empty_ring_side()], -1) 
 
-# initialize empty ring struct
+# initialize empty ring struct (goes in main function?)
 empty_ring()
 
 ####
