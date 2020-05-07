@@ -19,8 +19,8 @@ mol = Molecule("Xe")
 
 pressures = 10 .^ range(-2, stop=log10(1.2), length=15) # bar
 
-n_sample_cycles = 5000 #25000
-n_burn_cycles = 5000 #25000
+n_sample_cycles = 50000 #25000
+n_burn_cycles = 50000 #25000
 
 # for low pressure ranges we can get away with using the ideal gas 
 # equation of state (default), for high pressures use eos=:PengRobinson. 

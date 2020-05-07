@@ -2,7 +2,7 @@
 ## we need to load Slurm so we can submit our jobs with sbatch
 module load slurm
 
-for xtal in NiPyC2.cif
+for xtal in   NiPyC2_vc-relax.cif 
 do
     echo "submitting job for $xtal"
     sbatch -J $xtal -A simoncor -p mime5 -n 4 -o "$xtal.o" -e "$xtal.e" --export xtal="$xtal" gcmc_submit.sh
