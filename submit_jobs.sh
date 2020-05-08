@@ -2,10 +2,17 @@
 ## we need to load Slurm so we can submit our jobs with sbatch
 module load slurm
 
-for xtal in   NiPyC2_vc-relax.cif 
+for xtal in NiPyC2_experiment.cif NiPyC2_relax.cif NiPyC2_vc-relax.cif
 do
-    echo "submitting job for $xtal"
-    sbatch -J $xtal -A simoncor -p mime5 -n 4 -o "$xtal.o" -e "$xtal.e" --export xtal="$xtal" gcmc_submit.sh
+    for gas in Xe Kr
+    do 
+        for FField in Dreiding.csv  UFF.csv
+        do 
+            echo "submitting job for $xtal with $gas using $FField"
+            sbatch -J $xtal -A simoncor -p mime5 -n 4 -o "$xtal.o" -e "$xtal.e"\
+             --export=xtal="$xtal",gas="$gas",FField="$FField" gcmc_submit.sh
+        done
+    done
 done
 
 ###
