@@ -2,7 +2,9 @@
 ## we need to load Slurm so we can submit our jobs with sbatch
 module load slurm
 
-for xtal in NiPyC2_experiment.cif NiPyC2_relax.cif NiPyC2_vc-relax.cif
+# NiPyC2_relax_meta_functonalized_OH.cif
+# NiPyC2_experiment.cif NiPyC2_relax.cif NiPyC2_vc-relax.cif
+for xtal in NiPyC2_relax_meta_functonalized_OH.cif NiPyC2_vc-relax_meta_functonalized_OH.cif
 do
     for gas in Xe Kr
     do 
