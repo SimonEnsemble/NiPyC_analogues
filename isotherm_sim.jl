@@ -21,11 +21,11 @@ temp =  298.0 # K
 # Pressures
 pmin = -2 # in log10, units: bar
 pmax = 1.2 # value of max pressure (actual value), units: bar
-nsteps = 15 # number of pressure intervals to split range
+nsteps = 5 #15 # number of pressure intervals to split range
 pressures = 10 .^ range(pmin, stop=log10(pmax), length=nsteps) # bar
 
-n_sample_cycles = 50000
-n_burn_cycles = 50000
+n_sample_cycles = 5 #50000
+n_burn_cycles = 5 #50000
 
 # for low pressure ranges we can get away with using the ideal gas
 # equation of state (default), for high pressures use eos=:PengRobinson.
