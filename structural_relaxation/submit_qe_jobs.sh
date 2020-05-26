@@ -12,5 +12,5 @@
 #SBATCH -o pw.NiPyC2_P1.relax.out
 #SBATCH -e pw.NiPyC2_P1.relax.err
 module load slurm
-sbatch -J pw.NiPyC2_sc211.relax -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 -o ../structural_relaxation/pw.NiPyC2_sc211.relax.out -e ../structural_relaxation/pw.NiPyC2_sc211.relax.err qe_sims_submit.sh 
+sbatch -J pw.NiPyC2_sc211_OH.relax -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 -o ../structural_relaxation/NiPyC2_relax_meta_functionalized_OH/pw.NiPyC2_sc211.relax.out -e ../structural_relaxation/NiPyC2_relax_meta_functionalized_OH/pw.NiPyC2_sc211.relax.err qe_sims_submit.sh 
 

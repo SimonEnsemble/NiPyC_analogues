@@ -4,14 +4,14 @@ module load slurm
 
 # NiPyC2_relax_meta_functonalized_OH.cif
 # NiPyC2_experiment.cif NiPyC2_relax.cif NiPyC2_vc-relax.cif
-for xtal in $(cat ./data/crystals/AA_mofs_to_sim.txt)
+for xtal in $(cat ./simulated_isotherm_data/AA_mofs_to_sim.txt)
 do
     for gas in Xe Kr
     do 
-        for FField in Dreiding.csv  UFF.csv
+        for FField in UFF.csv # Dreiding.csv
         do 
             echo "submitting job for $xtal with $gas using $FField"
-            sbatch -J $xtal -A simoncor -p mime5 -n 4 -o "$xtal.o" -e "$xtal.e"\
+            sbatch -J $xtal -A simoncor -p mime5 -n 16 -o simulated_isotherm_data/"$xtal.o" -e simulated_isotherm_data/"$xtal.e"\
              --export=xtal="$xtal",gas="$gas",FField="$FField" gcmc_submit.sh
         done
     done
