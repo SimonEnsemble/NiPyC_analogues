@@ -21,7 +21,7 @@ temp =  298.0 # K
 # Pressures
 pmin = -2 # in log10, units: bar
 pmax = 1.2 # value of max pressure (actual value), units: bar
-nsteps = 5 #15 # number of pressure intervals to split range
+nsteps = 15 #5 # number of pressure intervals to split range
 pressures = 10 .^ range(pmin, stop=log10(pmax), length=nsteps) # bar
 
 n_sample_cycles = 50000 #5
