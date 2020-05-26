@@ -19,4 +19,4 @@
 
 # print date and time
 date
-~/julia-1.3.0/bin/julia -p 4 isotherm_sim.jl $xtal $gas $FField
+~/julia-1.3.0/bin/julia -p 16 isotherm_sim.jl $xtal $gas $FField
