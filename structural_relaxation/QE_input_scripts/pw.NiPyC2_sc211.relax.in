@@ -2,10 +2,11 @@
    calculation='relax',
    title='NiPyC2_relax_sc211',
    prefix='NiPyC2_relax_sc211',
-   pseudo_dir='../pseudo/'
+   pseudo_dir='../structural_relaxation/pseudo/'
+   outdir = '../structural_relaxation/'
    ! etot_conv_thr=1.0d-6,
    ! forc_conv_thr=1.0d-5,
-   ! wf_collect=.false.
+   wf_collect=.false.
    nstep=200
 /
 &SYSTEM
@@ -27,8 +28,8 @@
    degauss=.2
    smearing='mv',
    nspin=2,
-   starting_magnetization(Ni1)=.25
-   starting_magnetization(Ni2)=.25
+   starting_magnetization(1)=.25
+   starting_magnetization(2)=.25
    tot_magnetization=4
 /
 &ELECTRONS

@@ -12,6 +12,5 @@
 #SBATCH -o pw.NiPyC2_P1.relax.out
 #SBATCH -e pw.NiPyC2_P1.relax.err
 module load slurm
-qe_output_loc = "../structural_relaxation"
-sbatch -J pw.NiPyC2_sc211.relax -A simoncor -p mime5 --ntasks=8 --cpus-per-task=1 -o $qe_output_loc/pw.NiPyC2_sc211.relax.out -e $qe_output_loc/pw.NiPyC2_sc211.relax.err qe_sims_submit.sh 
+sbatch -J pw.NiPyC2_sc211.relax -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 -o ../structural_relaxation/pw.NiPyC2_sc211.relax.out -e ../structural_relaxation/pw.NiPyC2_sc211.relax.err qe_sims_submit.sh 
 

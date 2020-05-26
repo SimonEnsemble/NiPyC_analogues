@@ -1,0 +1,356 @@
+/apps/openmpi/3.1_intel-19/bin/mpiexec
+starting QE Mon May 25 23:31:16 PDT 2020
+
+     Program PWSCF v.6.5 starts on 25May2020 at 23:31:17 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on    16 processors
+
+     MPI processes distributed on     1 nodes
+     K-points division:     npool     =       2
+     R & G space division:  proc/nbgrp/npool/nimage =       8
+     Reading input from ../structural_relaxation/QE_input_scripts/pw.NiPyC2_sc211.relax.in
+Warning: card &CELL ignored
+Warning: card    CELL_DYNAMICS='BFGS' ignored
+Warning: card    CELL_DOFREE='XYZ' ignored
+Warning: card / ignored
+
+     Current dimensions of program PWSCF are:
+     Max number of different atomic species (ntypx) = 10
+     Max number of k-points (npk) =  40000
+     Max angular momentum in pseudopotentials (lmaxx) =  3
+
+     -------------------------------------------------
+     Parameters for Dispersion (Grimme-D2) Correction:
+     -------------------------------------------------
+       atom      VdW radius       C_6     
+
+        Ni1        2.952        374.666
+        Ni2        2.952        374.666
+        H          1.892          4.857
+        O          2.536         24.284
+        N          2.640         42.670
+        C          2.744         60.710
+
+     gamma-point specific algorithms are used
+
+     Subspace diagonalization in iterative solution of the eigenvalue problem:
+     a serial algorithm will be used
+
+     Found symmetry operation: I + ( -0.5000  0.0000  0.0000)
+     This is a supercell, fractional translations are disabled
+ 
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min        2228    2228    555               183371   183371   22915
+     Max        2230    2230    558               183374   183374   22918
+     Sum       17829   17829   4457              1466989  1466989  183341
+ 
+
+     Title: 
+     NiPyC2_relax_sc211                                                         
+
+
+     bravais-lattice index     =            0
+     lattice parameter (alat)  =      23.6361  a.u.
+     unit-cell volume          =   10858.6450 (a.u.)^3
+     number of atoms/cell      =          108
+     number of atomic types    =            6
+     number of electrons       =       400.00 (up: 202.00, down: 198.00)
+     number of Kohn-Sham states=          242
+     kinetic-energy cutoff     =     100.0000  Ry
+     charge density cutoff     =     400.0000  Ry
+     convergence threshold     =      1.0E-06
+     mixing beta               =       0.7000
+     number of iterations used =            8  local-TF  mixing
+     Exchange-correlation= PBESOL
+                           (   1   4  10   8   0   0   0)
+     nstep                     =          200
+
+
+     celldm(1)=  23.636072  celldm(2)=   0.000000  celldm(3)=   0.000000
+     celldm(4)=   0.000000  celldm(5)=   0.000000  celldm(6)=   0.000000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (   0.999834   0.000000  -0.018196 )  
+               a(2) = (   0.000000   1.001258   0.000000 )  
+               a(3) = (   0.000000   0.000000   0.821440 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = (  1.000166  0.000000  0.000000 )  
+               b(2) = ( -0.000000  0.998744  0.000000 )  
+               b(3) = (  0.022155 -0.000000  1.217375 )  
+
+
+     PseudoPot. # 1 for Ni read from file:
+     ../structural_relaxation/pseudo/Ni.pbesol-n-nc.UPF
+     MD5 check sum: 623411631e0c2eb7c0b2b9815547d2d9
+     Pseudo is Norm-conserving + core correction, Zval = 10.0
+     Generated using "atomic" code by A. Dal Corso v.6.5
+     Using radial grid of 1195 points,  2 beta functions with: 
+                l(1) =   1
+                l(2) =   2
+
+     PseudoPot. # 2 for Ni read from file:
+     ../structural_relaxation/pseudo/Ni.pbesol-n-nc.UPF
+     MD5 check sum: 623411631e0c2eb7c0b2b9815547d2d9
+     Pseudo is Norm-conserving + core correction, Zval = 10.0
+     Generated using "atomic" code by A. Dal Corso v.6.5
+     Using radial grid of 1195 points,  2 beta functions with: 
+                l(1) =   1
+                l(2) =   2
+
+     PseudoPot. # 3 for H  read from file:
+     ../structural_relaxation/pseudo/H.pbesol-n-nc.UPF
+     MD5 check sum: 7995ef24074557c85b430109caaacc09
+     Pseudo is Norm-conserving, Zval =  1.0
+     Generated using "atomic" code by A. Dal Corso v.6.5
+     Using radial grid of  929 points,  0 beta functions with: 
+
+     PseudoPot. # 4 for O  read from file:
+     ../structural_relaxation/pseudo/O.pbesol-nc.UPF
+     MD5 check sum: 73d10e7e91dbfcbe8a7e362101007f84
+     Pseudo is Norm-conserving, Zval =  6.0
+     Generated using "atomic" code by A. Dal Corso v.6.5
+     Using radial grid of 1095 points,  1 beta functions with: 
+                l(1) =   1
+
+     PseudoPot. # 5 for N  read from file:
+     ../structural_relaxation/pseudo/N.pbesol-nc.UPF
+     MD5 check sum: e18cc5e4b8a5600c1a19b30c2cab1ca0
+     Pseudo is Norm-conserving, Zval =  5.0
+     Generated using "atomic" code by A. Dal Corso v.6.5
+     Using radial grid of 1085 points,  1 beta functions with: 
+                l(1) =   1
+
+     PseudoPot. # 6 for C  read from file:
+     ../structural_relaxation/pseudo/C.pbesol-nc.UPF
+     MD5 check sum: ce26087537ded160c8d400e183a8bf42
+     Pseudo is Norm-conserving, Zval =  4.0
+     Generated using "atomic" code by A. Dal Corso v.6.5
+     Using radial grid of 1073 points,  1 beta functions with: 
+                l(1) =   1
+
+     atomic species   valence    mass     pseudopotential
+        Ni1           10.00    58.69000     Ni( 1.00)
+        Ni2           10.00    58.69000     Ni( 1.00)
+        H              1.00     1.00000     H ( 1.00)
+        O              6.00    16.00000     O ( 1.00)
+        N              5.00    65.38000     N ( 1.00)
+        C              4.00    65.38000     C ( 1.00)
+
+     Starting magnetic structure 
+     atomic species   magnetization
+        Ni1          0.250
+        Ni2          0.250
+        H            0.000
+        O            0.000
+        N            0.000
+        C            0.000
+
+     No symmetry found
+
+
+
+   Cartesian axes
+
+     site n.     atom                  positions (alat units)
+         1           Ni1 tau(   1) = (   0.2469611   0.7524310   0.6824970  )
+         2           Ni2 tau(   2) = (   0.4998892   0.2483109   0.2695167  )
+         3           O   tau(   3) = (   0.1227577   0.3481262   0.3122730  )
+         4           O   tau(   4) = (   0.3711465   0.6517956   0.7171738  )
+         5           O   tau(   5) = (   0.3775675   0.1476925   0.3029576  )
+         6           O   tau(   6) = (   0.1250773   0.8534239   0.7175194  )
+         7           O   tau(   7) = (   0.4729907   0.3566079   0.3881424  )
+         8           O   tau(   8) = (   0.2211004   0.6422216   0.8008862  )
+         9           O   tau(   9) = (   0.0288352   0.1353280   0.3946519  )
+        10           O   tau(  10) = (   0.2766402   0.8638430   0.7994827  )
+        11           N   tau(  11) = (   0.3083859   0.8523235   0.5733614  )
+        12           N   tau(  12) = (   0.0607189   0.1490442   0.1681543  )
+        13           N   tau(  13) = (   0.1865111   0.6511278   0.5764091  )
+        14           N   tau(  14) = (   0.4387373   0.3513693   0.1629084  )
+        15           C   tau(  15) = (   0.2881643   0.9712699   0.4235341  )
+        16           C   tau(  16) = (   0.0383726   0.0311451   0.0176263  )
+        17           H   tau(  17) = (   0.2370847   1.0008320   0.3596759  )
+        18           H   tau(  18) = (   0.4864574   0.0026954   0.7661745  )
+        19           C   tau(  19) = (   0.3905693   0.0117848   0.4418022  )
+        20           C   tau(  20) = (   0.1402208   0.9889861   0.0353542  )
+        21           C   tau(  21) = (   0.4518402   0.9714221   0.5260175  )
+        22           C   tau(  22) = (   0.2024865   0.0283887   0.1194430  )
+        23           H   tau(  23) = (   0.0320577   1.0000611   0.5526728  )
+        24           H   tau(  24) = (   0.2822933   0.9999209   0.1366446  )
+        25           C   tau(  25) = (   0.2081465   0.5303701   0.4286047  )
+        26           C   tau(  26) = (   0.4584691   0.4720018   0.0145776  )
+        27           H   tau(  27) = (   0.2586572   0.5015249   0.3643508  )
+        28           H   tau(  28) = (   0.0086396   0.5010263   0.7806608  )
+        29           C   tau(  29) = (   0.2450964   0.6141023   0.4936893  )
+        30           C   tau(  30) = (   0.4967367   0.3891658   0.0801820  )
+        31           H   tau(  31) = (   0.3225876   0.6513240   0.4809432  )
+        32           H   tau(  32) = (   0.0749556   0.3532947   0.0766956  )
+        33           C   tau(  33) = (   0.2494347   0.8903242   0.4909555  )
+        34           C   tau(  34) = (   0.0010688   0.1123731   0.0856132  )
+        35           H   tau(  35) = (   0.1701258   0.8561984   0.4803705  )
+        36           H   tau(  36) = (   0.4222521   0.1479178   0.0661512  )
+        37           C   tau(  37) = (   0.4079095   0.8905015   0.5902166  )
+        38           C   tau(  38) = (   0.1599085   0.1096848   0.1842236  )
+        39           H   tau(  39) = (   0.4532949   0.8562484   0.6560989  )
+        40           H   tau(  40) = (   0.2062049   0.1432830   0.2499054  )
+        41           C   tau(  41) = (   0.0888473   0.6097488   0.5958590  )
+        42           C   tau(  42) = (   0.3408336   0.3921255   0.1822304  )
+        43           H   tau(  43) = (   0.0437218   0.6437525   0.6617843  )
+        44           H   tau(  44) = (   0.2963289   0.3579756   0.2484738  )
+        45           C   tau(  45) = (   0.0469172   0.5257393   0.5341598  )
+        46           C   tau(  46) = (   0.2976087   0.4753080   0.1200619  )
+        47           H   tau(  47) = (   0.4685944   0.4938513   0.5447133  )
+        48           H   tau(  48) = (   0.2189157   0.5058363   0.1399847  )
+        49           C   tau(  49) = (   0.1081461   0.4848790   0.4499190  )
+        50           C   tau(  50) = (   0.3577728   0.5163045   0.0350848  )
+        51           C   tau(  51) = (   0.4332383   0.0994439   0.3754164  )
+        52           C   tau(  52) = (   0.1814869   0.9008515   0.7899386  )
+        53           C   tau(  53) = (   0.0673668   0.3949701   0.3854060  )
+        54           C   tau(  54) = (   0.3159907   0.6049318   0.7903123  )
+        55           Ni1 tau(  55) = (   0.7468783   0.7524310   0.6733988  )
+        56           Ni2 tau(  56) = (   0.9998064   0.2483109   0.2604185  )
+        57           O   tau(  57) = (   0.6226759   0.3481262   0.3031749  )
+        58           O   tau(  58) = (   0.8710638   0.6517956   0.7080756  )
+        59           O   tau(  59) = (   0.8774847   0.1476925   0.2938594  )
+        60           O   tau(  60) = (   0.6249945   0.8534239   0.7084213  )
+        61           O   tau(  61) = (   0.9729079   0.3566079   0.3790442  )
+        62           O   tau(  62) = (   0.7210176   0.6422216   0.7917880  )
+        63           O   tau(  63) = (   0.5287524   0.1353280   0.3855537  )
+        64           O   tau(  64) = (   0.7765574   0.8638430   0.7903846  )
+        65           N   tau(  65) = (   0.8083031   0.8523235   0.5642632  )
+        66           N   tau(  66) = (   0.5606362   0.1490442   0.1590561  )
+        67           N   tau(  67) = (   0.6864293   0.6511278   0.5673109  )
+        68           N   tau(  68) = (   0.9386546   0.3513693   0.1538103  )
+        69           C   tau(  69) = (   0.7880815   0.9712699   0.4144359  )
+        70           C   tau(  70) = (   0.5382899   0.0311451   0.0085281  )
+        71           H   tau(  71) = (   0.7370020   1.0008320   0.3505777  )
+        72           H   tau(  72) = (   0.9863747   0.0026954   0.7570763  )
+        73           C   tau(  73) = (   0.8904865   0.0117848   0.4327040  )
+        74           C   tau(  74) = (   0.6401380   0.9889861   0.0262561  )
+        75           C   tau(  75) = (   0.9517574   0.9714221   0.5169193  )
+        76           C   tau(  76) = (   0.7024037   0.0283887   0.1103448  )
+        77           H   tau(  77) = (   0.5319739   1.0000611   0.5435746  )
+        78           H   tau(  78) = (   0.7822105   0.9999209   0.1275464  )
+        79           C   tau(  79) = (   0.7080647   0.5303701   0.4195065  )
+        80           C   tau(  80) = (   0.9583873   0.4720018   0.0054794  )
+        81           H   tau(  81) = (   0.7585744   0.5015249   0.3552526  )
+        82           H   tau(  82) = (   0.5085568   0.5010263   0.7715627  )
+        83           C   tau(  83) = (   0.7450136   0.6141023   0.4845911  )
+        84           C   tau(  84) = (   0.9966540   0.3891658   0.0710839  )
+        85           H   tau(  85) = (   0.8225048   0.6513240   0.4718450  )
+        86           H   tau(  86) = (   0.5748728   0.3532947   0.0675975  )
+        87           C   tau(  87) = (   0.7493519   0.8903242   0.4818573  )
+        88           C   tau(  88) = (   0.5009860   0.1123731   0.0765150  )
+        89           H   tau(  89) = (   0.6700430   0.8561984   0.4712723  )
+        90           H   tau(  90) = (   0.9221693   0.1479178   0.0570531  )
+        91           C   tau(  91) = (   0.9078267   0.8905015   0.5811184  )
+        92           C   tau(  92) = (   0.6598247   0.1096848   0.1751255  )
+        93           H   tau(  93) = (   0.9532122   0.8562484   0.6470007  )
+        94           H   tau(  94) = (   0.7061231   0.1432830   0.2408072  )
+        95           C   tau(  95) = (   0.5887645   0.6097488   0.5867608  )
+        96           C   tau(  96) = (   0.8407508   0.3921255   0.1731323  )
+        97           H   tau(  97) = (   0.5436390   0.6437525   0.6526861  )
+        98           H   tau(  98) = (   0.7962461   0.3579756   0.2393756  )
+        99           C   tau(  99) = (   0.5468344   0.5257393   0.5250616  )
+       100           C   tau( 100) = (   0.7975259   0.4753080   0.1109638  )
+       101           H   tau( 101) = (   0.9685116   0.4938513   0.5356151  )
+       102           H   tau( 102) = (   0.7188330   0.5058363   0.1308865  )
+       103           C   tau( 103) = (   0.6080633   0.4848790   0.4408209  )
+       104           C   tau( 104) = (   0.8576900   0.5163045   0.0259867  )
+       105           C   tau( 105) = (   0.9331555   0.0994439   0.3663183  )
+       106           C   tau( 106) = (   0.6814042   0.9008515   0.7808404  )
+       107           C   tau( 107) = (   0.5672831   0.3949701   0.3763079  )
+       108           C   tau( 108) = (   0.8159079   0.6049318   0.7812142  )
+
+     number of k points=     1  Marzari-Vanderbilt smearing, width (Ry)=  0.2000
+                       cart. coord. in units 2pi/alat
+        k(    1) = (   0.0000000   0.0000000   0.0000000), wk =   1.0000000
+
+     Dense  grid:   733495 G-vectors     FFT dimensions: ( 160, 160, 125)
+
+     Estimated max dynamical RAM per process >     575.14 MB
+
+     Estimated total dynamical RAM >       8.99 GB
+     Generating pointlists ...
+     new r_m :   0.0654 (alat units)  1.5469 (a.u.) for type    1
+     new r_m :   0.0662 (alat units)  1.5638 (a.u.) for type    2
+     new r_m :   0.0357 (alat units)  0.8447 (a.u.) for type    3
+     new r_m :   0.0423 (alat units)  0.9992 (a.u.) for type    4
+     new r_m :   0.0445 (alat units)  1.0510 (a.u.) for type    5
+     new r_m :   0.0357 (alat units)  0.8447 (a.u.) for type    6
+
+     Check: negative core charge=   -0.000145
+
+     Initial potential from superposition of free atoms
+
+     starting charge  399.99669, renormalised to  400.00000
+     Starting wfcs are  356 randomized atomic wfcs
+
+     total cpu time spent up to now is       52.1 secs
+
+     Self-consistent Calculation
+
+     iteration #  1     ecut=   100.00 Ry     beta= 0.70
+     Davidson diagonalization with overlap
+     ethr =  1.00E-02,  avg # of iterations =  4.0
+
+     total cpu time spent up to now is      150.4 secs
+
+     total energy              =   -1619.09489942 Ry
+     Harris-Foulkes estimate   =   -1626.90278744 Ry
+     estimated scf accuracy    <      20.08060360 Ry
+
+     total magnetization       =     4.00 Bohr mag/cell
+     absolute magnetization    =     8.62 Bohr mag/cell
+
+     iteration #  2     ecut=   100.00 Ry     beta= 0.70
+     Davidson diagonalization with overlap
+     ethr =  5.02E-03,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is      213.5 secs
+
+     total energy              =   -1622.44495280 Ry
+     Harris-Foulkes estimate   =   -1626.45530678 Ry
+     estimated scf accuracy    <      19.08685987 Ry
+
+     total magnetization       =     4.00 Bohr mag/cell
+     absolute magnetization    =     4.16 Bohr mag/cell
+
+     iteration #  3     ecut=   100.00 Ry     beta= 0.70
+     Davidson diagonalization with overlap
+     ethr =  4.77E-03,  avg # of iterations =  1.0
+
+     total cpu time spent up to now is      270.4 secs
+
+     total energy              =   -1622.06100608 Ry
+     Harris-Foulkes estimate   =   -1623.17295311 Ry
+     estimated scf accuracy    <       3.64647491 Ry
+
+     total magnetization       =     4.00 Bohr mag/cell
+     absolute magnetization    =     4.07 Bohr mag/cell
+
+     iteration #  4     ecut=   100.00 Ry     beta= 0.70
+     Davidson diagonalization with overlap
+     ethr =  9.12E-04,  avg # of iterations =  8.0
+
+     total cpu time spent up to now is      342.6 secs
+
+     total energy              =   -1622.03394108 Ry
+     Harris-Foulkes estimate   =   -1623.22745972 Ry
+     estimated scf accuracy    <      10.24624307 Ry
+
+     total magnetization       =     4.00 Bohr mag/cell
+     absolute magnetization    =     4.27 Bohr mag/cell
+
+     iteration #  5     ecut=   100.00 Ry     beta= 0.70
+     Davidson diagonalization with overlap
