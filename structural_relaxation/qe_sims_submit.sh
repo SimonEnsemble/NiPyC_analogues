@@ -18,5 +18,5 @@ which mpiexec
 # which pw.x
 export OMP_NUM_THREADS=1 
 echo "starting QE" `date`
-mpiexec -mca btl tcp,self -mca orte_base_help_aggregate 0 -np 16 ~/qe-6.5/bin/pw.x -procs 1 -npool 2 -in QE_input_scripts/pw.NiPyC2_relax_meta_functionalized_OH.in
+mpiexec -mca btl tcp,self -mca orte_base_help_aggregate 0 -np 16 ~/qe-6.5/bin/pw.x -procs 1 -npool 2 -in QE_input_scripts/pw.NiPyC2_P1.vc-relax.in
 echo "QE finished" `date`

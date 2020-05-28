@@ -6,7 +6,7 @@ module load slurm
 # NiPyC2_experiment.cif NiPyC2_relax.cif NiPyC2_vc-relax.cif
 for xtal in $(cat ./simulated_isotherm_data/AA_mofs_to_sim.txt)
 do
-    for gas in Xe Kr
+    for gas in Xe Kr Ar
     do 
         for FField in UFF.csv # Dreiding.csv
         do 
