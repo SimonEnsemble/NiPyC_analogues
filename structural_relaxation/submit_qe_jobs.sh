@@ -11,5 +11,13 @@
 #SBATCH --cpus-per-task=1
 #SBATCH -o pw.NiPyC2_P1.relax.out
 #SBATCH -e pw.NiPyC2_P1.relax.err
+
+# module load slurm
+# sbatch -J pw.NiPyC2_P1.vc-relax.in -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 -o pw.NiPyC2_P1.vc-relax.out -e pw.NiPyC2_P1.vc-relax.err qe_sims_submit.sh 
+
 module load slurm
-sbatch -J pw.NiPyC2_P1.vc-relax.in -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 -o pw.NiPyC2_P1.vc-relax.out -e pw.NiPyC2_P1.vc-relax.err qe_sims_submit.sh 
+for xtal in $(cat ./AA_mofs_to_relax.txt)
+do 
+   sbatch -J $xtal -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 --time=24:00:00 \
+         -o "$xtal.out" -e "$xtal.err" --export=xtal="$xtal" qe_sims_submit.sh
+done
