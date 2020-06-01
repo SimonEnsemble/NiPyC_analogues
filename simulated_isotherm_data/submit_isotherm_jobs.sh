@@ -6,8 +6,8 @@ module load slurm
 # NiPyC2_experiment.cif NiPyC2_relax.cif NiPyC2_vc-relax.cif
 for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
-    if [ ! -d ./simulated_isotherm_data/$xtal ]; then
-	mkdir ./simulated_isotherm_data/$xtal
+    if [ ! -d ./$xtal ]; then
+	mkdir ./$xtal
     fi
     for gas in Xe Kr Ar
     do 
@@ -15,8 +15,8 @@ do
         do 
             echo "submitting job for $xtal with $gas using $FField"
             sbatch -J $xtal$gas$FField -A simoncor -p mime5 -n 16\
-            -o simulated_isotherm_data/$xtal/"$xtal$gas$FField.o"\
-            -e simulated_isotherm_data/$xtal/"$xtal$gas$FField.e"\
+            -o ./$xtal/"$xtal$gas$FField.o"\
+            -e ./$xtal/"$xtal$gas$FField.e"\
              --export=xtal="$xtal",gas="$gas",FField="$FField" gcmc_submit.sh
         done
     done
