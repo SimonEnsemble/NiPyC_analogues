@@ -4,4 +4,6 @@ crystal structures that have not been replicated will not have a "replication" s
 
 The MOF whose parameters are experimentally will say "experiment" in the QE section. "relax" revers to fixed volume structural relaxation and "vc-relax" is variable cell relaxation.
 
-Example: "NiPyC2_sc211_relax" contains `.cif`,`.xyz`, and `.vtk` files for functionalized NiPyC2 which has been replicated with repfactors (2,1,1), and will be used for fixed volume structural optimization. 
+Example: "NiPyC2_sc211_relax" contains `.cif`,`.xyz`, and `.vtk` files for functionalized NiPyC2 which has been replicated with repfactors (2,1,1), and will be used for fixed volume structural optimization.
+
+`.cif` files in under this directory are only functionalized versions of either the experimental crystal or QE relaxed and have not been run through QE themselves.  
