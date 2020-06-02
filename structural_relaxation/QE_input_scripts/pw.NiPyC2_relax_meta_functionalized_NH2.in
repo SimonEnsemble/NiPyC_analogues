@@ -1,8 +1,8 @@
 &CONTROL
    calculation = 'relax',
    prefix = 'NiPyC2_relax_meta_functionalized_NH2',
-   pseudo_dir = '/home/ng/DTRA/structural_relaxation/pseudo',
-   outdir = '/home/ng/DTRA/structural_relaxation'
+   pseudo_dir = './pseudo/',
+   outdir = './'
    nstep = 200,
 /
 &SYSTEM
@@ -39,7 +39,7 @@ O    15.999400    O.pbesol-nc.UPF
 N    14.006700    N.pbesol-nc.UPF
 C    12.010700    C.pbesol-nc.UPF
 H    1.007940    H.pbesol-n-nc.UPF
-K_POINTS ["{gamma}"]
+K_POINTS {gamma}
 CELL_PARAMETERS "{angstrom}"
      12.505600   0.000000   0.000000
      0.000000   12.523400   0.000000

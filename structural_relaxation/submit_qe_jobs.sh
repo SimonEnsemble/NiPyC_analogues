@@ -18,6 +18,6 @@
 module load slurm
 for xtal in $(cat ./AA_mofs_to_relax.txt)
 do 
-   sbatch -J $xtal -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 --time=24:00:00 \
+   sbatch -J $xtal -A simoncor -p mime5 --ntasks=32 --cpus-per-task=1 --time=72:00:00 \
          -o "$xtal.out" -e "$xtal.err" --export=xtal="$xtal" qe_sims_submit.sh
 done
