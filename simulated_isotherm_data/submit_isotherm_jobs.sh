@@ -15,8 +15,8 @@ do
         do 
             echo "submitting job for $xtal with $gas using $FField"
             sbatch -J $xtal$gas$FField -A simoncor -p mime5 -n 16\
-            -o ./$xtal/"$xtal$gas$FField.o"\
-            -e ./$xtal/"$xtal$gas$FField.e"\
+            -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$FField.o"\
+            -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$FField.e"\
              --export=xtal="$xtal",gas="$gas",FField="$FField" gcmc_submit.sh
         done
     done

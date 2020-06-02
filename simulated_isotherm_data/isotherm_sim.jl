@@ -1,4 +1,3 @@
-cd("..")
 using PorousMaterials
 # run using master branch
 
