@@ -2,7 +2,7 @@
    calculation = 'relax',
    prefix = 'NiPyC2_relax_meta_functionalized_OH_vdw-df2_relax',
    pseudo_dir = './pseudo/',
-   outdir = './QE_relaxation_results/VDW_relax'
+   outdir = './QE_relaxation_results/VDW_relax/NiPyC2_relax/'
    nstep = 200,
 /
 &SYSTEM
@@ -17,7 +17,7 @@
    degauss = 0.200000,
    smearing = 'mv',
    nspin = 2 ,
-   starting_magnetization(Ni) = 0.250000,
+   starting_magnetization(4) = 0.250000,
    tot_magnetization = 4.000000
 /
 &ELECTRONS
