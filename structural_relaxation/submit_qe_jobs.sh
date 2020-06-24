@@ -23,7 +23,7 @@ do
    pw_sim_name=${split_filename[1]}
 
    ## submit the simulation
-   sbatch -J $pw_sim_name -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 --time=72:00:00 \
+   sbatch -J $pw_sim_name -A simoncor -p mime5 --ntasks=32 --cpus-per-task=1 --time=72:00:00 \
          -o QE_relaxation_results/pbesol_relax/"$pw_sim_name.out" \
          -e QE_relaxation_results/pbesol_relax/"$pw_sim_name.err" \
          --export=pw_input_filename="$pw_input_filename" qe_sims_submit.sh
