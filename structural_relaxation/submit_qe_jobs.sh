@@ -29,5 +29,5 @@ do
          --export=pw_input_filename="$pw_input_filename" qe_sims_submit.sh
   
    ## after the simlation finishes, we delete the large, unwanted data files
-   rm -rf QE_relaxation_results/pbesol_relax/"$pw_sim_name.save"
+   rm -rf QE_relaxation_results/pbesol_relax/*.save
 done
