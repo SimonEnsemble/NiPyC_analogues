@@ -4,7 +4,7 @@ using PorousMaterials
 @info PorousMaterials.PATH_TO_DATA
 
 ## post QE relaxation .cif file location
-@eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "structural_relaxation", "post-relaxation_cifs")
+@eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "..", "structural_relaxation", "post-relaxation_cifs")
 @info PorousMaterials.PATH_TO_CRYSTALS
 
 # read in crystal structure name from command line arguments
