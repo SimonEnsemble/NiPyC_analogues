@@ -1,9 +1,11 @@
 using PorousMaterials
-# data folder located in the main directory (for now)
+## define path to data folder
 @eval PorousMaterials PATH_TO_DATA = joinpath(pwd(), "..", "data")
-# post QE relaxation .cif file location
-@eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "..", "structural_relaxation", 
-						  "post-relaxation_cifs")
+@info PorousMaterials.PATH_TO_DATA
+
+## post QE relaxation .cif file location
+@eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "structural_relaxation", "post-relaxation_cifs")
+@info PorousMaterials.PATH_TO_CRYSTALS
 
 # read in crystal structure name from command line arguments
 if length(ARGS) != 3
@@ -16,7 +18,8 @@ ffield = ARGS[3]
 println("running mol sim in ", crystal, "with ", adsorbate, "and ", ffield)
 
 # read in crystal structure
-frame = Crystal(crystal)
+# frame = Crystal(crystal)
+frame = Framework(crystal)
 strip_numbers_from_atom_labels!(frame)
 
 ## define simulation parameters
