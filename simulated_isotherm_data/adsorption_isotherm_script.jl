@@ -1,10 +1,11 @@
 using PorousMaterials
 ## define path to data folder
-@eval PorousMaterials PATH_TO_DATA = joinpath(pwd(), "..", "data")
+# @eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
 @info PorousMaterials.PATH_TO_DATA
 
 ## post QE relaxation .cif file location
-@eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "..", "structural_relaxation", "post-relaxation_cifs")
+# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
+@eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "structural_relaxation", "post-relaxation_cifs")
 @info PorousMaterials.PATH_TO_CRYSTALS
 
 # read in crystal structure name from command line arguments
