@@ -1,6 +1,6 @@
 &CONTROL
    calculation = 'relax',
-   prefix = 'NiPyC2_relax_sc211_meta_functionalized_C-3CH3_pbesol_relax',
+   prefix = 'NiPyC2_relax_sc211_meta_functionalized_C-3CH3_pbesol_relax_frozen_parent_atoms',
    pseudo_dir = './pseudo/',
    outdir = '/nfs/hpc/share/gantzlen'
    wf_collect = .FALSE.,
@@ -9,7 +9,7 @@
 &SYSTEM
    ibrav = 0,
    nat = 204,
-   ntyp = 7.000000,
+   ntyp = 5.000000,
    tot_charge = 0.000000,
    ecutwfc = 100.000000,
    
@@ -18,7 +18,7 @@
    degauss = 0.200000,
    smearing = 'mv',
    nspin = 2 ,
-   starting_magnetization(6) = 0.250000,
+   starting_magnetization(4) = 0.250000,
    tot_magnetization = 8.000000
 /
 &ELECTRONS
