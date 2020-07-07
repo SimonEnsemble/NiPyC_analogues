@@ -1,20 +1,18 @@
 #!/bin/bash
-## we need to load Slurm so we can submit our jobs with sbatch
+# we need to load Slurm so we can submit our jobs with sbatch
 module load slurm
-
-# NiPyC2_relax_meta_functonalized_OH.cif
-# NiPyC2_experiment.cif NiPyC2_relax.cif NiPyC2_vc-relax.cif
+# loop over the xtal names in AA_mofs_to_sim.txt
 for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
     if [ ! -d ./simulated_isotherm_data/$xtal ]; then
 	mkdir ./simulated_isotherm_data/$xtal
     fi
-    for gas in Xe Kr Ar
+    for gas in Xe # Kr Ar
     do 
-        for FField in UFF.csv # Dreiding.csv
+        for FField in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $FField"
-            sbatch -J $xtal$gas$FField -A simoncor -p mime5 -n 16 \
+            sbatch -J $xtal$gas$FField -A simoncor -p mime5 -n 4 \
             -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$FField.o" \
             -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$FField.e" \
              --export=xtal="$xtal",gas="$gas",FField="$FField" gcmc_submit.sh
