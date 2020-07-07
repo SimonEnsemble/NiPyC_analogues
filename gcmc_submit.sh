@@ -2,9 +2,9 @@
 
 # use current working directory for input and output
 # default is to use the users home directory
-#$ -cwd
+# #$ -cwd
 
-#$ -pe thread 4 # use 4 threads/cores
+# #$ -pe thread 4 # use 4 threads/cores
 
  # COMMENT OUT b/c we will pass these into `qsub`.
  # # name this job
@@ -15,8 +15,8 @@
  # #$ -e cof_103.e
 
 # select queue - if needed; mime5 is SimonEnsemble priority queue but is restrictive.
-#$ -q mime5
+# #$ -q mime5
 
 # print date and time
 date
-~/julia-1.3.0/bin/julia -p 16 adsorption_isotherm_script.jl $xtal $gas $FField
+~/julia-1.3.0/bin/julia -p 4 adsorption_isotherm_script.jl $xtal $gas $FField
