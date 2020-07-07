@@ -4,11 +4,14 @@ module load slurm
 # loop over the xtal names in AA_mofs_to_sim.txt
 for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
+    # make output directory if it doesn't exist
     if [ ! -d ./simulated_isotherm_data/$xtal ]; then
 	mkdir ./simulated_isotherm_data/$xtal
     fi
+    # loop over adsorbates
     for gas in Xe # Kr Ar
     do 
+        # loop over forcefields
         for FField in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $FField"
