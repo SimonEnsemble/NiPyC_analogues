@@ -5,20 +5,22 @@ module load slurm
 for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
     # make output directory if it doesn't exist
-    if [ ! -d ./simulated_isotherm_data/$xtal ]; then
-	mkdir ./simulated_isotherm_data/$xtal
+    if [ ! -d ./$xtal ]; then
+	mkdir ./$xtal
     fi
     # loop over adsorbates
-    for gas in Xe # Kr Ar
+    for gas in Xe Kr Ar
     do 
         # loop over forcefields
-        for FField in UFF # Dreiding
+        for ljff in UFF # Dreiding
         do 
-            echo "submitting job for $xtal with $gas using $FField"
-            sbatch -J $xtal$gas$FField -A simoncor -p mime5 -n 4 \
-            -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$FField.o" \
-            -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$FField.e" \
-             --export=xtal="$xtal",gas="$gas",FField="$FField" gcmc_submit.sh
+            echo "submitting job for $xtal with $gas using $ljff"
+            sbatch -J "$xtal-$gas-$ljff" -A simoncor -p mime5 -n 8 \
+            -o ./$xtal/"$xtal-$gas-$ljff.o" \
+            -e ./$xtal/"$xtal-$gas-$ljff.e" \
+            date
+            ~/julia-1.3.0/bin/julia -p 8 adsorption_isotherm_script.jl $xtal $gas $ljff
+##            -export=xtal="$xtal",gas="$gas",ljff="$ljff" gcmc_submit.sh
         done
     done
 done

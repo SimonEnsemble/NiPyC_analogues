@@ -1,6 +1,7 @@
+cd("..")
 using PorousMaterials
 ## define path to data folder
-@eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
+# @eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
 @info PorousMaterials.PATH_TO_DATA
 
 ## post QE relaxation .cif file location
@@ -19,16 +20,14 @@ ffield = ARGS[3]
 println("running mol sim in ", crystal, "with ", adsorbate, "and ", ffield)
 
 # read in crystal structure
-frame = Crystal(crystal)
-# frame = Framework(crystal) 
-strip_numbers_from_atom_labels!(frame)
+xtal = Crystal(crystal)
+strip_numbers_from_atom_labels!(xtal)
 
 ## define simulation parameters
 mol = Molecule(adsorbate)
-forcefield = LJForceField(ffield, mixing_rules="Lorentz-Berthelot")
+ljff = LJForceField(ffield, mixing_rules="Lorentz-Berthelot")
 temp =  298.0 # K
 
-# Pressures
 pmin = -2   # in log10, units: bar
 pmax = 1.1  # value of max pressure (actual value), units: bar
 nsteps = 15 # number of pressure intervals to split range
@@ -42,5 +41,5 @@ n_burn_cycles = 50000
 # equation_of_state = :PengRobinson
 
 ## assign sim output to a variable
-adsorption_data = adsorption_isotherm(frame, mol, temp, pressures, forcefield,
+adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff,
                     n_burn_cycles=n_burn_cycles, n_sample_cycles=n_sample_cycles)
