@@ -4,7 +4,7 @@ using PorousMaterials
 @info PorousMaterials.PATH_TO_DATA
 
 ## post QE relaxation .cif file location
-@eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
+# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
 # @eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "structural_relaxation", "post-relaxation_cifs")
 @info PorousMaterials.PATH_TO_CRYSTALS
 

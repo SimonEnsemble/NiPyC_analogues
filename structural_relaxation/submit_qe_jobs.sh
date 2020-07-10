@@ -14,7 +14,7 @@ do
     pw_sim_name=${split_filename[1]}
 
     ## submit the simulation
-    sbatch -J $pw_sim_name -A simoncor -p mime5 --ntasks=16 --cpus-per-task=1 --time=7-00:00:00 \
+    sbatch -J $pw_sim_name -A simoncor --ntasks=32 --cpus-per-task=1 --time=7-00:00:00 \
            --mail-type=ALL --mail-user=gantzlen \
            -o /nfs/hpc/share/gantzlen/"$pw_sim_name.out" \
            -e /nfs/hpc/share/gantzlen/"$pw_sim_name.err" \
