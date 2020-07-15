@@ -1,0 +1,24 @@
+forrtl: No space left on device
+forrtl: severe (28): CLOSE error, unit 4, file "Unknown"
+Image              PC                Routine            Line        Source             
+pw.x               0000000000D4E72B  Unknown               Unknown  Unknown
+pw.x               0000000000D40AAF  Unknown               Unknown  Unknown
+pw.x               00000000008E919C  io_base_mp_write_         196  io_base.f90
+pw.x               0000000000554075  pw_restart_new_mp         796  pw_restart_new.f90
+pw.x               000000000054C421  punch_                    109  punch.f90
+pw.x               00000000005858AD  run_pwscf_                271  run_pwscf.f90
+pw.x               000000000041365A  MAIN__                    103  pwscf.f90
+pw.x               00000000004134A2  Unknown               Unknown  Unknown
+libc-2.17.so       00002BAA1FA4C555  __libc_start_main     Unknown  Unknown
+pw.x               00000000004133A9  Unknown               Unknown  Unknown
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpiexec detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[48358,1],8]
+  Exit code:    28
+--------------------------------------------------------------------------
