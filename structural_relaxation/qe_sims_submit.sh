@@ -8,8 +8,8 @@
 module load intel/19
 module load qe
 which mpiexec
-# which pw.x
+which pw.x
 export OMP_NUM_THREADS=1 
 echo "starting QE" `date`
-mpiexec -mca btl tcp,self -mca orte_base_help_aggregate 0 -np 32 ~/qe-6.5/bin/pw.x -procs 1 -npool 2 -in ./QE_input_scripts/$pw_input_filename
+mpiexec -mca btl tcp,self -mca orte_base_help_aggregate 0 -np 16 pw.x -procs 1 -npool 2 -in ./QE_input_scripts/$pw_input_filename
 echo "QE finished" `date`
