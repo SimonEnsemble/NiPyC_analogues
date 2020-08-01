@@ -6,7 +6,7 @@ for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
     # make output directory if it doesn't exist
     if [ ! -d ./$xtal ]; then
-	mkdir ./simulated_isotherm_data/henry_calcs/$xtal
+	    mkdir ./simulated_isotherm_data/$xtal
     fi
     # loop over adsorbates
     for gas in Xe Kr Ar
@@ -16,8 +16,8 @@ do
         do 
             echo "submitting job for $xtal with $gas using $ljff"
             sbatch -J "$xtal-$gas-$ljff" -A simoncor -p mime5 -n 4 \
-                   -o ./simulated_isotherm_data/henry_calcs/$xtal/"$xtal-$gas-$ljff.o" \
-                   -e ./simulated_isotherm_data/henry_calcs/$xtal/"$xtal-$gas-$ljff.e" \
+                   -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.o" \
+                   -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.e" \
                    --export=xtal="$xtal",gas="$gas",ljff="$ljff" gcmc_submit.sh
         done
     done

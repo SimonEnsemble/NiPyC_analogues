@@ -1,12 +1,12 @@
 using PorousMaterials
 ## define path to data folder
 @eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
-# @info PorousMaterials.PATH_TO_DATA
+@info PorousMaterials.PATH_TO_DATA
 
 ## post QE relaxation .cif file location
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
-@eval PorousMaterials PATH_TO_CRYSTALS = joinpath("..", "structural_relaxation", "post-relaxation_cifs")
-# @info PorousMaterials.PATH_TO_CRYSTALS
+@eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
+# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("..", "structural_relaxation", "post-relaxation_cifs")
+@info PorousMaterials.PATH_TO_CRYSTALS
 
 print_file_paths()
 
@@ -44,6 +44,3 @@ n_burn_cycles = 50000
 ## assign sim output to a variable
 adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff,
                     n_burn_cycles=n_burn_cycles, n_sample_cycles=n_sample_cycles)
-
-
-# henry_coef = henry_coefficient(xtal, mol, temp, ljff, nb_insertions=500)
