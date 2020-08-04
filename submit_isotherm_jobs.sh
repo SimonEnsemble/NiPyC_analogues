@@ -15,7 +15,7 @@ do
         for ljff in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $ljff"
-            sbatch -J "$xtal-$gas-$ljff" -A simoncor -p mime5 -n 4 \
+            sbatch -J "$xtal-$gas-$ljff" -A simoncor -n 4 \
                    -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.o" \
                    -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.e" \
                    --export=xtal="$xtal",gas="$gas",ljff="$ljff" gcmc_submit.sh
