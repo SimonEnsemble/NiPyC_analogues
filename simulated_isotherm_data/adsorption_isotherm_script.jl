@@ -16,7 +16,7 @@ end
 crystal = ARGS[1]
 adsorbate = ARGS[2]
 ffield = ARGS[3]
-println("running mol sim in ", crystal, "with ", adsorbate, "and ", ffield)
+println("running mol sim in ", crystal, " with ", adsorbate, " and ", ffield)
 
 # read in crystal structure
 xtal = Crystal(crystal)
@@ -40,9 +40,9 @@ n_burn_cycles = 50000
 # equation_of_state = :PengRobinson
 
 ## assign sim output to a variable
-# adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff,
-#                     n_burn_cycles=n_burn_cycles, n_sample_cycles=n_sample_cycles)
+adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff, 
+                                      n_burn_cycles=n_burn_cycles, 
+                                      n_sample_cycles=n_sample_cycles)
 
 
-henry_result = henry_coefficient(xtal, mol, temp, ljff, nb_insertions=500)
-
+# henry_result = henry_coefficient(xtal, mol, temp, ljff; insertions_per_volume=500)
