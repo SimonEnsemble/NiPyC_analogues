@@ -3,225 +3,38 @@ units           real
 atom_style      full
 boundary        p p p
 
-pair_style      lj/cut 12.500
+pair_style      lj/cut 5.00 
 bond_style      harmonic
-angle_style     hybrid cosine/periodic fourier
+angle_style     hybrid fourier cosine/periodic
 dihedral_style  harmonic
 improper_style  fourier
 
 dielectric      1.0
-pair_modify     tail yes mix arithmetic
 special_bonds   lj/coul 0.0 0.0 1.0
+pair_modify     tail yes mix arithmetic
 box tilt        large
 read_data       data.NiPyC2_relax_sc211_meta_functionalized_C-3CH3
 
 #### Atom Groupings ####
-group           1        id   188:204 392:408 596:612 800:816 1004:1020 1208:1224 1412:1428 1616:1632 1820:1836 2024:2040 2228:2244 2432:2448
-group           1-1      id   188 392 596 800 1004 1208 1412 1616 1820 2024 2228 2432
-group           1-2      id   392
-group           1-3      id   596
-group           1-4      id   800
-group           1-5      id   1004
-group           1-6      id   1208
-group           1-7      id   1412
-group           1-8      id   1616
-group           1-9      id   1820
-group           1-10     id   2024
-group           1-11     id   2228
-group           1-12     id   2432
-group           1-13     id   189 393 597 801 1005 1209 1413 1617 1821 2025 2229 2433
-group           1-14     id   393
-group           1-15     id   597
-group           1-16     id   801
-group           1-17     id   1005
-group           1-18     id   1209
-group           1-19     id   1413
-group           1-20     id   1617
-group           1-21     id   1821
-group           1-22     id   2025
-group           1-23     id   2229
-group           1-24     id   2433
-group           1-25     id   190 394 598 802 1006 1210 1414 1618 1822 2026 2230 2434
-group           1-26     id   394
-group           1-27     id   598
-group           1-28     id   802
-group           1-29     id   1006
-group           1-30     id   1210
-group           1-31     id   1414
-group           1-32     id   1618
-group           1-33     id   1822
-group           1-34     id   2026
-group           1-35     id   2230
-group           1-36     id   2434
-group           1-37     id   191 395 599 803 1007 1211 1415 1619 1823 2027 2231 2435
-group           1-38     id   395
-group           1-39     id   599
-group           1-40     id   803
-group           1-41     id   1007
-group           1-42     id   1211
-group           1-43     id   1415
-group           1-44     id   1619
-group           1-45     id   1823
-group           1-46     id   2027
-group           1-47     id   2231
-group           1-48     id   2435
-group           1-49     id   192 396 600 804 1008 1212 1416 1620 1824 2028 2232 2436
-group           1-50     id   396
-group           1-51     id   600
-group           1-52     id   804
-group           1-53     id   1008
-group           1-54     id   1212
-group           1-55     id   1416
-group           1-56     id   1620
-group           1-57     id   1824
-group           1-58     id   2028
-group           1-59     id   2232
-group           1-60     id   2436
-group           1-61     id   193 397 601 805 1009 1213 1417 1621 1825 2029 2233 2437
-group           1-62     id   397
-group           1-63     id   601
-group           1-64     id   805
-group           1-65     id   1009
-group           1-66     id   1213
-group           1-67     id   1417
-group           1-68     id   1621
-group           1-69     id   1825
-group           1-70     id   2029
-group           1-71     id   2233
-group           1-72     id   2437
-group           1-73     id   194 398 602 806 1010 1214 1418 1622 1826 2030 2234 2438
-group           1-74     id   398
-group           1-75     id   602
-group           1-76     id   806
-group           1-77     id   1010
-group           1-78     id   1214
-group           1-79     id   1418
-group           1-80     id   1622
-group           1-81     id   1826
-group           1-82     id   2030
-group           1-83     id   2234
-group           1-84     id   2438
-group           1-85     id   195 399 603 807 1011 1215 1419 1623 1827 2031 2235 2439
-group           1-86     id   399
-group           1-87     id   603
-group           1-88     id   807
-group           1-89     id   1011
-group           1-90     id   1215
-group           1-91     id   1419
-group           1-92     id   1623
-group           1-93     id   1827
-group           1-94     id   2031
-group           1-95     id   2235
-group           1-96     id   2439
-group           1-97     id   196 400 604 808 1012 1216 1420 1624 1828 2032 2236 2440
-group           1-98     id   400
-group           1-99     id   604
-group           1-100    id   808
-group           1-101    id   1012
-group           1-102    id   1216
-group           1-103    id   1420
-group           1-104    id   1624
-group           1-105    id   1828
-group           1-106    id   2032
-group           1-107    id   2236
-group           1-108    id   2440
-group           1-109    id   197 401 605 809 1013 1217 1421 1625 1829 2033 2237 2441
-group           1-110    id   401
-group           1-111    id   605
-group           1-112    id   809
-group           1-113    id   1013
-group           1-114    id   1217
-group           1-115    id   1421
-group           1-116    id   1625
-group           1-117    id   1829
-group           1-118    id   2033
-group           1-119    id   2237
-group           1-120    id   2441
-group           1-121    id   198 402 606 810 1014 1218 1422 1626 1830 2034 2238 2442
-group           1-122    id   402
-group           1-123    id   606
-group           1-124    id   810
-group           1-125    id   1014
-group           1-126    id   1218
-group           1-127    id   1422
-group           1-128    id   1626
-group           1-129    id   1830
-group           1-130    id   2034
-group           1-131    id   2238
-group           1-132    id   2442
-group           1-133    id   199 403 607 811 1015 1219 1423 1627 1831 2035 2239 2443
-group           1-134    id   403
-group           1-135    id   607
-group           1-136    id   811
-group           1-137    id   1015
-group           1-138    id   1219
-group           1-139    id   1423
-group           1-140    id   1627
-group           1-141    id   1831
-group           1-142    id   2035
-group           1-143    id   2239
-group           1-144    id   2443
-group           1-145    id   200 404 608 812 1016 1220 1424 1628 1832 2036 2240 2444
-group           1-146    id   404
-group           1-147    id   608
-group           1-148    id   812
-group           1-149    id   1016
-group           1-150    id   1220
-group           1-151    id   1424
-group           1-152    id   1628
-group           1-153    id   1832
-group           1-154    id   2036
-group           1-155    id   2240
-group           1-156    id   2444
-group           1-157    id   201 405 609 813 1017 1221 1425 1629 1833 2037 2241 2445
-group           1-158    id   405
-group           1-159    id   609
-group           1-160    id   813
-group           1-161    id   1017
-group           1-162    id   1221
-group           1-163    id   1425
-group           1-164    id   1629
-group           1-165    id   1833
-group           1-166    id   2037
-group           1-167    id   2241
-group           1-168    id   2445
-group           1-169    id   202 406 610 814 1018 1222 1426 1630 1834 2038 2242 2446
-group           1-170    id   406
-group           1-171    id   610
-group           1-172    id   814
-group           1-173    id   1018
-group           1-174    id   1222
-group           1-175    id   1426
-group           1-176    id   1630
-group           1-177    id   1834
-group           1-178    id   2038
-group           1-179    id   2242
-group           1-180    id   2446
-group           1-181    id   203 407 611 815 1019 1223 1427 1631 1835 2039 2243 2447
-group           1-182    id   407
-group           1-183    id   611
-group           1-184    id   815
-group           1-185    id   1019
-group           1-186    id   1223
-group           1-187    id   1427
-group           1-188    id   1631
-group           1-189    id   1835
-group           1-190    id   2039
-group           1-191    id   2243
-group           1-192    id   2447
-group           1-193    id   204 408 612 816 1020 1224 1428 1632 1836 2040 2244 2448
-group           1-194    id   408
-group           1-195    id   612
-group           1-196    id   816
-group           1-197    id   1020
-group           1-198    id   1224
-group           1-199    id   1428
-group           1-200    id   1632
-group           1-201    id   1836
-group           1-202    id   2040
-group           1-203    id   2244
-group           1-204    id   2448
-group           fram     id   1:187 205:391 409:595 613:799 817:1003 1021:1207 1225:1411 1429:1615 1633:1819 1837:2023 2041:2227 2245:2431
+group           1        id   188:204
+group           1-1      id   188
+group           1-2      id   189
+group           1-3      id   190
+group           1-4      id   191
+group           1-5      id   192
+group           1-6      id   193
+group           1-7      id   194
+group           1-8      id   195
+group           1-9      id   196
+group           1-10     id   197
+group           1-11     id   198
+group           1-12     id   199
+group           1-13     id   200
+group           1-14     id   201
+group           1-15     id   202
+group           1-16     id   203
+group           1-17     id   204
+group           fram     id   1:187
 #### END Atom Groupings ####
 
 dump            NiPyC2_relax_sc211_meta_functionalized_C-3CH3_xyzmov all xyz 20000 NiPyC2_relax_sc211_meta_functionalized_C-3CH3_mov.xyz
