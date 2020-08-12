@@ -52,11 +52,11 @@ undump          NiPyC2_relax_sc211_ortho_functionalized_F_xyzmov  ## Turn off/cl
 variable curr_lx equal lx
 variable curr_ly equal ly
 variable curr_lz equal lz
-change_box all x final 0 ${curr_lx} y final 0 ${curr_ly} z final 0 ${curr_lz}
+change_box all x final 0 ${curr_lx} y final 0 ${curr_ly} z final 0 ${curr_lz}  ### this is where the final box is defined
 
 reset_timestep 0
 dump            NiPyC2_relax_sc211_ortho_functionalized_F_restart all atom 1 NiPyC2_relax_sc211_ortho_functionalized_F_restart.lammpstrj
-dump_modify     NiPyC2_relax_sc211_ortho_functionalized_F_restart scale no sort id
+dump_modify     NiPyC2_relax_sc211_ortho_functionalized_F_restart scale no sort id   ### scale => atom pos are written in absolute distance units e.g. ang; sort id means sort the output by atom ID
 run 0
 undump          NiPyC2_relax_sc211_ortho_functionalized_F_restart 
 

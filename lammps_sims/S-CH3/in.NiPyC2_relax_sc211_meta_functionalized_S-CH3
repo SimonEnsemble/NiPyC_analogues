@@ -1,0 +1,59 @@
+log             log.NiPyC2_relax_sc211_meta_functionalized_S-CH3 append
+units           real
+atom_style      full
+boundary        p p p
+
+pair_style      lj/cut 5.000
+bond_style      harmonic
+angle_style     hybrid fourier cosine/periodic
+dihedral_style  harmonic
+improper_style  fourier
+
+dielectric      1.0
+special_bonds   lj/coul 0.0 0.0 1.0
+pair_modify     tail yes mix arithmetic
+box tilt        large
+read_data       data.NiPyC2_relax_sc211_meta_functionalized_S-CH3
+
+#### Atom Groupings ####
+group           fram     id   1:140
+#### END Atom Groupings ####
+
+dump            NiPyC2_relax_sc211_meta_functionalized_S-CH3_xyzmov all xyz 20000 NiPyC2_relax_sc211_meta_functionalized_S-CH3_mov.xyz
+dump_modify     NiPyC2_relax_sc211_meta_functionalized_S-CH3_xyzmov element Ni O N C H S C
+min_style       cg
+print           "MinStep,CellMinStep,AtomMinStep,FinalStep,Energy,EDiff" file NiPyC2_relax_sc211_meta_functionalized_S-CH3.min.csv screen no
+variable        min_eval   equal 1.00e-06
+variable        prev_E     equal 50000.00
+variable        iter       loop 100000
+label           loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        CellMinStep equal ${tempstp}
+minimize        1.0e-15 1.0e-15 10000 100000
+variable        AtomMinStep equal ${tempstp}
+variable        temppe     equal $(pe)
+variable        min_E      equal abs(${prev_E}-${temppe})
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_meta_functionalized_S-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+next            iter
+jump            SELF loop_min
+label           break_min
+undump          NiPyC2_relax_sc211_meta_functionalized_S-CH3_xyzmov
+
+# Dump last snapshot for restart
+variable curr_lx equal lx
+variable curr_ly equal ly
+variable curr_lz equal lz
+change_box all x final 0 ${curr_lx} y final 0 ${curr_ly} z final 0 ${curr_lz}
+
+reset_timestep 0
+dump            NiPyC2_relax_sc211_meta_functionalized_S-CH3_restart all atom 1 NiPyC2_relax_sc211_meta_functionalized_S-CH3_restart.lammpstrj
+dump_modify     NiPyC2_relax_sc211_meta_functionalized_S-CH3_restart scale no sort id
+run 0
+undump          NiPyC2_relax_sc211_meta_functionalized_S-CH3_restart
