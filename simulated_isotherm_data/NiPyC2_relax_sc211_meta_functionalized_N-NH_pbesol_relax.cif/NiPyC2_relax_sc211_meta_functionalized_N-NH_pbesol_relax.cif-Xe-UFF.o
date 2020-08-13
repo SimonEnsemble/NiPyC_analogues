@@ -1,82 +1,63 @@
-Sat Aug  1 12:43:21 PDT 2020
-general data folder: /nfs/stak/users/gantzlen/DTRA/data
-	crystal structures (.cif, .cssr): /nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs
-	force field files (.csv): /nfs/stak/users/gantzlen/DTRA/data/forcefields
-	molecule input files: /nfs/stak/users/gantzlen/DTRA/data/molecules
-	simulation output files: /nfs/stak/users/gantzlen/DTRA/data/simulations
-	grids (.cube): /nfs/stak/users/gantzlen/DTRA/data/grids
-running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifwith Xeand UFF
-      From worker 3:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.786283 bar (bar) with UFF force field.
-      From worker 3:		# burn cycles: 50000
-      From worker 3:		# sample cycles: 50000
-      From worker 2:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 1.100000 bar (bar) with UFF force field.
-      From worker 3:		ideal equation of state fugacity = 0.786283 bar
-      From worker 2:		# burn cycles: 50000
-      From worker 2:		# sample cycles: 50000
+Wed Aug 12 17:27:53 PDT 2020
+running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif with Xe and UFF
       From worker 5:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.562037 bar (bar) with UFF force field.
-      From worker 2:		ideal equation of state fugacity = 1.100000 bar
       From worker 5:		# burn cycles: 50000
       From worker 5:		# sample cycles: 50000
       From worker 5:		ideal equation of state fugacity = 0.562037 bar
-      From worker 3:		the crystal:
-      From worker 3:			replicated (3,3,3) for short-range cutoff of 14.000000 Å
-      From worker 2:		the crystal:
-      From worker 2:			replicated (3,3,3) for short-range cutoff of 14.000000 Å
       From worker 5:		the crystal:
       From worker 5:			replicated (3,3,3) for short-range cutoff of 14.000000 Å
+      From worker 3:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.786283 bar (bar) with UFF force field.
+      From worker 3:		# burn cycles: 50000
+      From worker 3:		# sample cycles: 50000
+      From worker 3:		ideal equation of state fugacity = 0.786283 bar
+      From worker 3:		the crystal:
+      From worker 3:			replicated (3,3,3) for short-range cutoff of 14.000000 Å
       From worker 4:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.401746 bar (bar) with UFF force field.
       From worker 4:		# burn cycles: 50000
       From worker 4:		# sample cycles: 50000
       From worker 4:		ideal equation of state fugacity = 0.401746 bar
       From worker 4:		the crystal:
       From worker 4:			replicated (3,3,3) for short-range cutoff of 14.000000 Å
-      From worker 2:			density [kg/m³]: 1481.5997285486403
-      From worker 3:			density [kg/m³]: 1481.5997285486403
+      From worker 2:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 1.100000 bar (bar) with UFF force field.
+      From worker 2:		# burn cycles: 50000
+      From worker 2:		# sample cycles: 50000
+      From worker 2:		ideal equation of state fugacity = 1.100000 bar
+      From worker 2:		the crystal:
+      From worker 2:			replicated (3,3,3) for short-range cutoff of 14.000000 Å
       From worker 5:			density [kg/m³]: 1481.5997285486403
-      From worker 2:			chemical formula: Dict(:N => 6,:H => 8,:Ni => 1,:O => 4,:C => 12)
-      From worker 2:			# atoms: 3348
-      From worker 2:			# point charges: 0
-      From worker 2:		the molecule:
-      From worker 4:			density [kg/m³]: 1481.5997285486403
-      From worker 2:			unique species: [:Xe]
-      From worker 2:			# atoms: 1
-      From worker 2:			# point charges: 0
-      From worker 3:			chemical formula: Dict(:N => 6,:H => 8,:Ni => 1,:O => 4,:C => 12)
-      From worker 3:			# atoms: 3348
-      From worker 3:			# point charges: 0
-      From worker 3:		the molecule:
       From worker 5:			chemical formula: Dict(:N => 6,:H => 8,:Ni => 1,:O => 4,:C => 12)
       From worker 5:			# atoms: 3348
       From worker 5:			# point charges: 0
       From worker 5:		the molecule:
-      From worker 3:			unique species: [:Xe]
-      From worker 3:			# atoms: 1
-      From worker 3:			# point charges: 0
       From worker 5:			unique species: [:Xe]
       From worker 5:			# atoms: 1
       From worker 5:			# point charges: 0
-      From worker 2:		Markov chain proposals:
-      From worker 2:			probability of insertion: 0.350000
-      From worker 2:			probability of deletion: 0.350000
-      From worker 2:			probability of translation: 0.250000
-      From worker 2:			probability of rotation: 0.000000
-      From worker 2:			probability of reinsertion: 0.050000
-      From worker 3:		Markov chain proposals:
-      From worker 3:			probability of insertion: 0.350000
-      From worker 3:			probability of deletion: 0.350000
-      From worker 3:			probability of translation: 0.250000
-      From worker 3:			probability of rotation: 0.000000
-      From worker 3:			probability of reinsertion: 0.050000
       From worker 5:		Markov chain proposals:
       From worker 5:			probability of insertion: 0.350000
       From worker 5:			probability of deletion: 0.350000
       From worker 5:			probability of translation: 0.250000
       From worker 5:			probability of rotation: 0.000000
       From worker 5:			probability of reinsertion: 0.050000
+      From worker 3:			density [kg/m³]: 1481.5997285486403
+      From worker 4:			density [kg/m³]: 1481.5997285486403
+      From worker 3:			chemical formula: Dict(:N => 6,:H => 8,:Ni => 1,:O => 4,:C => 12)
+      From worker 3:			# atoms: 3348
+      From worker 3:			# point charges: 0
+      From worker 3:		the molecule:
+      From worker 3:			unique species: [:Xe]
+      From worker 3:			# atoms: 1
+      From worker 3:			# point charges: 0
+      From worker 3:		Markov chain proposals:
+      From worker 3:			probability of insertion: 0.350000
+      From worker 3:			probability of deletion: 0.350000
+      From worker 3:			probability of translation: 0.250000
+      From worker 3:			probability of rotation: 0.000000
+      From worker 3:			probability of reinsertion: 0.050000
       From worker 4:			chemical formula: Dict(:N => 6,:H => 8,:Ni => 1,:O => 4,:C => 12)
       From worker 4:			# atoms: 3348
       From worker 4:			# point charges: 0
       From worker 4:		the molecule:
+      From worker 2:			density [kg/m³]: 1481.5997285486403
       From worker 4:			unique species: [:Xe]
       From worker 4:			# atoms: 1
       From worker 4:			# point charges: 0
@@ -86,163 +67,168 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 4:			probability of translation: 0.250000
       From worker 4:			probability of rotation: 0.000000
       From worker 4:			probability of reinsertion: 0.050000
+      From worker 2:			chemical formula: Dict(:N => 6,:H => 8,:Ni => 1,:O => 4,:C => 12)
+      From worker 2:			# atoms: 3348
+      From worker 2:			# point charges: 0
+      From worker 2:		the molecule:
+      From worker 2:			unique species: [:Xe]
+      From worker 2:			# atoms: 1
+      From worker 2:			# point charges: 0
+      From worker 2:		Markov chain proposals:
+      From worker 2:			probability of insertion: 0.350000
+      From worker 2:			probability of deletion: 0.350000
+      From worker 2:			probability of translation: 0.250000
+      From worker 2:			probability of rotation: 0.000000
+      From worker 2:			probability of reinsertion: 0.050000
       From worker 4:		Block  1/5 statistics:
-      From worker 4:		# samples: 912219
-      From worker 4:		⟨N⟩ (molecules) = 91.43615294134413
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -345141.86332623515
+      From worker 4:		# samples: 899300
+      From worker 4:		⟨N⟩ (molecules) = 90.03740242410764
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -339891.58787612064
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6764.8132558006555
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6578.55962764825
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -351906.6765820358
+      From worker 4:		⟨U⟩ (K) = -346470.14750376885
       From worker 5:		Block  1/5 statistics:
-      From worker 5:		# samples: 951038
-      From worker 5:		⟨N⟩ (molecules) = 95.23393912756377
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -359550.6426263978
+      From worker 5:		# samples: 958247
+      From worker 5:		⟨N⟩ (molecules) = 95.98703257093422
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -361958.6278165728
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -7373.358357069525
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -7519.011376507269
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -366924.00098346727
+      From worker 5:		⟨U⟩ (K) = -369477.6391930801
       From worker 3:		Block  1/5 statistics:
-      From worker 3:		# samples: 988103
-      From worker 3:		⟨N⟩ (molecules) = 98.88330872388809
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -372562.18137571274
+      From worker 3:		# samples: 974518
+      From worker 3:		⟨N⟩ (molecules) = 97.53156637435121
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -367666.0896302753
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -7941.271930078768
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -7697.083487807114
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -380503.4533057915
+      From worker 3:		⟨U⟩ (K) = -375363.1731180824
       From worker 2:		Block  1/5 statistics:
-      From worker 2:		# samples: 1000267
-      From worker 2:		⟨N⟩ (molecules) = 100.08874830420278
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -377320.54569638433
+      From worker 2:		# samples: 1013784
+      From worker 2:		⟨N⟩ (molecules) = 101.43798777648888
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -382060.295766198
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -8130.719131554679
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -8333.430044726949
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -385451.264827939
+      From worker 2:		⟨U⟩ (K) = -390393.72581092495
       From worker 4:		Block  2/5 statistics:
-      From worker 4:		# samples: 907512
-      From worker 4:		⟨N⟩ (molecules) = 90.87522038276077
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -342622.9817883262
+      From worker 4:		# samples: 911185
+      From worker 4:		⟨N⟩ (molecules) = 91.25069552286308
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -344378.04662919836
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6621.447710119155
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6724.212492475028
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -349244.4294984453
+      From worker 4:		⟨U⟩ (K) = -351102.2591216734
       From worker 5:		Block  2/5 statistics:
-      From worker 5:		# samples: 955553
-      From worker 5:		⟨N⟩ (molecules) = 95.60362010270492
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -360580.37313201645
+      From worker 5:		# samples: 959968
+      From worker 5:		⟨N⟩ (molecules) = 96.16033346944899
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -362570.840657935
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -7387.013907921037
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -7535.854905787653
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -367967.3870399375
+      From worker 5:		⟨U⟩ (K) = -370106.69556372263
       From worker 3:		Block  2/5 statistics:
-      From worker 3:		# samples: 982349
-      From worker 3:		⟨N⟩ (molecules) = 98.29751951699447
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -371223.29815212527
+      From worker 3:		# samples: 963853
+      From worker 3:		⟨N⟩ (molecules) = 96.45411074095324
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -363499.7981482615
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -7826.902442018179
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -7534.4046523677625
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -379050.2005941434
-      From worker 2:		Block  2/5 statistics:
-      From worker 2:		# samples: 1000616
-      From worker 2:		⟨N⟩ (molecules) = 100.11500315805463
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -376884.1281608321
-      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -8113.153250579726
-      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -384997.2814114118
+      From worker 3:		⟨U⟩ (K) = -371034.20280062925
       From worker 4:		Block  3/5 statistics:
-      From worker 4:		# samples: 910727
-      From worker 4:		⟨N⟩ (molecules) = 91.1785167234528
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -344056.63385473646
+      From worker 4:		# samples: 913594
+      From worker 4:		⟨N⟩ (molecules) = 91.49239815497913
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -345341.28144962504
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6752.866602256057
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6774.7320692524245
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -350809.50045699254
-      From worker 5:		Block  3/5 statistics:
-      From worker 5:		# samples: 943290
-      From worker 5:		⟨N⟩ (molecules) = 94.40868025739698
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -355873.5170823607
-      From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -7229.285028120331
-      From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -363102.80211048096
-      From worker 3:		Block  3/5 statistics:
-      From worker 3:		# samples: 984614
-      From worker 3:		⟨N⟩ (molecules) = 98.59988787484232
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -371342.5173321115
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -7878.202177676156
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -379220.7195097877
-      From worker 2:		Block  3/5 statistics:
-      From worker 2:		# samples: 1007304
-      From worker 2:		⟨N⟩ (molecules) = 100.77024413682463
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -379364.88149691356
+      From worker 4:		⟨U⟩ (K) = -352116.01351887744
+      From worker 2:		Block  2/5 statistics:
+      From worker 2:		# samples: 1023875
+      From worker 2:		⟨N⟩ (molecules) = 102.4340891222073
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -385485.17252316367
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -8203.618006752533
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -8492.109024178908
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -387568.49950366607
-      From worker 4:		Block  4/5 statistics:
-      From worker 4:		# samples: 919172
-      From worker 4:		⟨N⟩ (molecules) = 92.02456123554677
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -347456.07107837143
-      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6885.140017841554
-      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -354341.21109621297
-      From worker 5:		Block  4/5 statistics:
-      From worker 5:		# samples: 948287
-      From worker 5:		⟨N⟩ (molecules) = 94.95251226685592
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -358118.07799824036
+      From worker 2:		⟨U⟩ (K) = -393977.28154734254
+      From worker 5:		Block  3/5 statistics:
+      From worker 5:		# samples: 952192
+      From worker 5:		⟨N⟩ (molecules) = 95.31752419680065
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -359612.2389145959
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -7351.153511706567
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -7394.904989647466
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -365469.2315099469
-      From worker 3:		Block  4/5 statistics:
-      From worker 3:		# samples: 984419
-      From worker 3:		⟨N⟩ (molecules) = 98.51680128075544
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -371052.14111052424
+      From worker 5:		⟨U⟩ (K) = -367007.14390424336
+      From worker 3:		Block  3/5 statistics:
+      From worker 3:		# samples: 998848
+      From worker 3:		⟨N⟩ (molecules) = 99.95436743128083
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -376415.8080258962
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -7940.673599281236
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -8112.960074176122
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -378992.8147098055
-      From worker 4:		Block  5/5 statistics:
-      From worker 4:		# samples: 908915
-      From worker 4:		⟨N⟩ (molecules) = 91.00795343899044
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -343673.13502584293
+      From worker 3:		⟨U⟩ (K) = -384528.7681000723
+      From worker 4:		Block  4/5 statistics:
+      From worker 4:		# samples: 925927
+      From worker 4:		⟨N⟩ (molecules) = 92.64462533223461
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -349481.312425265
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6746.103515348851
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6937.402385440198
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -350419.2385411918
-      From worker 4:		Estimated elapsed time: 3013 seconds
-      From worker 4:		Total # MC steps: 9036272
+      From worker 4:		⟨U⟩ (K) = -356418.71481070516
+      From worker 2:		Block  3/5 statistics:
+      From worker 2:		# samples: 1007359
+      From worker 2:		⟨N⟩ (molecules) = 100.79822387053672
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -379419.3217327692
+      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -8266.293239377705
+      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U⟩ (K) = -387685.6149721469
+      From worker 5:		Block  4/5 statistics:
+      From worker 5:		# samples: 949957
+      From worker 5:		⟨N⟩ (molecules) = 95.09076516094939
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -358963.3118741039
+      From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -7347.05881694788
+      From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 5:		⟨U⟩ (K) = -366310.37069105176
+      From worker 4:		Block  5/5 statistics:
+      From worker 4:		# samples: 900690
+      From worker 4:		⟨N⟩ (molecules) = 90.26697087788251
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -340838.04026730603
+      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6600.022686304815
+      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U⟩ (K) = -347438.06295361085
+      From worker 4:		Estimated elapsed time: 6366 seconds
+      From worker 4:		Total # MC steps: 9037477
       From worker 4:	
       From worker 4:	Unit cell replication factors: 3 3 3
       From worker 4:	
       From worker 4:	
       From worker 4:	# sample cycles: 50000
       From worker 4:	# burn cycles: 50000
-      From worker 4:	# samples: 4558545
-      From worker 4:	deletion	3160343 total proposals.
-      From worker 4:		0.168305 % proposals accepted.
-      From worker 4:	translation	2261406 total proposals.
-      From worker 4:		12.205990 % proposals accepted.
-      From worker 4:	reinsertion	451619 total proposals.
-      From worker 4:		0.032107 % proposals accepted.
-      From worker 4:	insertion	3162904 total proposals.
-      From worker 4:		0.171140 % proposals accepted.
+      From worker 4:	# samples: 4550696
+      From worker 4:	deletion	3165411 total proposals.
+      From worker 4:		0.162791 % proposals accepted.
+      From worker 4:	translation	2258662 total proposals.
+      From worker 4:		12.230515 % proposals accepted.
+      From worker 4:	reinsertion	450597 total proposals.
+      From worker 4:		0.032623 % proposals accepted.
+      From worker 4:	insertion	3162807 total proposals.
+      From worker 4:		0.165929 % proposals accepted.
       From worker 4:	
-      From worker 4:	⟨N⟩ (molecules): 91.306279 +/- 0.405934
-      From worker 4:	⟨N⟩ (molecules/unit cell): 3.381714 +/- 0.015035
-      From worker 4:	⟨N⟩ (mmol/g): 2.355457 +/- 0.010472
+      From worker 4:	⟨N⟩ (molecules): 91.148370 +/- 0.935759
+      From worker 4:	⟨N⟩ (molecules/unit cell): 3.375866 +/- 0.034658
+      From worker 4:	⟨N⟩ (mmol/g): 2.351384 +/- 0.024140
       From worker 4:	
-      From worker 4:	⟨U_gg, vdw⟩ (K): -6754.417249 +/- 83.604952
-      From worker 4:	⟨U_gh, vdw⟩ (K): -344597.378799 +/- 1643.986627
+      From worker 4:	⟨U_gg, vdw⟩ (K): -6724.368627 +/- 130.109231
+      From worker 4:	⟨U_gh, vdw⟩ (K): -344022.526606 +/- 3431.310522
       From worker 4:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 4:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 4:	⟨U⟩ (K): -351351.796048 +/- 1727.591579
+      From worker 4:	⟨U⟩ (K): -350746.895234 +/- 3561.419753
       From worker 4:	
-      From worker 4:	Q_st (K) = 4119.721698 = 34.251366 kJ/mol
+      From worker 4:	Q_st (K) = 4069.547911 = 33.834221 kJ/mol
       From worker 4:	
       From worker 4:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.4017458bar_UFF_50000burn_50000sample.jld2
       From worker 4:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.287169 bar (bar) with UFF force field.
@@ -265,51 +251,59 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 4:			probability of translation: 0.250000
       From worker 4:			probability of rotation: 0.000000
       From worker 4:			probability of reinsertion: 0.050000
+      From worker 3:		Block  4/5 statistics:
+      From worker 3:		# samples: 972589
+      From worker 3:		⟨N⟩ (molecules) = 97.34965643247045
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -367057.33562011045
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -7669.305323696216
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -374726.6409438067
       From worker 2:		Block  4/5 statistics:
-      From worker 2:		# samples: 1010834
-      From worker 2:		⟨N⟩ (molecules) = 101.1391138406504
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -381163.7777528305
+      From worker 2:		# samples: 1002321
+      From worker 2:		⟨N⟩ (molecules) = 100.28747277568763
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -377660.78705014
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -8250.796652706518
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -8159.919822260136
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -389414.57440553705
+      From worker 2:		⟨U⟩ (K) = -385820.70687240013
       From worker 5:		Block  5/5 statistics:
-      From worker 5:		# samples: 949118
-      From worker 5:		⟨N⟩ (molecules) = 95.00499516393114
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -358216.7948217161
+      From worker 5:		# samples: 947014
+      From worker 5:		⟨N⟩ (molecules) = 94.7585516159212
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -357241.62696069764
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -7297.970551435013
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -7267.768966573455
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -365514.7653731511
-      From worker 5:		Estimated elapsed time: 3160 seconds
-      From worker 5:		Total # MC steps: 9399063
+      From worker 5:		⟨U⟩ (K) = -364509.3959272711
+      From worker 5:		Estimated elapsed time: 6789 seconds
+      From worker 5:		Total # MC steps: 9473013
       From worker 5:	
       From worker 5:	Unit cell replication factors: 3 3 3
       From worker 5:	
       From worker 5:	
       From worker 5:	# sample cycles: 50000
       From worker 5:	# burn cycles: 50000
-      From worker 5:	# samples: 4747286
-      From worker 5:	deletion	3292646 total proposals.
-      From worker 5:		0.130837 % proposals accepted.
-      From worker 5:	translation	2349085 total proposals.
-      From worker 5:		12.046903 % proposals accepted.
-      From worker 5:	reinsertion	469154 total proposals.
-      From worker 5:		0.021315 % proposals accepted.
-      From worker 5:	insertion	3288178 total proposals.
-      From worker 5:		0.134147 % proposals accepted.
+      From worker 5:	# samples: 4767378
+      From worker 5:	deletion	3314968 total proposals.
+      From worker 5:		0.124767 % proposals accepted.
+      From worker 5:	translation	2368453 total proposals.
+      From worker 5:		12.003700 % proposals accepted.
+      From worker 5:	reinsertion	472599 total proposals.
+      From worker 5:		0.026026 % proposals accepted.
+      From worker 5:	insertion	3316993 total proposals.
+      From worker 5:		0.127555 % proposals accepted.
       From worker 5:	
-      From worker 5:	⟨N⟩ (molecules): 95.042382 +/- 0.390569
-      From worker 5:	⟨N⟩ (molecules/unit cell): 3.520088 +/- 0.014466
-      From worker 5:	⟨N⟩ (mmol/g): 2.451839 +/- 0.010076
+      From worker 5:	⟨N⟩ (molecules): 95.465584 +/- 0.532326
+      From worker 5:	⟨N⟩ (molecules/unit cell): 3.535762 +/- 0.019716
+      From worker 5:	⟨N⟩ (mmol/g): 2.462756 +/- 0.013733
       From worker 5:	
-      From worker 5:	⟨U_gg, vdw⟩ (K): -7327.971832 +/- 57.831576
-      From worker 5:	⟨U_gh, vdw⟩ (K): -358474.428753 +/- 1584.382571
+      From worker 5:	⟨U_gg, vdw⟩ (K): -7413.443604 +/- 102.079186
+      From worker 5:	⟨U_gh, vdw⟩ (K): -360079.398773 +/- 1962.428171
       From worker 5:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 5:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 5:	⟨U⟩ (K): -365802.400584 +/- 1642.214146
+      From worker 5:	⟨U⟩ (K): -367492.842377 +/- 2064.507357
       From worker 5:	
-      From worker 5:	Q_st (K) = 4162.027191 = 34.603094 kJ/mol
+      From worker 5:	Q_st (K) = 4144.917690 = 34.460846 kJ/mol
       From worker 5:	
       From worker 5:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.5620373bar_UFF_50000burn_50000sample.jld2
       From worker 5:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.205269 bar (bar) with UFF force field.
@@ -333,42 +327,42 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 5:			probability of rotation: 0.000000
       From worker 5:			probability of reinsertion: 0.050000
       From worker 3:		Block  5/5 statistics:
-      From worker 3:		# samples: 979197
-      From worker 3:		⟨N⟩ (molecules) = 98.00319036925154
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -369022.1146279166
+      From worker 3:		# samples: 969049
+      From worker 3:		⟨N⟩ (molecules) = 97.02076056009551
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -365741.8276270699
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -7784.647987752342
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -7667.733165039047
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -376806.762615669
-      From worker 3:		Estimated elapsed time: 3268 seconds
-      From worker 3:		Total # MC steps: 9741510
+      From worker 3:		⟨U⟩ (K) = -373409.56079210894
+      From worker 3:		Estimated elapsed time: 7089 seconds
+      From worker 3:		Total # MC steps: 9732461
       From worker 3:	
       From worker 3:	Unit cell replication factors: 3 3 3
       From worker 3:	
       From worker 3:	
       From worker 3:	# sample cycles: 50000
       From worker 3:	# burn cycles: 50000
-      From worker 3:	# samples: 4918682
-      From worker 3:	deletion	3411341 total proposals.
-      From worker 3:		0.100459 % proposals accepted.
-      From worker 3:	translation	2435414 total proposals.
-      From worker 3:		11.928896 % proposals accepted.
-      From worker 3:	reinsertion	486657 total proposals.
-      From worker 3:		0.020548 % proposals accepted.
-      From worker 3:	insertion	3408098 total proposals.
-      From worker 3:		0.103283 % proposals accepted.
+      From worker 3:	# samples: 4878857
+      From worker 3:	deletion	3405681 total proposals.
+      From worker 3:		0.100039 % proposals accepted.
+      From worker 3:	translation	2434530 total proposals.
+      From worker 3:		11.962596 % proposals accepted.
+      From worker 3:	reinsertion	486889 total proposals.
+      From worker 3:		0.020949 % proposals accepted.
+      From worker 3:	insertion	3405361 total proposals.
+      From worker 3:		0.103073 % proposals accepted.
       From worker 3:	
-      From worker 3:	⟨N⟩ (molecules): 98.461018 +/- 0.295655
-      From worker 3:	⟨N⟩ (molecules/unit cell): 3.646704 +/- 0.010950
-      From worker 3:	⟨N⟩ (mmol/g): 2.540030 +/- 0.007627
+      From worker 3:	⟨N⟩ (molecules): 97.677007 +/- 1.203304
+      From worker 3:	⟨N⟩ (molecules/unit cell): 3.617667 +/- 0.044567
+      From worker 3:	⟨N⟩ (mmol/g): 2.519805 +/- 0.031042
       From worker 3:	
-      From worker 3:	⟨U_gg, vdw⟩ (K): -7874.505098 +/- 61.951694
-      From worker 3:	⟨U_gh, vdw⟩ (K): -371043.668092 +/- 1141.421098
+      From worker 3:	⟨U_gg, vdw⟩ (K): -7738.720366 +/- 196.668010
+      From worker 3:	⟨U_gh, vdw⟩ (K): -368130.783421 +/- 4408.242225
       From worker 3:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 3:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 3:	⟨U⟩ (K): -378918.173190 +/- 1203.372792
+      From worker 3:	⟨U⟩ (K): -375869.503787 +/- 4604.910235
       From worker 3:	
-      From worker 3:	Q_st (K) = 4081.064485 = 33.929970 kJ/mol
+      From worker 3:	Q_st (K) = 4139.470343 = 34.415556 kJ/mol
       From worker 3:	
       From worker 3:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.7862831bar_UFF_50000burn_50000sample.jld2
       From worker 3:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.146727 bar (bar) with UFF force field.
@@ -392,42 +386,42 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 3:			probability of rotation: 0.000000
       From worker 3:			probability of reinsertion: 0.050000
       From worker 2:		Block  5/5 statistics:
-      From worker 2:		# samples: 1014255
-      From worker 2:		⟨N⟩ (molecules) = 101.46778768652854
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -382171.993941665
+      From worker 2:		# samples: 1004736
+      From worker 2:		⟨N⟩ (molecules) = 100.51460483151793
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -378774.6954446461
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -8419.671672646615
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -8235.491039332084
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -390591.6656143116
-      From worker 2:		Estimated elapsed time: 3317 seconds
-      From worker 2:		Total # MC steps: 10000377
+      From worker 2:		⟨U⟩ (K) = -387010.1864839782
+      From worker 2:		Estimated elapsed time: 7282 seconds
+      From worker 2:		Total # MC steps: 10040075
       From worker 2:	
       From worker 2:	Unit cell replication factors: 3 3 3
       From worker 2:	
       From worker 2:	
       From worker 2:	# sample cycles: 50000
       From worker 2:	# burn cycles: 50000
-      From worker 2:	# samples: 5033276
-      From worker 2:	deletion	3498224 total proposals.
-      From worker 2:		0.073809 % proposals accepted.
-      From worker 2:	translation	2501585 total proposals.
-      From worker 2:		11.896538 % proposals accepted.
-      From worker 2:	reinsertion	499590 total proposals.
-      From worker 2:		0.016413 % proposals accepted.
-      From worker 2:	insertion	3500978 total proposals.
-      From worker 2:		0.076636 % proposals accepted.
+      From worker 2:	# samples: 5052075
+      From worker 2:	deletion	3513127 total proposals.
+      From worker 2:		0.071902 % proposals accepted.
+      From worker 2:	translation	2509733 total proposals.
+      From worker 2:		11.852655 % proposals accepted.
+      From worker 2:	reinsertion	501226 total proposals.
+      From worker 2:		0.012769 % proposals accepted.
+      From worker 2:	insertion	3515989 total proposals.
+      From worker 2:		0.074773 % proposals accepted.
       From worker 2:	
-      From worker 2:	⟨N⟩ (molecules): 100.719190 +/- 0.548050
-      From worker 2:	⟨N⟩ (molecules/unit cell): 3.730340 +/- 0.020298
-      From worker 2:	⟨N⟩ (mmol/g): 2.598285 +/- 0.014138
+      From worker 2:	⟨N⟩ (molecules): 101.100398 +/- 0.773024
+      From worker 2:	⟨N⟩ (molecules/unit cell): 3.744459 +/- 0.028631
+      From worker 2:	⟨N⟩ (mmol/g): 2.608119 +/- 0.019942
       From worker 2:	
-      From worker 2:	⟨U_gg, vdw⟩ (K): -8224.158201 +/- 109.918136
-      From worker 2:	⟨U_gh, vdw⟩ (K): -379392.368607 +/- 2071.167942
+      From worker 2:	⟨U_gg, vdw⟩ (K): -8298.300081 +/- 112.173553
+      From worker 2:	⟨U_gh, vdw⟩ (K): -380701.518596 +/- 2804.722620
       From worker 2:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 2:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 2:	⟨U⟩ (K): -387616.526809 +/- 2181.086078
+      From worker 2:	⟨U⟩ (K): -388999.818677 +/- 2916.896174
       From worker 2:	
-      From worker 2:	Q_st (K) = 4077.731877 = 33.902263 kJ/mol
+      From worker 2:	Q_st (K) = 4158.450797 = 34.573360 kJ/mol
       From worker 2:	
       From worker 2:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_1.1000000bar_UFF_50000burn_50000sample.jld2
       From worker 2:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.104881 bar (bar) with UFF force field.
@@ -450,147 +444,163 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 2:			probability of translation: 0.250000
       From worker 2:			probability of rotation: 0.000000
       From worker 2:			probability of reinsertion: 0.050000
-      From worker 2:		Block  1/5 statistics:
-      From worker 2:		# samples: 645410
-      From worker 2:		⟨N⟩ (molecules) = 64.88730109542772
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -246706.7854844868
-      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -3335.372355925758
-      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -250042.15784041255
       From worker 4:		Block  1/5 statistics:
-      From worker 4:		# samples: 857242
-      From worker 4:		⟨N⟩ (molecules) = 85.92476453556871
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -324996.5892136633
+      From worker 4:		# samples: 876474
+      From worker 4:		⟨N⟩ (molecules) = 87.83753996125384
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -332425.54333555914
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6010.558366159977
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6230.032681339673
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -331007.1475798233
-      From worker 3:		Block  1/5 statistics:
-      From worker 3:		# samples: 732013
-      From worker 3:		⟨N⟩ (molecules) = 73.5592933458832
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -279057.84850531386
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -4307.712139361901
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -283365.56064467574
+      From worker 4:		⟨U⟩ (K) = -338655.5760168988
+      From worker 2:		Block  1/5 statistics:
+      From worker 2:		# samples: 647309
+      From worker 2:		⟨N⟩ (molecules) = 65.1403502809323
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -247380.9316617285
+      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -3316.1273613433013
+      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U⟩ (K) = -250697.0590230718
       From worker 5:		Block  1/5 statistics:
-      From worker 5:		# samples: 817389
-      From worker 5:		⟨N⟩ (molecules) = 82.00960864410948
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -311123.54068918375
+      From worker 5:		# samples: 795828
+      From worker 5:		⟨N⟩ (molecules) = 79.75521595118543
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -301765.20362378884
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -5413.433074989441
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -5146.095823153013
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -316536.9737641732
+      From worker 5:		⟨U⟩ (K) = -306911.2994469419
+      From worker 3:		Block  1/5 statistics:
+      From worker 3:		# samples: 737834
+      From worker 3:		⟨N⟩ (molecules) = 74.08468300457827
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -280691.0677595543
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -4392.488865692029
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -285083.5566252463
       From worker 2:		Block  2/5 statistics:
-      From worker 2:		# samples: 669522
-      From worker 2:		⟨N⟩ (molecules) = 67.47746153225734
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -256134.24991184432
+      From worker 2:		# samples: 639328
+      From worker 2:		⟨N⟩ (molecules) = 64.23067814955704
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -244352.8826299818
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -3616.1593955172375
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -3255.1850002680603
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -259750.40930736155
-      From worker 3:		Block  2/5 statistics:
-      From worker 3:		# samples: 722629
-      From worker 3:		⟨N⟩ (molecules) = 72.57104129504906
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -275665.682018109
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -4219.045651349156
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -279884.7276694582
+      From worker 2:		⟨U⟩ (K) = -247608.06763024986
       From worker 4:		Block  2/5 statistics:
-      From worker 4:		# samples: 880551
-      From worker 4:		⟨N⟩ (molecules) = 88.12906009986929
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -333544.25601377944
+      From worker 4:		# samples: 856010
+      From worker 4:		⟨N⟩ (molecules) = 85.87044660693216
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -324452.15671599814
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6318.081971613782
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -5976.925372823832
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -339862.3379853932
+      From worker 4:		⟨U⟩ (K) = -330429.082088822
       From worker 5:		Block  2/5 statistics:
-      From worker 5:		# samples: 806139
-      From worker 5:		⟨N⟩ (molecules) = 80.76181899151388
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -306318.27308111376
+      From worker 5:		# samples: 790310
+      From worker 5:		⟨N⟩ (molecules) = 79.25210740089332
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -299865.63997935486
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -5263.554880822634
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -5078.283141953483
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -311581.8279619364
-      From worker 2:		Block  3/5 statistics:
-      From worker 2:		# samples: 651106
-      From worker 2:		⟨N⟩ (molecules) = 65.38795833550911
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -248578.81040198458
-      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -3413.931245715894
-      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -251992.7416477005
-      From worker 3:		Block  3/5 statistics:
-      From worker 3:		# samples: 741483
-      From worker 3:		⟨N⟩ (molecules) = 74.40307869499368
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -282364.9262582742
+      From worker 5:		⟨U⟩ (K) = -304943.9231213084
+      From worker 3:		Block  2/5 statistics:
+      From worker 3:		# samples: 748545
+      From worker 3:		⟨N⟩ (molecules) = 75.14828634217048
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -284758.660742155
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -4390.610671002194
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -4574.154145463602
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -286755.53692927636
-      From worker 2:		Block  4/5 statistics:
-      From worker 2:		# samples: 659020
-      From worker 2:		⟨N⟩ (molecules) = 66.0500728354223
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -250986.59281122507
+      From worker 3:		⟨U⟩ (K) = -289332.8148876186
+      From worker 2:		Block  3/5 statistics:
+      From worker 2:		# samples: 655240
+      From worker 2:		⟨N⟩ (molecules) = 65.8992537085648
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -250126.52982496077
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -3456.989493953855
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -3465.0474061148457
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -254443.58230517895
-      From worker 4:		Block  3/5 statistics:
-      From worker 4:		# samples: 855519
-      From worker 4:		⟨N⟩ (molecules) = 85.71682452406084
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -324089.4572157674
-      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -5934.027038065232
-      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -330023.48425383266
+      From worker 2:		⟨U⟩ (K) = -253591.57723107561
       From worker 5:		Block  3/5 statistics:
-      From worker 5:		# samples: 812786
-      From worker 5:		⟨N⟩ (molecules) = 81.45826576737296
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -308630.5951871618
+      From worker 5:		# samples: 792549
+      From worker 5:		⟨N⟩ (molecules) = 79.51757178420515
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -301506.42861928575
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -5381.5136938634005
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -5074.142431639004
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -314012.1088810252
-      From worker 2:		Block  5/5 statistics:
-      From worker 2:		# samples: 661452
-      From worker 2:		⟨N⟩ (molecules) = 66.413744307977
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -253085.49354353172
+      From worker 5:		⟨U⟩ (K) = -306580.5710509248
+      From worker 3:		Block  3/5 statistics:
+      From worker 3:		# samples: 716843
+      From worker 3:		⟨N⟩ (molecules) = 71.8764652790081
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -272941.62616083224
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -4145.171142913981
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -277086.7973037462
+      From worker 4:		Block  3/5 statistics:
+      From worker 4:		# samples: 873642
+      From worker 4:		⟨N⟩ (molecules) = 87.54005759796347
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -331146.7282704063
+      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6185.8794672778695
+      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U⟩ (K) = -337332.6077376842
+      From worker 2:		Block  4/5 statistics:
+      From worker 2:		# samples: 680511
+      From worker 2:		⟨N⟩ (molecules) = 68.32198597818405
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -259696.49633268922
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -3490.5001188913275
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -3685.9088041762393
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -256575.99366242305
-      From worker 2:		Estimated elapsed time: 1510 seconds
-      From worker 2:		Total # MC steps: 6544623
+      From worker 2:		⟨U⟩ (K) = -263382.40513686545
+      From worker 3:		Block  4/5 statistics:
+      From worker 3:		# samples: 726992
+      From worker 3:		⟨N⟩ (molecules) = 72.96255254528248
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -276881.5051431596
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -4225.187398336766
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -281106.69254149636
+      From worker 5:		Block  4/5 statistics:
+      From worker 5:		# samples: 796933
+      From worker 5:		⟨N⟩ (molecules) = 79.9184699341099
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -302711.5563465555
+      From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -5136.744731446944
+      From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 5:		⟨U⟩ (K) = -307848.3010780024
+      From worker 2:		Block  5/5 statistics:
+      From worker 2:		# samples: 664787
+      From worker 2:		⟨N⟩ (molecules) = 66.74650527161332
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -254281.9002560797
+      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -3458.733408868212
+      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U⟩ (K) = -257740.6336649479
+      From worker 2:		Estimated elapsed time: 3900 seconds
+      From worker 2:		Total # MC steps: 6529408
       From worker 2:	
       From worker 2:	Unit cell replication factors: 3 3 3
       From worker 2:	
       From worker 2:	
       From worker 2:	# sample cycles: 50000
       From worker 2:	# burn cycles: 50000
-      From worker 2:	# samples: 3286510
-      From worker 2:	deletion	2290552 total proposals.
-      From worker 2:		0.416799 % proposals accepted.
-      From worker 2:	translation	1635169 total proposals.
-      From worker 2:		13.034983 % proposals accepted.
-      From worker 2:	reinsertion	327442 total proposals.
-      From worker 2:		0.092535 % proposals accepted.
-      From worker 2:	insertion	2291460 total proposals.
-      From worker 2:		0.420125 % proposals accepted.
+      From worker 2:	# samples: 3287175
+      From worker 2:	deletion	2283882 total proposals.
+      From worker 2:		0.417797 % proposals accepted.
+      From worker 2:	translation	1633174 total proposals.
+      From worker 2:		12.921648 % proposals accepted.
+      From worker 2:	reinsertion	325595 total proposals.
+      From worker 2:		0.098282 % proposals accepted.
+      From worker 2:	insertion	2286757 total proposals.
+      From worker 2:		0.420421 % proposals accepted.
       From worker 2:	
-      From worker 2:	⟨N⟩ (molecules): 66.054530 +/- 0.889933
-      From worker 2:	⟨N⟩ (molecules/unit cell): 2.446464 +/- 0.032960
-      From worker 2:	⟨N⟩ (mmol/g): 1.704030 +/- 0.022958
+      From worker 2:	⟨N⟩ (molecules): 66.098186 +/- 1.400399
+      From worker 2:	⟨N⟩ (molecules/unit cell): 2.448081 +/- 0.051867
+      From worker 2:	⟨N⟩ (mmol/g): 1.705156 +/- 0.036127
       From worker 2:	
-      From worker 2:	⟨U_gg, vdw⟩ (K): -3463.745907 +/- 92.685034
-      From worker 2:	⟨U_gh, vdw⟩ (K): -251140.202490 +/- 3315.544560
+      From worker 2:	⟨U_gg, vdw⟩ (K): -3439.351467 +/- 148.948266
+      From worker 2:	⟨U_gh, vdw⟩ (K): -251284.484301 +/- 5373.492948
       From worker 2:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 2:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 2:	⟨U⟩ (K): -254603.948397 +/- 3408.229594
+      From worker 2:	⟨U⟩ (K): -254723.835768 +/- 5522.441214
       From worker 2:	
-      From worker 2:	Q_st (K) = 4117.354840 = 34.231688 kJ/mol
+      From worker 2:	Q_st (K) = 4158.356493 = 34.572576 kJ/mol
       From worker 2:	
       From worker 2:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.1048809bar_UFF_50000burn_50000sample.jld2
       From worker 2:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.074969 bar (bar) with UFF force field.
@@ -613,67 +623,51 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 2:			probability of translation: 0.250000
       From worker 2:			probability of rotation: 0.000000
       From worker 2:			probability of reinsertion: 0.050000
-      From worker 3:		Block  4/5 statistics:
-      From worker 3:		# samples: 719789
-      From worker 3:		⟨N⟩ (molecules) = 72.30871963867189
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -273439.6663057045
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -4180.732367217862
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -277620.3986729224
-      From worker 5:		Block  4/5 statistics:
-      From worker 5:		# samples: 809538
-      From worker 5:		⟨N⟩ (molecules) = 81.2124137471002
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -307600.51852865814
-      From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -5409.936785586015
-      From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -313010.45531424414
       From worker 4:		Block  4/5 statistics:
-      From worker 4:		# samples: 862393
-      From worker 4:		⟨N⟩ (molecules) = 86.36295169371736
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -326091.8858383933
+      From worker 4:		# samples: 862704
+      From worker 4:		⟨N⟩ (molecules) = 86.40448635916839
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -327238.4925142571
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6036.035111960794
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6005.6268601481015
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -332127.92095035414
+      From worker 4:		⟨U⟩ (K) = -333244.1193744052
       From worker 3:		Block  5/5 statistics:
-      From worker 3:		# samples: 742085
-      From worker 3:		⟨N⟩ (molecules) = 74.60282043162171
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -283627.64471390186
+      From worker 3:		# samples: 746157
+      From worker 3:		⟨N⟩ (molecules) = 74.8485198155348
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -284277.99777775246
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -4435.397097179369
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -4506.956618033923
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -288063.04181108123
-      From worker 3:		Estimated elapsed time: 1743 seconds
-      From worker 3:		Total # MC steps: 7262327
+      From worker 3:		⟨U⟩ (K) = -288784.9543957864
+      From worker 3:		Estimated elapsed time: 4512 seconds
+      From worker 3:		Total # MC steps: 7288722
       From worker 3:	
       From worker 3:	Unit cell replication factors: 3 3 3
       From worker 3:	
       From worker 3:	
       From worker 3:	# sample cycles: 50000
       From worker 3:	# burn cycles: 50000
-      From worker 3:	# samples: 3657999
-      From worker 3:	deletion	2542781 total proposals.
-      From worker 3:		0.338566 % proposals accepted.
-      From worker 3:	translation	1813640 total proposals.
-      From worker 3:		12.731248 % proposals accepted.
-      From worker 3:	reinsertion	361886 total proposals.
-      From worker 3:		0.078201 % proposals accepted.
-      From worker 3:	insertion	2544020 total proposals.
-      From worker 3:		0.341153 % proposals accepted.
+      From worker 3:	# samples: 3676371
+      From worker 3:	deletion	2551968 total proposals.
+      From worker 3:		0.337974 % proposals accepted.
+      From worker 3:	translation	1821008 total proposals.
+      From worker 3:		12.695716 % proposals accepted.
+      From worker 3:	reinsertion	364696 total proposals.
+      From worker 3:		0.065534 % proposals accepted.
+      From worker 3:	insertion	2551050 total proposals.
+      From worker 3:		0.340958 % proposals accepted.
       From worker 3:	
-      From worker 3:	⟨N⟩ (molecules): 73.500723 +/- 0.929170
-      From worker 3:	⟨N⟩ (molecules/unit cell): 2.722249 +/- 0.034414
-      From worker 3:	⟨N⟩ (mmol/g): 1.896122 +/- 0.023970
+      From worker 3:	⟨N⟩ (molecules): 73.803801 +/- 1.216417
+      From worker 3:	⟨N⟩ (molecules/unit cell): 2.733474 +/- 0.045052
+      From worker 3:	⟨N⟩ (mmol/g): 1.903940 +/- 0.031380
       From worker 3:	
-      From worker 3:	⟨U_gg, vdw⟩ (K): -4307.916985 +/- 97.122096
-      From worker 3:	⟨U_gh, vdw⟩ (K): -278879.646032 +/- 3863.815989
+      From worker 3:	⟨U_gg, vdw⟩ (K): -4371.403057 +/- 162.780392
+      From worker 3:	⟨U_gh, vdw⟩ (K): -279982.906048 +/- 4493.449652
       From worker 3:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 3:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 3:	⟨U⟩ (K): -283187.563017 +/- 3960.938084
+      From worker 3:	⟨U⟩ (K): -284354.309105 +/- 4656.230045
       From worker 3:	
-      From worker 3:	Q_st (K) = 4134.484342 = 34.374103 kJ/mol
+      From worker 3:	Q_st (K) = 4127.551590 = 34.316464 kJ/mol
       From worker 3:	
       From worker 3:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.1467270bar_UFF_50000burn_50000sample.jld2
       From worker 3:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.053588 bar (bar) with UFF force field.
@@ -697,42 +691,42 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 3:			probability of rotation: 0.000000
       From worker 3:			probability of reinsertion: 0.050000
       From worker 5:		Block  5/5 statistics:
-      From worker 5:		# samples: 783702
-      From worker 5:		⟨N⟩ (molecules) = 78.62734687419453
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -298014.51473560074
+      From worker 5:		# samples: 803009
+      From worker 5:		⟨N⟩ (molecules) = 80.56084427447264
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -305233.3370840713
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -4974.083033396125
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -5246.711739519563
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -302988.59776899684
-      From worker 5:		Estimated elapsed time: 1933 seconds
-      From worker 5:		Total # MC steps: 7963584
+      From worker 5:		⟨U⟩ (K) = -310480.04882359086
+      From worker 5:		Estimated elapsed time: 4903 seconds
+      From worker 5:		Total # MC steps: 7934599
       From worker 5:	
       From worker 5:	Unit cell replication factors: 3 3 3
       From worker 5:	
       From worker 5:	
       From worker 5:	# sample cycles: 50000
       From worker 5:	# burn cycles: 50000
-      From worker 5:	# samples: 4029554
-      From worker 5:	deletion	2788713 total proposals.
-      From worker 5:		0.271344 % proposals accepted.
-      From worker 5:	translation	1991130 total proposals.
-      From worker 5:		12.532331 % proposals accepted.
-      From worker 5:	reinsertion	398735 total proposals.
-      From worker 5:		0.053670 % proposals accepted.
-      From worker 5:	insertion	2785006 total proposals.
-      From worker 5:		0.274613 % proposals accepted.
+      From worker 5:	# samples: 3978629
+      From worker 5:	deletion	2776980 total proposals.
+      From worker 5:		0.272274 % proposals accepted.
+      From worker 5:	translation	1985416 total proposals.
+      From worker 5:		12.533897 % proposals accepted.
+      From worker 5:	reinsertion	397392 total proposals.
+      From worker 5:		0.060142 % proposals accepted.
+      From worker 5:	insertion	2774811 total proposals.
+      From worker 5:		0.275370 % proposals accepted.
       From worker 5:	
-      From worker 5:	⟨N⟩ (molecules): 80.830803 +/- 1.165115
-      From worker 5:	⟨N⟩ (molecules/unit cell): 2.993733 +/- 0.043152
-      From worker 5:	⟨N⟩ (mmol/g): 2.085218 +/- 0.030057
+      From worker 5:	⟨N⟩ (molecules): 79.803241 +/- 0.441559
+      From worker 5:	⟨N⟩ (molecules/unit cell): 2.955676 +/- 0.016354
+      From worker 5:	⟨N⟩ (mmol/g): 2.058710 +/- 0.011391
       From worker 5:	
-      From worker 5:	⟨U_gg, vdw⟩ (K): -5290.859666 +/- 166.442026
-      From worker 5:	⟨U_gh, vdw⟩ (K): -306402.041735 +/- 4450.909477
+      From worker 5:	⟨U_gg, vdw⟩ (K): -5136.726682 +/- 62.477083
+      From worker 5:	⟨U_gh, vdw⟩ (K): -302225.861323 +/- 1765.289995
       From worker 5:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 5:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 5:	⟨U⟩ (K): -311692.901401 +/- 4617.351502
+      From worker 5:	⟨U⟩ (K): -307362.588005 +/- 1827.767078
       From worker 5:	
-      From worker 5:	Q_st (K) = 4148.394846 = 34.489755 kJ/mol
+      From worker 5:	Q_st (K) = 4132.710494 = 34.359355 kJ/mol
       From worker 5:	
       From worker 5:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.2052692bar_UFF_50000burn_50000sample.jld2
       From worker 5:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.038305 bar (bar) with UFF force field.
@@ -756,42 +750,42 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 5:			probability of rotation: 0.000000
       From worker 5:			probability of reinsertion: 0.050000
       From worker 4:		Block  5/5 statistics:
-      From worker 4:		# samples: 864921
-      From worker 4:		⟨N⟩ (molecules) = 86.65481009248244
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -327797.4600654948
+      From worker 4:		# samples: 862499
+      From worker 4:		⟨N⟩ (molecules) = 86.40259293054253
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -326934.8981842303
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -6057.896743278833
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -6050.729163153949
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -333855.35680877365
-      From worker 4:		Estimated elapsed time: 2107 seconds
-      From worker 4:		Total # MC steps: 8553234
+      From worker 4:		⟨U⟩ (K) = -332985.6273473843
+      From worker 4:		Estimated elapsed time: 5502 seconds
+      From worker 4:		Total # MC steps: 8573289
       From worker 4:	
       From worker 4:	Unit cell replication factors: 3 3 3
       From worker 4:	
       From worker 4:	
       From worker 4:	# sample cycles: 50000
       From worker 4:	# burn cycles: 50000
-      From worker 4:	# samples: 4320626
-      From worker 4:	deletion	2994190 total proposals.
-      From worker 4:		0.210641 % proposals accepted.
-      From worker 4:	translation	2137698 total proposals.
-      From worker 4:		12.340658 % proposals accepted.
-      From worker 4:	reinsertion	427839 total proposals.
-      From worker 4:		0.047915 % proposals accepted.
-      From worker 4:	insertion	2993507 total proposals.
-      From worker 4:		0.213529 % proposals accepted.
+      From worker 4:	# samples: 4331329
+      From worker 4:	deletion	3001289 total proposals.
+      From worker 4:		0.211876 % proposals accepted.
+      From worker 4:	translation	2142809 total proposals.
+      From worker 4:		12.322144 % proposals accepted.
+      From worker 4:	reinsertion	429332 total proposals.
+      From worker 4:		0.048447 % proposals accepted.
+      From worker 4:	insertion	2999859 total proposals.
+      From worker 4:		0.214643 % proposals accepted.
       From worker 4:	
-      From worker 4:	⟨N⟩ (molecules): 86.566435 +/- 0.851376
-      From worker 4:	⟨N⟩ (molecules/unit cell): 3.206164 +/- 0.031532
-      From worker 4:	⟨N⟩ (mmol/g): 2.233182 +/- 0.021963
+      From worker 4:	⟨N⟩ (molecules): 86.817602 +/- 0.748599
+      From worker 4:	⟨N⟩ (molecules/unit cell): 3.215467 +/- 0.027726
+      From worker 4:	⟨N⟩ (mmol/g): 2.239661 +/- 0.019312
       From worker 4:	
-      From worker 4:	⟨U_gg, vdw⟩ (K): -6072.639911 +/- 130.281790
-      From worker 4:	⟨U_gh, vdw⟩ (K): -327338.309152 +/- 3356.094703
+      From worker 4:	⟨U_gg, vdw⟩ (K): -6090.703299 +/- 100.252210
+      From worker 4:	⟨U_gh, vdw⟩ (K): -328465.306033 +/- 2926.639429
       From worker 4:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 4:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 4:	⟨U⟩ (K): -333410.949063 +/- 3486.376493
+      From worker 4:	⟨U⟩ (K): -334556.009332 +/- 3026.891639
       From worker 4:	
-      From worker 4:	Q_st (K) = 4141.625005 = 34.433470 kJ/mol
+      From worker 4:	Q_st (K) = 4136.630568 = 34.391947 kJ/mol
       From worker 4:	
       From worker 4:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.2871691bar_UFF_50000burn_50000sample.jld2
       From worker 4:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.027380 bar (bar) with UFF force field.
@@ -815,130 +809,130 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 4:			probability of rotation: 0.000000
       From worker 4:			probability of reinsertion: 0.050000
       From worker 4:		Block  1/5 statistics:
-      From worker 4:		# samples: 341357
-      From worker 4:		⟨N⟩ (molecules) = 34.79849541682169
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -133024.05852099584
+      From worker 4:		# samples: 304917
+      From worker 4:		⟨N⟩ (molecules) = 31.31954269522526
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -119637.67701582522
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -904.8381376556991
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -770.5596707715467
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -133928.89665865153
-      From worker 2:		Block  1/5 statistics:
-      From worker 2:		# samples: 559311
-      From worker 2:		⟨N⟩ (molecules) = 56.21141189785289
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -214031.99357678153
-      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -2505.7797797943126
-      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -216537.77335657587
-      From worker 4:		Block  2/5 statistics:
-      From worker 4:		# samples: 333531
-      From worker 4:		⟨N⟩ (molecules) = 34.106355930932956
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -130246.66589825925
-      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -892.6999471375339
-      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -131139.36584539677
+      From worker 4:		⟨U⟩ (K) = -120408.23668659675
       From worker 5:		Block  1/5 statistics:
-      From worker 5:		# samples: 389681
-      From worker 5:		⟨N⟩ (molecules) = 39.52111342354387
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -151179.41610360664
+      From worker 5:		# samples: 414421
+      From worker 5:		⟨N⟩ (molecules) = 41.97258102267983
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -160640.12447918742
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -1133.252649004669
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -1319.1442391463866
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -152312.6687526113
-      From worker 3:		Block  1/5 statistics:
-      From worker 3:		# samples: 479960
-      From worker 3:		⟨N⟩ (molecules) = 48.61468247353946
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -185626.25102900044
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -1766.2791873472777
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -187392.53021634775
-      From worker 4:		Block  3/5 statistics:
-      From worker 4:		# samples: 343671
-      From worker 4:		⟨N⟩ (molecules) = 35.057127310712865
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -134019.12602601104
+      From worker 5:		⟨U⟩ (K) = -161959.2687183338
+      From worker 4:		Block  2/5 statistics:
+      From worker 4:		# samples: 309381
+      From worker 4:		⟨N⟩ (molecules) = 31.569698850284922
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -120619.41201939876
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -951.8298266829962
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -720.7548293801723
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -134970.95585269402
-      From worker 5:		Block  2/5 statistics:
-      From worker 5:		# samples: 423297
-      From worker 5:		⟨N⟩ (molecules) = 42.742077075906515
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -163489.63058053222
-      From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -1376.0233753543127
-      From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -164865.65395588655
-      From worker 2:		Block  2/5 statistics:
-      From worker 2:		# samples: 564286
-      From worker 2:		⟨N⟩ (molecules) = 56.946909900298785
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -217106.7128507577
+      From worker 4:		⟨U⟩ (K) = -121340.16684877894
+      From worker 2:		Block  1/5 statistics:
+      From worker 2:		# samples: 570080
+      From worker 2:		⟨N⟩ (molecules) = 57.37889945270839
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -218222.97443811301
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -2608.1856868079913
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -2644.434379161017
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -219714.89853756572
-      From worker 3:		Block  2/5 statistics:
-      From worker 3:		# samples: 487380
-      From worker 3:		⟨N⟩ (molecules) = 49.50469038532562
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -188682.8519345893
+      From worker 2:		⟨U⟩ (K) = -220867.40881727406
+      From worker 3:		Block  1/5 statistics:
+      From worker 3:		# samples: 498350
+      From worker 3:		⟨N⟩ (molecules) = 50.290448479983944
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -191601.49282816888
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -1894.9995425041636
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -1928.9024350088428
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -190577.85147709344
-      From worker 4:		Block  4/5 statistics:
-      From worker 4:		# samples: 358594
-      From worker 4:		⟨N⟩ (molecules) = 36.28102812651634
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -138801.9941848612
+      From worker 3:		⟨U⟩ (K) = -193530.39526317772
+      From worker 4:		Block  3/5 statistics:
+      From worker 4:		# samples: 314182
+      From worker 4:		⟨N⟩ (molecules) = 31.999080150995283
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -122302.15180599962
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -902.7237870362793
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -722.627797122382
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -139704.71797189745
-      From worker 5:		Block  3/5 statistics:
-      From worker 5:		# samples: 392747
-      From worker 5:		⟨N⟩ (molecules) = 39.78383284913698
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -151995.3319451617
+      From worker 4:		⟨U⟩ (K) = -123024.77960312199
+      From worker 5:		Block  2/5 statistics:
+      From worker 5:		# samples: 409472
+      From worker 5:		⟨N⟩ (molecules) = 41.47134114176305
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -158426.0100132224
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -1234.8209008965173
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -1327.2349980677684
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -153230.15284605822
-      From worker 4:		Block  5/5 statistics:
-      From worker 4:		# samples: 324322
-      From worker 4:		⟨N⟩ (molecules) = 32.927840232855004
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -126086.24333133818
+      From worker 5:		⟨U⟩ (K) = -159753.2450112902
+      From worker 4:		Block  4/5 statistics:
+      From worker 4:		# samples: 338987
+      From worker 4:		⟨N⟩ (molecules) = 34.74043547392673
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -133062.40615481682
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -787.249885151468
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -891.0149685490084
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -126873.49321648966
-      From worker 4:		Estimated elapsed time: 660 seconds
-      From worker 4:		Total # MC steps: 3334808
+      From worker 4:		⟨U⟩ (K) = -133953.42112336584
+      From worker 5:		Block  3/5 statistics:
+      From worker 5:		# samples: 385167
+      From worker 5:		⟨N⟩ (molecules) = 39.022823866011365
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -148643.5837569033
+      From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -1159.7294331372177
+      From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 5:		⟨U⟩ (K) = -149803.31319004053
+      From worker 2:		Block  2/5 statistics:
+      From worker 2:		# samples: 584455
+      From worker 2:		⟨N⟩ (molecules) = 58.932836574244384
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -224109.751919752
+      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -2703.32270866347
+      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U⟩ (K) = -226813.07462841546
+      From worker 3:		Block  2/5 statistics:
+      From worker 3:		# samples: 517923
+      From worker 3:		⟨N⟩ (molecules) = 52.33612525414009
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -199514.7864531244
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -2207.6799261290403
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -201722.46637925343
+      From worker 4:		Block  5/5 statistics:
+      From worker 4:		# samples: 311873
+      From worker 4:		⟨N⟩ (molecules) = 31.605377830078268
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -120883.08490179702
+      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -753.1300605890352
+      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U⟩ (K) = -121636.21496238606
+      From worker 4:		Estimated elapsed time: 1667 seconds
+      From worker 4:		Total # MC steps: 3190936
       From worker 4:	
       From worker 4:	Unit cell replication factors: 3 3 3
       From worker 4:	
       From worker 4:	
       From worker 4:	# sample cycles: 50000
       From worker 4:	# burn cycles: 50000
-      From worker 4:	# samples: 1701475
-      From worker 4:	deletion	1165548 total proposals.
-      From worker 4:		0.784009 % proposals accepted.
-      From worker 4:	translation	834123 total proposals.
-      From worker 4:		13.911258 % proposals accepted.
-      From worker 4:	reinsertion	166357 total proposals.
-      From worker 4:		0.194161 % proposals accepted.
-      From worker 4:	insertion	1168780 total proposals.
-      From worker 4:		0.784579 % proposals accepted.
+      From worker 4:	# samples: 1579340
+      From worker 4:	deletion	1118394 total proposals.
+      From worker 4:		0.801417 % proposals accepted.
+      From worker 4:	translation	796817 total proposals.
+      From worker 4:		13.923272 % proposals accepted.
+      From worker 4:	reinsertion	159324 total proposals.
+      From worker 4:		0.192689 % proposals accepted.
+      From worker 4:	insertion	1116401 total proposals.
+      From worker 4:		0.805535 % proposals accepted.
       From worker 4:	
-      From worker 4:	⟨N⟩ (molecules): 34.670940 +/- 1.105277
-      From worker 4:	⟨N⟩ (molecules/unit cell): 1.284109 +/- 0.040936
-      From worker 4:	⟨N⟩ (mmol/g): 0.894417 +/- 0.028513
+      From worker 4:	⟨N⟩ (molecules): 32.294427 +/- 1.265644
+      From worker 4:	⟨N⟩ (molecules/unit cell): 1.196090 +/- 0.046876
+      From worker 4:	⟨N⟩ (mmol/g): 0.833110 +/- 0.032650
       From worker 4:	
-      From worker 4:	⟨U_gg, vdw⟩ (K): -889.090958 +/- 54.322412
-      From worker 4:	⟨U_gh, vdw⟩ (K): -132575.903990 +/- 4209.251168
+      From worker 4:	⟨U_gg, vdw⟩ (K): -773.680564 +/- 62.620993
+      From worker 4:	⟨U_gh, vdw⟩ (K): -123487.435729 +/- 4958.100483
       From worker 4:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 4:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 4:	⟨U⟩ (K): -133464.994948 +/- 4263.573581
+      From worker 4:	⟨U⟩ (K): -124261.116293 +/- 5020.721477
       From worker 4:	
-      From worker 4:	Q_st (K) = 4157.577899 = 34.566103 kJ/mol
+      From worker 4:	Q_st (K) = 4146.556076 = 34.474467 kJ/mol
       From worker 4:	
       From worker 4:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0273805bar_UFF_50000burn_50000sample.jld2
       From worker 4:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.019572 bar (bar) with UFF force field.
@@ -961,67 +955,67 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 4:			probability of translation: 0.250000
       From worker 4:			probability of rotation: 0.000000
       From worker 4:			probability of reinsertion: 0.050000
-      From worker 3:		Block  3/5 statistics:
-      From worker 3:		# samples: 491554
-      From worker 3:		⟨N⟩ (molecules) = 49.630339698181686
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -189797.33287207998
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -1877.0513036271318
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -191674.3841757071
-      From worker 2:		Block  3/5 statistics:
-      From worker 2:		# samples: 592238
-      From worker 2:		⟨N⟩ (molecules) = 59.56857715985803
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -227406.12034789883
-      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -2783.8506741992264
-      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -230189.97102209803
       From worker 5:		Block  4/5 statistics:
-      From worker 5:		# samples: 406439
-      From worker 5:		⟨N⟩ (molecules) = 41.01485093704098
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -156475.54834061328
+      From worker 5:		# samples: 398088
+      From worker 5:		⟨N⟩ (molecules) = 40.39400584795322
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -154472.47873080583
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -1292.920481571768
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -1239.626796877911
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -157768.46882218507
+      From worker 5:		⟨U⟩ (K) = -155712.10552768374
+      From worker 3:		Block  3/5 statistics:
+      From worker 3:		# samples: 467715
+      From worker 3:		⟨N⟩ (molecules) = 47.301542606074214
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -180405.60188723943
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -1731.6627846911056
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -182137.26467193052
+      From worker 2:		Block  3/5 statistics:
+      From worker 2:		# samples: 582895
+      From worker 2:		⟨N⟩ (molecules) = 58.67973134097908
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -223495.05078340365
+      From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -2706.610253008918
+      From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 2:		⟨U⟩ (K) = -226201.66103641255
       From worker 5:		Block  5/5 statistics:
-      From worker 5:		# samples: 382208
-      From worker 5:		⟨N⟩ (molecules) = 38.77464364953114
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -148138.8741007534
+      From worker 5:		# samples: 410416
+      From worker 5:		⟨N⟩ (molecules) = 41.60936708120541
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -159252.27560546642
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -1112.8024759084353
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -1339.3674179259021
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -149251.67657666182
-      From worker 5:		Estimated elapsed time: 823 seconds
-      From worker 5:		Total # MC steps: 3999762
+      From worker 5:		⟨U⟩ (K) = -160591.64302339233
+      From worker 5:		Estimated elapsed time: 2162 seconds
+      From worker 5:		Total # MC steps: 4009371
       From worker 5:	
       From worker 5:	Unit cell replication factors: 3 3 3
       From worker 5:	
       From worker 5:	
       From worker 5:	# sample cycles: 50000
       From worker 5:	# burn cycles: 50000
-      From worker 5:	# samples: 1994372
-      From worker 5:	deletion	1399533 total proposals.
-      From worker 5:		0.691516 % proposals accepted.
-      From worker 5:	translation	1000864 total proposals.
-      From worker 5:		13.713352 % proposals accepted.
-      From worker 5:	reinsertion	199600 total proposals.
-      From worker 5:		0.175351 % proposals accepted.
-      From worker 5:	insertion	1399765 total proposals.
-      From worker 5:		0.693616 % proposals accepted.
+      From worker 5:	# samples: 2017564
+      From worker 5:	deletion	1402007 total proposals.
+      From worker 5:		0.701637 % proposals accepted.
+      From worker 5:	translation	1002323 total proposals.
+      From worker 5:		13.707059 % proposals accepted.
+      From worker 5:	reinsertion	200555 total proposals.
+      From worker 5:		0.176510 % proposals accepted.
+      From worker 5:	insertion	1404486 total proposals.
+      From worker 5:		0.703175 % proposals accepted.
       From worker 5:	
-      From worker 5:	⟨N⟩ (molecules): 40.417843 +/- 1.389382
-      From worker 5:	⟨N⟩ (molecules/unit cell): 1.496957 +/- 0.051459
-      From worker 5:	⟨N⟩ (mmol/g): 1.042672 +/- 0.035842
+      From worker 5:	⟨N⟩ (molecules): 40.922367 +/- 1.073285
+      From worker 5:	⟨N⟩ (molecules/unit cell): 1.515643 +/- 0.039751
+      From worker 5:	⟨N⟩ (mmol/g): 1.055687 +/- 0.027688
       From worker 5:	
-      From worker 5:	⟨U_gg, vdw⟩ (K): -1233.401348 +/- 98.447382
-      From worker 5:	⟨U_gh, vdw⟩ (K): -154449.498400 +/- 5336.088801
+      From worker 5:	⟨U_gg, vdw⟩ (K): -1278.777041 +/- 68.343182
+      From worker 5:	⟨U_gh, vdw⟩ (K): -156401.274746 +/- 4338.147748
       From worker 5:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 5:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 5:	⟨U⟩ (K): -155682.899747 +/- 5434.536183
+      From worker 5:	⟨U⟩ (K): -157680.051787 +/- 4406.490930
       From worker 5:	
-      From worker 5:	Q_st (K) = 4155.658694 = 34.550146 kJ/mol
+      From worker 5:	Q_st (K) = 4169.412470 = 34.664495 kJ/mol
       From worker 5:	
       From worker 5:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0383050bar_UFF_50000burn_50000sample.jld2
       From worker 5:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.013990 bar (bar) with UFF force field.
@@ -1045,58 +1039,58 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 5:			probability of rotation: 0.000000
       From worker 5:			probability of reinsertion: 0.050000
       From worker 3:		Block  4/5 statistics:
-      From worker 3:		# samples: 480671
-      From worker 3:		⟨N⟩ (molecules) = 48.51053631277943
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -185012.3105944382
+      From worker 3:		# samples: 483425
+      From worker 3:		⟨N⟩ (molecules) = 48.81110823809278
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -185982.57489321555
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -1829.5014366518783
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -1817.8814027556562
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -186841.81203109008
+      From worker 3:		⟨U⟩ (K) = -187800.4562959712
       From worker 2:		Block  4/5 statistics:
-      From worker 2:		# samples: 571236
-      From worker 2:		⟨N⟩ (molecules) = 57.39352211695341
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -218309.11946651837
+      From worker 2:		# samples: 577051
+      From worker 2:		⟨N⟩ (molecules) = 58.26404425258772
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -221203.23204375373
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -2617.0945008539966
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -2769.8959800462426
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -220926.2139673724
+      From worker 2:		⟨U⟩ (K) = -223973.12802379997
       From worker 3:		Block  5/5 statistics:
-      From worker 3:		# samples: 448593
-      From worker 3:		⟨N⟩ (molecules) = 45.24616523218151
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -172622.19264076985
+      From worker 3:		# samples: 492212
+      From worker 3:		⟨N⟩ (molecules) = 49.749325493892876
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -189293.71325805958
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -1506.8811380720012
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -1986.1324028631982
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -174129.07377884188
-      From worker 3:		Estimated elapsed time: 1007 seconds
-      From worker 3:		Total # MC steps: 4764637
+      From worker 3:		⟨U⟩ (K) = -191279.8456609228
+      From worker 3:		Estimated elapsed time: 2614 seconds
+      From worker 3:		Total # MC steps: 4813897
       From worker 3:	
       From worker 3:	Unit cell replication factors: 3 3 3
       From worker 3:	
       From worker 3:	
       From worker 3:	# sample cycles: 50000
       From worker 3:	# burn cycles: 50000
-      From worker 3:	# samples: 2388158
-      From worker 3:	deletion	1666974 total proposals.
-      From worker 3:		0.598690 % proposals accepted.
-      From worker 3:	translation	1192121 total proposals.
-      From worker 3:		13.573958 % proposals accepted.
-      From worker 3:	reinsertion	237861 total proposals.
-      From worker 3:		0.148826 % proposals accepted.
-      From worker 3:	insertion	1667681 total proposals.
-      From worker 3:		0.600834 % proposals accepted.
+      From worker 3:	# samples: 2459625
+      From worker 3:	deletion	1685688 total proposals.
+      From worker 3:		0.599577 % proposals accepted.
+      From worker 3:	translation	1202153 total proposals.
+      From worker 3:		13.461015 % proposals accepted.
+      From worker 3:	reinsertion	241263 total proposals.
+      From worker 3:		0.133879 % proposals accepted.
+      From worker 3:	insertion	1684793 total proposals.
+      From worker 3:		0.602923 % proposals accepted.
       From worker 3:	
-      From worker 3:	⟨N⟩ (molecules): 48.351663 +/- 1.593131
-      From worker 3:	⟨N⟩ (molecules/unit cell): 1.790802 +/- 0.059005
-      From worker 3:	⟨N⟩ (mmol/g): 1.247343 +/- 0.041099
+      From worker 3:	⟨N⟩ (molecules): 49.753801 +/- 1.663906
+      From worker 3:	⟨N⟩ (molecules/unit cell): 1.842733 +/- 0.061626
+      From worker 3:	⟨N⟩ (mmol/g): 1.283515 +/- 0.042924
       From worker 3:	
-      From worker 3:	⟨U_gg, vdw⟩ (K): -1779.348321 +/- 141.312123
-      From worker 3:	⟨U_gh, vdw⟩ (K): -184542.321568 +/- 6135.868348
+      From worker 3:	⟨U_gg, vdw⟩ (K): -1939.730210 +/- 162.607896
+      From worker 3:	⟨U_gh, vdw⟩ (K): -189572.626006 +/- 6323.977316
       From worker 3:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 3:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 3:	⟨U⟩ (K): -186321.669889 +/- 6277.180471
+      From worker 3:	⟨U⟩ (K): -191512.356216 +/- 6486.585212
       From worker 3:	
-      From worker 3:	Q_st (K) = 4158.102505 = 34.570464 kJ/mol
+      From worker 3:	Q_st (K) = 4151.582927 = 34.516260 kJ/mol
       From worker 3:	
       From worker 3:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0535882bar_UFF_50000burn_50000sample.jld2
       From worker 3:	Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif at 298.000000 K and 0.010000 bar (bar) with UFF force field.
@@ -1120,254 +1114,254 @@ running mol sim in NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cifw
       From worker 3:			probability of rotation: 0.000000
       From worker 3:			probability of reinsertion: 0.050000
       From worker 4:		Block  1/5 statistics:
-      From worker 4:		# samples: 251091
-      From worker 4:		⟨N⟩ (molecules) = 25.373310871357397
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -97427.82707250584
+      From worker 4:		# samples: 255005
+      From worker 4:		⟨N⟩ (molecules) = 26.011497813768358
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -99298.03408365374
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -468.43128222420347
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -488.987478122108
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -97896.25835473003
+      From worker 4:		⟨U⟩ (K) = -99787.02156177585
       From worker 2:		Block  5/5 statistics:
-      From worker 2:		# samples: 589703
-      From worker 2:		⟨N⟩ (molecules) = 59.33289299867899
-      From worker 2:		⟨U_gh, vdw⟩ (K) = -225793.60657722622
+      From worker 2:		# samples: 565760
+      From worker 2:		⟨N⟩ (molecules) = 56.81015271493213
+      From worker 2:		⟨U_gh, vdw⟩ (K) = -216144.38812796373
       From worker 2:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U_gg, vdw⟩ (K) = -2808.328716159869
+      From worker 2:		⟨U_gg, vdw⟩ (K) = -2448.448415286028
       From worker 2:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 2:		⟨U⟩ (K) = -228601.93529338608
-      From worker 2:		Estimated elapsed time: 1251 seconds
-      From worker 2:		Total # MC steps: 5701533
+      From worker 2:		⟨U⟩ (K) = -218592.83654324975
+      From worker 2:		Estimated elapsed time: 3196 seconds
+      From worker 2:		Total # MC steps: 5674067
       From worker 2:	
       From worker 2:	Unit cell replication factors: 3 3 3
       From worker 2:	
       From worker 2:	
       From worker 2:	# sample cycles: 50000
       From worker 2:	# burn cycles: 50000
-      From worker 2:	# samples: 2876774
-      From worker 2:	deletion	1996160 total proposals.
-      From worker 2:		0.505871 % proposals accepted.
-      From worker 2:	translation	1426015 total proposals.
-      From worker 2:		13.189903 % proposals accepted.
-      From worker 2:	reinsertion	284815 total proposals.
-      From worker 2:		0.118322 % proposals accepted.
-      From worker 2:	insertion	1994543 total proposals.
-      From worker 2:		0.509340 % proposals accepted.
+      From worker 2:	# samples: 2880241
+      From worker 2:	deletion	1986613 total proposals.
+      From worker 2:		0.511474 % proposals accepted.
+      From worker 2:	translation	1418089 total proposals.
+      From worker 2:		13.256432 % proposals accepted.
+      From worker 2:	reinsertion	283260 total proposals.
+      From worker 2:		0.116148 % proposals accepted.
+      From worker 2:	insertion	1986105 total proposals.
+      From worker 2:		0.514424 % proposals accepted.
       From worker 2:	
-      From worker 2:	⟨N⟩ (molecules): 57.921412 +/- 1.330648
-      From worker 2:	⟨N⟩ (molecules/unit cell): 2.145237 +/- 0.049283
-      From worker 2:	⟨N⟩ (mmol/g): 1.494217 +/- 0.034327
+      From worker 2:	⟨N⟩ (molecules): 58.023100 +/- 0.800322
+      From worker 2:	⟨N⟩ (molecules/unit cell): 2.149004 +/- 0.029642
+      From worker 2:	⟨N⟩ (mmol/g): 1.496840 +/- 0.020646
       From worker 2:	
-      From worker 2:	⟨U_gg, vdw⟩ (K): -2667.235411 +/- 114.521039
-      From worker 2:	⟨U_gh, vdw⟩ (K): -220648.708650 +/- 5175.575672
+      From worker 2:	⟨U_gg, vdw⟩ (K): -2655.605773 +/- 110.435126
+      From worker 2:	⟨U_gh, vdw⟩ (K): -220673.256590 +/- 3051.800412
       From worker 2:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 2:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 2:	⟨U⟩ (K): -223315.944060 +/- 5290.096711
+      From worker 2:	⟨U⟩ (K): -223328.862363 +/- 3162.235538
       From worker 2:	
-      From worker 2:	Q_st (K) = 4154.608065 = 34.541411 kJ/mol
+      From worker 2:	Q_st (K) = 4148.996018 = 34.494753 kJ/mol
       From worker 2:	
       From worker 2:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0749691bar_UFF_50000burn_50000sample.jld2
       From worker 4:		Block  2/5 statistics:
-      From worker 4:		# samples: 266419
-      From worker 4:		⟨N⟩ (molecules) = 27.194348000705656
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -104127.02740220563
+      From worker 4:		# samples: 258769
+      From worker 4:		⟨N⟩ (molecules) = 26.319725314856107
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -100714.01385585833
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -576.8647811363307
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -501.2355393605969
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -104703.89218334196
+      From worker 4:		⟨U⟩ (K) = -101215.24939521891
       From worker 5:		Block  1/5 statistics:
-      From worker 5:		# samples: 236780
-      From worker 5:		⟨N⟩ (molecules) = 23.6610904637216
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -91111.26491034855
+      From worker 5:		# samples: 206430
+      From worker 5:		⟨N⟩ (molecules) = 18.530765877052755
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -70911.24925544887
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -380.84339275836584
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -217.93773594817262
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -91492.10830310691
-      From worker 4:		Block  3/5 statistics:
-      From worker 4:		# samples: 236900
-      From worker 4:		⟨N⟩ (molecules) = 23.945719712959054
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -91573.38162186228
-      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -409.29367381445314
-      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -91982.67529567673
+      From worker 5:		⟨U⟩ (K) = -71129.18699139704
       From worker 5:		Block  2/5 statistics:
-      From worker 5:		# samples: 218599
-      From worker 5:		⟨N⟩ (molecules) = 21.122493698507313
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -81106.23596565054
+      From worker 5:		# samples: 216738
+      From worker 5:		⟨N⟩ (molecules) = 20.25555740110179
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -77597.1835524495
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -307.392778415764
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -268.853582886327
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -81413.6287440663
-      From worker 4:		Block  4/5 statistics:
-      From worker 4:		# samples: 253911
-      From worker 4:		⟨N⟩ (molecules) = 25.767934433718903
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -98458.36843763643
-      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -474.71199510172085
-      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -98933.08043273813
-      From worker 3:		Block  1/5 statistics:
-      From worker 3:		# samples: 201069
-      From worker 3:		⟨N⟩ (molecules) = 14.925304248790216
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -57176.06673776309
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -177.57677786839778
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -57353.64351563149
+      From worker 5:		⟨U⟩ (K) = -77866.03713533582
       From worker 5:		Block  3/5 statistics:
-      From worker 5:		# samples: 219863
-      From worker 5:		⟨N⟩ (molecules) = 20.48950482800653
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -78520.82642621204
+      From worker 5:		# samples: 210921
+      From worker 5:		⟨N⟩ (molecules) = 19.556962085330525
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -74765.37326109238
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -350.05527429209394
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -296.8612658066417
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -78870.88170050413
-      From worker 4:		Block  5/5 statistics:
-      From worker 4:		# samples: 276842
-      From worker 4:		⟨N⟩ (molecules) = 28.28265219872707
-      From worker 4:		⟨U_gh, vdw⟩ (K) = -108606.98388452244
+      From worker 5:		⟨U⟩ (K) = -75062.23452689902
+      From worker 4:		Block  3/5 statistics:
+      From worker 4:		# samples: 244784
+      From worker 4:		⟨N⟩ (molecules) = 24.757386103666907
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -94734.64816146188
       From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U_gg, vdw⟩ (K) = -578.7828121829639
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -453.50577038426474
       From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 4:		⟨U⟩ (K) = -109185.76669670541
-      From worker 4:		Estimated elapsed time: 492 seconds
-      From worker 4:		Total # MC steps: 2549336
-      From worker 4:	
-      From worker 4:	Unit cell replication factors: 3 3 3
-      From worker 4:	
-      From worker 4:	
-      From worker 4:	# sample cycles: 50000
-      From worker 4:	# burn cycles: 50000
-      From worker 4:	# samples: 1285163
-      From worker 4:	deletion	891810 total proposals.
-      From worker 4:		0.870701 % proposals accepted.
-      From worker 4:	translation	638566 total proposals.
-      From worker 4:		14.055556 % proposals accepted.
-      From worker 4:	reinsertion	127450 total proposals.
-      From worker 4:		0.233817 % proposals accepted.
-      From worker 4:	insertion	891510 total proposals.
-      From worker 4:		0.873350 % proposals accepted.
-      From worker 4:	
-      From worker 4:	⟨N⟩ (molecules): 26.192343 +/- 1.499334
-      From worker 4:	⟨N⟩ (molecules/unit cell): 0.970087 +/- 0.055531
-      From worker 4:	⟨N⟩ (mmol/g): 0.675692 +/- 0.038679
-      From worker 4:	
-      From worker 4:	⟨U_gg, vdw⟩ (K): -505.020980 +/- 66.367910
-      From worker 4:	⟨U_gh, vdw⟩ (K): -100349.170158 +/- 5858.114610
-      From worker 4:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 4:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 4:	⟨U⟩ (K): -100854.191138 +/- 5924.482520
-      From worker 4:	
-      From worker 4:	Q_st (K) = 4162.412476 = 34.606297 kJ/mol
-      From worker 4:	
-      From worker 4:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0195717bar_UFF_50000burn_50000sample.jld2
+      From worker 4:		⟨U⟩ (K) = -95188.15393184614
       From worker 5:		Block  4/5 statistics:
-      From worker 5:		# samples: 214427
-      From worker 5:		⟨N⟩ (molecules) = 20.095752866943062
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -76906.24165616518
+      From worker 5:		# samples: 206040
+      From worker 5:		⟨N⟩ (molecules) = 18.088157639293343
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -69094.21927195115
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -265.89760658558697
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -235.41502839983482
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -77172.13926275077
-      From worker 3:		Block  2/5 statistics:
-      From worker 3:		# samples: 204981
-      From worker 3:		⟨N⟩ (molecules) = 16.542333191856805
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -63423.28036835157
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -177.1205945907467
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -63600.40096294231
-      From worker 3:		Block  3/5 statistics:
-      From worker 3:		# samples: 201538
-      From worker 3:		⟨N⟩ (molecules) = 15.73151465232363
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -60145.600527637805
-      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -164.28710807495477
-      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -60309.88763571276
+      From worker 5:		⟨U⟩ (K) = -69329.63430035098
       From worker 5:		Block  5/5 statistics:
-      From worker 5:		# samples: 211840
-      From worker 5:		⟨N⟩ (molecules) = 19.879229607250757
-      From worker 5:		⟨U_gh, vdw⟩ (K) = -75887.7088349235
+      From worker 5:		# samples: 208037
+      From worker 5:		⟨N⟩ (molecules) = 18.91065531612165
+      From worker 5:		⟨U_gh, vdw⟩ (K) = -72540.90432027189
       From worker 5:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U_gg, vdw⟩ (K) = -282.5985957752125
+      From worker 5:		⟨U_gg, vdw⟩ (K) = -246.2387360601667
       From worker 5:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 5:		⟨U⟩ (K) = -76170.3074306987
-      From worker 5:		Estimated elapsed time: 420 seconds
-      From worker 5:		Total # MC steps: 2176214
+      From worker 5:		⟨U⟩ (K) = -72787.14305633206
+      From worker 5:		Estimated elapsed time: 809 seconds
+      From worker 5:		Total # MC steps: 2097123
       From worker 5:	
       From worker 5:	Unit cell replication factors: 3 3 3
       From worker 5:	
       From worker 5:	
       From worker 5:	# sample cycles: 50000
       From worker 5:	# burn cycles: 50000
-      From worker 5:	# samples: 1101509
-      From worker 5:	deletion	759777 total proposals.
-      From worker 5:		0.956728 % proposals accepted.
-      From worker 5:	translation	544706 total proposals.
-      From worker 5:		14.234835 % proposals accepted.
-      From worker 5:	reinsertion	108979 total proposals.
-      From worker 5:		0.271612 % proposals accepted.
-      From worker 5:	insertion	762752 total proposals.
-      From worker 5:		0.954570 % proposals accepted.
+      From worker 5:	# samples: 1048166
+      From worker 5:	deletion	733686 total proposals.
+      From worker 5:		0.950815 % proposals accepted.
+      From worker 5:	translation	524531 total proposals.
+      From worker 5:		14.317171 % proposals accepted.
+      From worker 5:	reinsertion	104754 total proposals.
+      From worker 5:		0.262520 % proposals accepted.
+      From worker 5:	insertion	734152 total proposals.
+      From worker 5:		0.953753 % proposals accepted.
       From worker 5:	
-      From worker 5:	⟨N⟩ (molecules): 21.102870 +/- 1.372479
-      From worker 5:	⟨N⟩ (molecules/unit cell): 0.781588 +/- 0.050833
-      From worker 5:	⟨N⟩ (mmol/g): 0.544397 +/- 0.035406
+      From worker 5:	⟨N⟩ (molecules): 19.082310 +/- 0.764571
+      From worker 5:	⟨N⟩ (molecules/unit cell): 0.706752 +/- 0.028317
+      From worker 5:	⟨N⟩ (mmol/g): 0.492272 +/- 0.019724
       From worker 5:	
-      From worker 5:	⟨U_gg, vdw⟩ (K): -318.851111 +/- 42.582519
-      From worker 5:	⟨U_gh, vdw⟩ (K): -80919.646377 +/- 5497.018356
+      From worker 5:	⟨U_gg, vdw⟩ (K): -253.400349 +/- 27.422659
+      From worker 5:	⟨U_gh, vdw⟩ (K): -73035.587776 +/- 2969.586685
       From worker 5:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 5:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 5:	⟨U⟩ (K): -81238.497488 +/- 5539.600875
+      From worker 5:	⟨U⟩ (K): -73288.988125 +/- 2997.009344
       From worker 5:	
-      From worker 5:	Q_st (K) = 4165.072263 = 34.628411 kJ/mol
+      From worker 5:	Q_st (K) = 4141.627362 = 34.433490 kJ/mol
       From worker 5:	
       From worker 5:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0139899bar_UFF_50000burn_50000sample.jld2
+      From worker 4:		Block  4/5 statistics:
+      From worker 4:		# samples: 235662
+      From worker 4:		⟨N⟩ (molecules) = 23.703524539382673
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -90566.77198564993
+      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -392.8147999580667
+      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U⟩ (K) = -90959.586785608
+      From worker 3:		Block  1/5 statistics:
+      From worker 3:		# samples: 205705
+      From worker 3:		⟨N⟩ (molecules) = 16.795401181303323
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -64463.995212071866
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -236.2555306554587
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -64700.25074272732
+      From worker 4:		Block  5/5 statistics:
+      From worker 4:		# samples: 253575
+      From worker 4:		⟨N⟩ (molecules) = 25.895257813270234
+      From worker 4:		⟨U_gh, vdw⟩ (K) = -99095.77594424499
+      From worker 4:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U_gg, vdw⟩ (K) = -505.3843551201277
+      From worker 4:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 4:		⟨U⟩ (K) = -99601.16029936512
+      From worker 4:		Estimated elapsed time: 1201 seconds
+      From worker 4:		Total # MC steps: 2542405
+      From worker 4:	
+      From worker 4:	Unit cell replication factors: 3 3 3
+      From worker 4:	
+      From worker 4:	
+      From worker 4:	# sample cycles: 50000
+      From worker 4:	# burn cycles: 50000
+      From worker 4:	# samples: 1247795
+      From worker 4:	deletion	889205 total proposals.
+      From worker 4:		0.874601 % proposals accepted.
+      From worker 4:	translation	635422 total proposals.
+      From worker 4:		14.108105 % proposals accepted.
+      From worker 4:	reinsertion	127876 total proposals.
+      From worker 4:		0.243986 % proposals accepted.
+      From worker 4:	insertion	889902 total proposals.
+      From worker 4:		0.876501 % proposals accepted.
+      From worker 4:	
+      From worker 4:	⟨N⟩ (molecules): 25.369883 +/- 0.973298
+      From worker 4:	⟨N⟩ (molecules/unit cell): 0.939625 +/- 0.036048
+      From worker 4:	⟨N⟩ (mmol/g): 0.654475 +/- 0.025108
+      From worker 4:	
+      From worker 4:	⟨U_gg, vdw⟩ (K): -469.735643 +/- 41.985550
+      From worker 4:	⟨U_gh, vdw⟩ (K): -97006.354372 +/- 3741.472642
+      From worker 4:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
+      From worker 4:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
+      From worker 4:	⟨U⟩ (K): -97476.090015 +/- 3783.458193
+      From worker 4:	
+      From worker 4:	Q_st (K) = 4116.930756 = 34.228162 kJ/mol
+      From worker 4:	
+      From worker 4:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0195717bar_UFF_50000burn_50000sample.jld2
+      From worker 3:		Block  2/5 statistics:
+      From worker 3:		# samples: 201312
+      From worker 3:		⟨N⟩ (molecules) = 15.261469758384994
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -58643.71413721592
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -158.62329848776835
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -58802.33743570369
+      From worker 3:		Block  3/5 statistics:
+      From worker 3:		# samples: 205022
+      From worker 3:		⟨N⟩ (molecules) = 16.05013120543161
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -61680.739644048415
+      From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -198.17735891604312
+      From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
+      From worker 3:		⟨U⟩ (K) = -61878.91700296445
       From worker 3:		Block  4/5 statistics:
-      From worker 3:		# samples: 201545
-      From worker 3:		⟨N⟩ (molecules) = 15.769555186186707
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -60581.52803916583
+      From worker 3:		# samples: 203575
+      From worker 3:		⟨N⟩ (molecules) = 16.68587007245487
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -64003.357823858045
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -194.66627767475643
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -179.43047631616236
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -60776.194316840585
+      From worker 3:		⟨U⟩ (K) = -64182.78830017421
       From worker 3:		Block  5/5 statistics:
-      From worker 3:		# samples: 201071
-      From worker 3:		⟨N⟩ (molecules) = 15.569903168532509
-      From worker 3:		⟨U_gh, vdw⟩ (K) = -59736.07460067979
+      From worker 3:		# samples: 201567
+      From worker 3:		⟨N⟩ (molecules) = 14.78539641905669
+      From worker 3:		⟨U_gh, vdw⟩ (K) = -56489.38431830967
       From worker 3:		⟨U_gh, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U_gg, vdw⟩ (K) = -157.99990248189707
+      From worker 3:		⟨U_gg, vdw⟩ (K) = -167.2544611033569
       From worker 3:		⟨U_gg, Coulomb⟩ (K) = 0.0
-      From worker 3:		⟨U⟩ (K) = -59894.07450316169
-      From worker 3:		Estimated elapsed time: 392 seconds
-      From worker 3:		Total # MC steps: 2024892
+      From worker 3:		⟨U⟩ (K) = -56656.63877941303
+      From worker 3:		Estimated elapsed time: 746 seconds
+      From worker 3:		Total # MC steps: 2023130
       From worker 3:	
       From worker 3:	Unit cell replication factors: 3 3 3
       From worker 3:	
       From worker 3:	
       From worker 3:	# sample cycles: 50000
       From worker 3:	# burn cycles: 50000
-      From worker 3:	# samples: 1010204
-      From worker 3:	deletion	708778 total proposals.
-      From worker 3:		1.000313 % proposals accepted.
-      From worker 3:	translation	505429 total proposals.
-      From worker 3:		14.310615 % proposals accepted.
-      From worker 3:	reinsertion	101820 total proposals.
-      From worker 3:		0.241603 % proposals accepted.
-      From worker 3:	insertion	708865 total proposals.
-      From worker 3:		1.002165 % proposals accepted.
+      From worker 3:	# samples: 1017181
+      From worker 3:	deletion	709779 total proposals.
+      From worker 3:		0.994394 % proposals accepted.
+      From worker 3:	translation	505579 total proposals.
+      From worker 3:		14.400123 % proposals accepted.
+      From worker 3:	reinsertion	101152 total proposals.
+      From worker 3:		0.245176 % proposals accepted.
+      From worker 3:	insertion	706620 total proposals.
+      From worker 3:		1.000679 % proposals accepted.
       From worker 3:	
-      From worker 3:	⟨N⟩ (molecules): 15.710994 +/- 0.516166
-      From worker 3:	⟨N⟩ (molecules/unit cell): 0.581889 +/- 0.019117
-      From worker 3:	⟨N⟩ (mmol/g): 0.405302 +/- 0.013316
+      From worker 3:	⟨N⟩ (molecules): 15.921374 +/- 0.786220
+      From worker 3:	⟨N⟩ (molecules/unit cell): 0.589681 +/- 0.029119
+      From worker 3:	⟨N⟩ (mmol/g): 0.410729 +/- 0.020282
       From worker 3:	
-      From worker 3:	⟨U_gg, vdw⟩ (K): -174.345825 +/- 12.644573
-      From worker 3:	⟨U_gh, vdw⟩ (K): -60225.085587 +/- 1994.866745
+      From worker 3:	⟨U_gg, vdw⟩ (K): -188.170026 +/- 27.565240
+      From worker 3:	⟨U_gh, vdw⟩ (K): -61078.645213 +/- 3077.897369
       From worker 3:	⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
       From worker 3:	⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
-      From worker 3:	⟨U⟩ (K): -60399.431412 +/- 2007.511318
+      From worker 3:	⟨U⟩ (K): -61266.815239 +/- 3105.462609
       From worker 3:	
-      From worker 3:	Q_st (K) = 4145.766991 = 34.467907 kJ/mol
+      From worker 3:	Q_st (K) = 4161.730789 = 34.600630 kJ/mol
       From worker 3:	
       From worker 3:		results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc211_meta_functionalized_N-NH_pbesol_relax.cif_298.000K_0.0100000bar_UFF_50000burn_50000sample.jld2
