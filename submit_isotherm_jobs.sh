@@ -9,7 +9,7 @@ do
 	    mkdir ./simulated_isotherm_data/$xtal
     fi
     # loop over adsorbates
-    for gas in Xe # Kr Ar
+    for gas in Kr Ar # Xe
     do 
         # loop over forcefields
         for ljff in UFF # Dreiding
