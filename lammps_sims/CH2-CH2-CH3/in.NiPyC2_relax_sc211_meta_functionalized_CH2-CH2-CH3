@@ -10,8 +10,8 @@ dihedral_style  harmonic
 improper_style  fourier
 
 pair_modify     tail yes mix arithmetic
-special_bonds   lj/coul 0.0 0.0 1.0
 dielectric      1.0
+special_bonds   lj/coul 0.0 0.0 1.0
 box tilt        large
 read_data       data.NiPyC2_relax_sc211_meta_functionalized_CH2-CH2-CH3
 
@@ -28,6 +28,10 @@ variable        prev_E     equal 50000.00
 variable        iter       loop 100000
 label           loop_min
 min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+unfix           1
+min_style       fire
 variable        tempstp    equal $(step)
 variable        CellMinStep equal ${tempstp}
 minimize        1.0e-15 1.0e-15 10000 100000

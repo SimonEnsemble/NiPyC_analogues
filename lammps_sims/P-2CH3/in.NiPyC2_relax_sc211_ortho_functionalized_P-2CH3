@@ -9,9 +9,9 @@ angle_style     hybrid fourier cosine/periodic
 dihedral_style  harmonic
 improper_style  fourier
 
+special_bonds   lj/coul 0.0 0.0 1.0
 pair_modify     tail yes mix arithmetic
 dielectric      1.0
-special_bonds   lj/coul 0.0 0.0 1.0
 box tilt        large
 read_data       data.NiPyC2_relax_sc211_ortho_functionalized_P-2CH3
 
