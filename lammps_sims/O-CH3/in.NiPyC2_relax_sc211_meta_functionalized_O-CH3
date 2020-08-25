@@ -10,8 +10,8 @@ dihedral_style  harmonic
 improper_style  fourier
 
 special_bonds   lj/coul 0.0 0.0 1.0
-dielectric      1.0
 pair_modify     tail yes mix arithmetic
+dielectric      1.0
 box tilt        large
 read_data       data.NiPyC2_relax_sc211_meta_functionalized_O-CH3
 
