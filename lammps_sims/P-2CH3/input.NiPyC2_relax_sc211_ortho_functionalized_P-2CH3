@@ -21,13 +21,13 @@ group           fram     id   1:172
 
 dump            NiPyC2_relax_sc211_ortho_functionalized_P-2CH3_xyzmov all xyz 20000 NiPyC2_relax_sc211_ortho_functionalized_P-2CH3_mov.xyz
 dump_modify     NiPyC2_relax_sc211_ortho_functionalized_P-2CH3_xyzmov element Ni O N C H P C
-min_style       cg
+min_style       fire
 print           "MinStep,CellMinStep,AtomMinStep,FinalStep,Energy,EDiff,vol,lx,ly,lz,xy,xz,yz" file NiPyC2_relax_sc211_ortho_functionalized_P-2CH3.min.csv screen no
 variable        min_eval   equal 1.00e-06
 variable        prev_E     equal 50000.00
 variable        iter       loop 100000
 label           loop_min
-min_style       cg
+min_style       fire
 variable        tempstp    equal $(step)
 variable        CellMinStep equal ${tempstp}
 minimize        1.0e-15 1.0e-15 10000 100000
