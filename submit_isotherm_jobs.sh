@@ -9,13 +9,13 @@ do
 	    mkdir ./simulated_isotherm_data/$xtal
     fi
     # loop over adsorbates
-    for gas in Kr Ar Xe
+    for gas in Xe #Kr Ar Xe
     do 
         # loop over forcefields
         for ljff in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $ljff"
-            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 8 \
+            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 16 \
                    -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.o" \
                    -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.e" \
                    --export=xtal="$xtal",gas="$gas",ljff="$ljff" gcmc_submit.sh
