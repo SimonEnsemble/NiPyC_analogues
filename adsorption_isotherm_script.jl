@@ -40,10 +40,10 @@ n_burn_cycles = 50000
 # equation_of_state = :PengRobinson
 
 ## assign sim output to a variable
-# adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff, 
-#                                       n_burn_cycles=n_burn_cycles, 
-#                                       n_sample_cycles=n_sample_cycles,
-#                                       calculate_density_grid=true)
+adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff, 
+                                      n_burn_cycles=n_burn_cycles, 
+                                      n_sample_cycles=n_sample_cycles,
+                                      calculate_density_grid=false)
 
 
-henry_result = henry_coefficient(xtal, mol, temp, ljff; insertions_per_volume=500)
+# henry_result = henry_coefficient(xtal, mol, temp, ljff; insertions_per_volume=500)
