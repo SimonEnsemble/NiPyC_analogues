@@ -4,7 +4,7 @@ using PorousMaterials
 @info PorousMaterials.PATH_TO_DATA
 
 ## post QE relaxation .cif file location
-@eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
+# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
 # @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("..", "structural_relaxation", "post-relaxation_cifs")
 @info PorousMaterials.PATH_TO_CRYSTALS
 
@@ -43,7 +43,7 @@ n_burn_cycles = 50000
 adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff, 
                                       n_burn_cycles=n_burn_cycles, 
                                       n_sample_cycles=n_sample_cycles,
-                                      calculate_density_grid=false)
+                                      calculate_density_grid=true)
 
 
 # henry_result = henry_coefficient(xtal, mol, temp, ljff; insertions_per_volume=500)
