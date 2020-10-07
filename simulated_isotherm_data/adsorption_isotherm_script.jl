@@ -1,5 +1,5 @@
 using PorousMaterials
-## define path to data folder
+## define path to data folder (absolute path on hpc)
 @eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
 @info PorousMaterials.PATH_TO_DATA
 
@@ -27,10 +27,10 @@ mol = Molecule(adsorbate)
 ljff = LJForceField(ffield, mixing_rules="Lorentz-Berthelot")
 temp =  298.0 # K
 
-# pmin = -2   # in log10, units: bar
-# pmax = 1.1  # value of max pressure (actual value), units: bar
-# nsteps = 15 # number of pressure intervals to split range
-# pressures = 10 .^ range(pmin, stop=log10(pmax), length=nsteps) # bar
+pmin = -2   # in log10, units: bar
+pmax = 1.1  # value of max pressure (actual value), units: bar
+nsteps = 15 # number of pressure intervals to split range
+pressures = 10 .^ range(pmin, stop=log10(pmax), length=nsteps) # bar
 
 n_sample_cycles = 50000 
 n_burn_cycles = 50000
@@ -40,25 +40,25 @@ n_burn_cycles = 50000
 # equation_of_state = :PengRobinson
 
 ## assign sim output to a variable
-# adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff, 
-#                                      n_burn_cycles=n_burn_cycles, 
-#                                      n_sample_cycles=n_sample_cycles,
-#                                      calculate_density_grid=true)
+adsorption_data = adsorption_isotherm(xtal, mol, temp, pressures, ljff, 
+                                      n_burn_cycles=n_burn_cycles, 
+                                      n_sample_cycles=n_sample_cycles,
+                                      calculate_density_grid=true)
 
 
 # henry_result = henry_coefficient(xtal, mol, temp, ljff; insertions_per_volume=500)
 
-# run density grid calculations over the xtal unit cell
-if xtal.name == "NiPyC2_experiment.cif"
-    reps = (2, 2, 2)
-else
-    reps = (1, 2, 2)
-end
-xtal = replicate(xtal, reps)
-press = 1.1 # bar
-gcmc_results = μVT_sim(xtal, mol, temp, press, ljff, 
-                 n_burn_cycles=n_burn_cycles,
-                 n_sample_cycles=n_sample_cycles,
-                 calculate_density_grid=true,
-                 density_grid_dx=0.1,
-                 density_grid_sim_box=false) 
+##  run density grid calculations over the xtal unit cell
+#if xtal.name == "NiPyC2_experiment.cif"
+#    reps = (2, 2, 2)
+#else
+#    reps = (1, 2, 2)
+#end
+#xtal = replicate(xtal, reps)
+#press = 1.1 # bar
+#gcmc_results = μVT_sim(xtal, mol, temp, press, ljff, 
+#                 n_burn_cycles=n_burn_cycles,
+#                 n_sample_cycles=n_sample_cycles,
+#                 calculate_density_grid=true,
+#                 density_grid_dx=0.1,
+#                 density_grid_sim_box=false) 
