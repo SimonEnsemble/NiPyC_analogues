@@ -3,7 +3,16 @@ using LightGraphs
 using Printf
 @eval PorousMaterials PATH_TO_CRYSTALS = joinpath(pwd(), "component_frameworks")
 
-filename = "NiPyC2.cif"
+if ARGS == []
+    error("Need to specify desired crystal filename as a command line argument.\n")
+elseif length(ARGS) != 1
+    error("Too many arguments passed. Only specify crystal filename.\n")
+else
+    filename = ARGS[1]
+end
+
+
+# filename = "NiPyC2.cif"
 structure_name = split(filename, ".")[1]
 f = Crystal(filename)
 strip_numbers_from_atom_labels!(f)
@@ -15,12 +24,11 @@ bonding_rules = [BondingRule(:H, :*, 0.4, 1.2),
                  BondingRule(:*, :*, 0.4, 1.9)]
 
 rep_factors = (4, 4, 4)
-
 f_replicated = replicate(f, rep_factors)
-
 infer_bonds!(f_replicated, true, bonding_rules)
-write_xyz(Cart(f_replicated.atoms, f_replicated.box), "rep_NiPyC2_atoms.xyz") # Cart(atoms_f, box)
-write_bond_information(f_replicated, "rep_NiPyC2_bonds.vtk")
+
+write_xyz(Cart(f_replicated.atoms, f_replicated.box), "rep_" * structure_name * "_atoms.xyz") # Cart(atoms_f, box)
+write_bond_information(f_replicated, "rep_" * structure_name * "_bonds.vtk")
 
 conn_comps = connected_components(f_replicated.bonds)
 
@@ -50,8 +58,10 @@ for (comp_num, component) in enumerate(conn_comps)
     charges_xf = Frac(charges_xf) # turn charge Array into type Frac
     
     comp_name = @sprintf("%s_comp%d", structure_name, comp_num)
-    comp_f = Crystal(comp_name, f_replicated.box, Atoms(atoms_species, atoms_xf),
-                       Charges(charges_q, charges_xf))
+    comp_f = Crystal(structure_name * comp_name, 
+                     f_replicated.box, 
+                     Atoms(atoms_species, atoms_xf), 
+                     Charges(charges_q, charges_xf))
 
     # not bonding across periodic boundaries so it is easier to see
     infer_bonds!(comp_f, false, bonding_rules)
