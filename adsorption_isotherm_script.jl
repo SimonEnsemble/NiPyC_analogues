@@ -1,13 +1,10 @@
 using PorousMaterials
-
-#set_path_to_data(joinpath(pwd(), "..", "data"))
-
 ## define path to data folder (absolute path on hpc)
-#@eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
+@eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
 @info PorousMaterials.PATH_TO_DATA
 
 ## post QE relaxation .cif file location
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
+@eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
 # @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("..", "structural_relaxation", "post-relaxation_cifs")
 #@eval PorousMaterials PATH_TO_CRYSTALS = joinpath(PorousMaterials.PATH_TO_DATA, "crystals", "tmp_xtal")
 @info PorousMaterials.PATH_TO_CRYSTALS
