@@ -23,7 +23,8 @@ bonding_rules = [BondingRule(:H, :*, 0.4, 1.2),
                  BondingRule(:O, :Ni, 0.4, 2.5),
                  BondingRule(:*, :*, 0.4, 1.9)]
 
-rep_factors = (4, 4, 4)
+#rep_factors = (4, 4, 4)
+rep_factors = (2, 2, 2)
 f_replicated = replicate(f, rep_factors)
 infer_bonds!(f_replicated, true, bonding_rules)
 
