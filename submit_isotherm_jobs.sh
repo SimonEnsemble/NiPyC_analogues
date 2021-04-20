@@ -13,7 +13,7 @@ do
         for ljff in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $ljff"
-            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 16 \
+            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 32 \
                    --mail-type=ALL --mail-user=gantzlen \
                    -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.o" \
                    -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.e" \
