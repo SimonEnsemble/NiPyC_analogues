@@ -30,7 +30,7 @@ pmin   = -3   # in log10, units: bar
 pmax   = 1.0  # value of max pressure (actual value), units: bar
 nsteps = 25   # number of pressure intervals to split range
 
-sim_params = Dict("xtal"        => Crystal(crystal; remove_duplicates=true),
+sim_params = Dict("xtal"        => Crystal(crystal, remove_duplicates=true),
                   "molecule"    => Molecule(adsorbate),
                   "temperature" => 298.0,
                   "pressures"   => 10 .^ range(pmin, stop=pmax, length=nsteps),
@@ -39,9 +39,8 @@ sim_params = Dict("xtal"        => Crystal(crystal; remove_duplicates=true),
 
 strip_numbers_from_atom_labels!(sim_params["xtal"])
 
-kwargs = Dict("n_burn_cycles"   => 50000, 
-              "n_sample_cycles" => 50000,
-              "calculate_density_grid" => false
+kwargs = Dict(:n_burn_cycles   => 50000, 
+              :n_sample_cycles => 50000
              )
 
 ###
