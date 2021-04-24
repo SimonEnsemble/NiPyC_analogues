@@ -33,7 +33,7 @@ nsteps = 25   # number of pressure intervals to split range
 sim_params = Dict("xtal"        => Crystal(crystal, remove_duplicates=true),
                   "molecule"    => Molecule(adsorbate),
                   "temperature" => 298.0,
-                  "pressures"   => 10 .^ range(pmin, stop=pmax, length=nsteps),
+                  "pressures"   => 10 .^ range(pmin, stop=log10(pmax), length=nsteps),
                   "ljff"        => LJForceField(ffield)
                  )
 
