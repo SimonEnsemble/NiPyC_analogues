@@ -70,7 +70,8 @@ if kwargs[:calculate_density_grid]
 
     # write xyz and vtk for plotting
     file_path = joinpath(pwd(), "figures/grid_images")
-    write_xyz(sim_params["xtal"].atoms, file_path * split(crystal, ".")[1] * "_222grid")
+    atoms_c = Cart(sim_params["xtal"].atoms, sim_params["xtal"].box)
+    write_xyz(atoms_c, file_path * split(crystal, ".")[1] * "_222grid")
     write_vtk(sim_params["xtal"].box, file_path * split(crystal, ".")[1] * "_222grid")
 end
 

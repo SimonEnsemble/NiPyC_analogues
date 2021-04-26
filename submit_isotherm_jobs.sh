@@ -5,7 +5,7 @@ module load slurm
 for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
     # make output directory if it doesn't exist
-    mkdir -p ./simulated_isotherm_data/$xtal
+    mkdir -p ./data/simulation_logs/$xtal
     # loop over adsorbates
     for gas in Xe #Kr Ar Xe
     do 
@@ -13,10 +13,10 @@ do
         for ljff in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $ljff"
-            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 16 \
+            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 32 \
                    --mail-type=ALL --mail-user=gantzlen \
-                   -o ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.o" \
-                   -e ./simulated_isotherm_data/$xtal/"$xtal-$gas-$ljff.e" \
+                   -o ./data/simulation_logs/$xtal/"$xtal-$gas-$ljff.o" \
+                   -e ./data/simulation_logs/$xtal/"$xtal-$gas-$ljff.e" \
                    --export=xtal="$xtal",gas="$gas",ljff="$ljff" gcmc_submit.sh
         done
     done
