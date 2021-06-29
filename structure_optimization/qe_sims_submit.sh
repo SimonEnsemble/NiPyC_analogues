@@ -6,7 +6,7 @@
 ###
 
 module load intel/19
-module load qe/6.6
+module load qe/6.5
 which mpiexec
 which pw.x
 export OMP_NUM_THREADS=1 
