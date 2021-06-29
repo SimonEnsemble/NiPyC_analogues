@@ -1,0 +1,63 @@
+log             log.sample_file append
+units           real
+atom_style      full             ### includes: bonds, angles, dihedrals, impropers, and charge
+boundary        p p p            ### periodic in x, y, z
+
+###### DEFINE INTERACTIONS AND ENERGY PARAMTERS ######
+pair_style      lj/cut 12.500    ### LJ without Coulombic pairwise interaction and 12.5 ang cutoff
+bond_style      harmonic         ### use harmonic function for bond length energy term
+angle_style     cosine/periodic  ### use first-order cosine expansion for in-plain angle bend term
+dihedral_style  harmonic         ### use harmonic function for dihedral energy term
+improper_style  fourier          ### use fourier cosine expansion for improper angel energy term
+
+dielectric      1.0                  ### dielectric constant of a vacuum
+pair_modify     tail yes mix arithmetic   ### add long-range tail correction to the energy and pressure with arithmatic mixing rules
+special_bonds   lj/coul 0.0 0.0 1.0  ### non-bonded LJ or Coulombic interaction between the pairs of perminantly bonded atoms should be weighting
+box tilt        large                ### tilt keyword allows simulation domains to be created with arbitrary tilt factors with no limit (large)
+read_data       data.NiPyC2_relax_sc211_ortho_functionalized_F  ### create simbox from data file
+
+#### Atom Groupings ####
+group           fram     id   1:1296
+#### END Atom Groupings ####
+
+###### SIMULATION STEPS AND OUTPUT ######
+dump            NiPyC2_relax_sc211_ortho_functionalized_F_xyzmov all xyz 20000 NiPyC2_relax_sc211_ortho_functionalized_F_mov.xyz
+dump_modify     NiPyC2_relax_sc211_ortho_functionalized_F_xyzmov element Ni O N C H F
+min_style       cg                                    ### use Polak-Ribiere conjugate gradient algorithm
+print           "MinStep,CellMinStep,AtomMinStep,FinalStep,Energy,EDiff" file NiPyC2_relax_sc211_ortho_functionalized_F.min.csv screen no
+variable        min_eval   equal 1.00e-06
+variable        prev_E     equal 50000.00
+variable        iter       loop 100000
+label           loop_min
+min_style       cg                                    ### use Polak-Ribiere conjugate gradient algorithm
+# fix             1 all box/relax aniso 0.0 vmax 0.01 ### allow box volume to change due to specified external pressure 
+minimize        1.0e-15 1.0e-15 10000 100000          ### do energy minimizationby by adjusting atom coordinates until etol ftol maxiter maxeval
+# unfix           1                                   ### turn off previous fix command
+min_style       fire                                  ### a damped dynamics method, velocity of each atom is initialized to 0.0
+variable        tempstp    equal $(step)
+variable        CellMinStep equal ${tempstp}
+minimize        1.0e-15 1.0e-15 10000 100000
+variable        AtomMinStep equal ${tempstp}
+variable        temppe     equal $(pe)
+variable        min_E      equal abs(${prev_E}-${temppe})
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_F.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+next            iter
+jump            SELF loop_min
+label           break_min
+undump          NiPyC2_relax_sc211_ortho_functionalized_F_xyzmov  ## Turn off/close previously defined dump 
+
+# Dump last snapshot for restart
+variable curr_lx equal lx
+variable curr_ly equal ly
+variable curr_lz equal lz
+change_box all x final 0 ${curr_lx} y final 0 ${curr_ly} z final 0 ${curr_lz}  ### this is where the final box is defined
+
+reset_timestep 0
+dump            NiPyC2_relax_sc211_ortho_functionalized_F_restart all atom 1 NiPyC2_relax_sc211_ortho_functionalized_F_restart.lammpstrj
+dump_modify     NiPyC2_relax_sc211_ortho_functionalized_F_restart scale no sort id   ### scale => atom pos are written in absolute distance units e.g. ang; sort id means sort the output by atom ID
+run 0
+undump          NiPyC2_relax_sc211_ortho_functionalized_F_restart 
+
+### Consider including dump_vtk or dump_modify ID all vtk 20000 NiPyC2_relax_sc211_ortho_functionalized_F_mov.vtk (or something like this).

@@ -1,0 +1,2 @@
+- `./pseudo` contains the pseudopotential files used for the DFT calculations
+- `./QE_input_scripts` contains the input scripts used for DFT calculations.
