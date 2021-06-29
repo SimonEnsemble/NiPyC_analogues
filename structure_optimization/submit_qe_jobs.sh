@@ -20,6 +20,4 @@ do
            -e /nfs/hpc/share/gantzlen/"$pw_sim_name.err" \
            --export=pw_input_filename="$pw_input_filename" qe_sims_submit.sh
 done
-
-## use -p mime5 to run priority on simon-grp portion of the cluster 
-##  --cpus-per-task=1 
+##  --cpus-per-task=1 is the default 
