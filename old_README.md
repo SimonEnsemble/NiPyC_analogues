@@ -6,6 +6,6 @@
 The directories NiPyC2_experimental, NiPyC2_relax, and NiPyC2_vc-relax are populated with 2x1x1 replicated and functionalized versions of their respective `.cif` files. The replication is done so that we can get a larger sampling to the randomized position of the functional group while not being so large that the DFT calculations take too long to converge.
 
 ## Resources:
-https://pubs.acs.org/doi/full/10.1021/jacs.6b10455 xtal downloaded from here and the DMF solvent was deleted via cutting out lines of the .cif
+https://pubs.acs.org/doi/full/10.1021/jacs.6b10455 xtal downloaded from here and the DMF solvent was deleted via cutting out lines of the `.cif`
 
-https://pubs.acs.org/doi/full/10.1021/cg300274n SBMOF-1 downloaded from here, cg300274n_si_003.cif (14.66 kb), corresponding to the activated structure. (there are two, one activated, one not).
+https://pubs.acs.org/doi/full/10.1021/cg300274n SBMOF-1 downloaded from here, `cg300274n_si_003.cif` (14.66 kb), corresponding to the activated structure. (there are two, one activated, one not).
