@@ -2,14 +2,9 @@ using PorousMaterials
 ###
 #  Define paths
 ###
-@eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
-@info PorousMaterials.PATH_TO_DATA
-
-## post QE relaxation .cif file location
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("..", "structural_relaxation", "post-relaxation_cifs")
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath(PorousMaterials.PATH_TO_DATA, "crystals", "tmp_xtal")
+@info PorousMaterials.PATH_TO_DATA 
 @info PorousMaterials.PATH_TO_CRYSTALS
+
 
 ###
 #  Read command line arguments: name of - crystal structure, adsorbate, and forcefield
@@ -41,7 +36,7 @@ strip_numbers_from_atom_labels!(sim_params["xtal"])
 
 kwargs = Dict(:n_burn_cycles   => 50000, 
               :n_sample_cycles => 50000,
-              :calculate_density_grid => true,
+              :calculate_density_grid => false,
               :density_grid_sim_box   => false
              )
 
@@ -69,7 +64,7 @@ if kwargs[:calculate_density_grid]
     sim_params["xtal"] = replicate(sim_params["xtal"], reps[crystal])
 
     # write xyz and vtk for plotting
-    file_path = joinpath(pwd(), "figures/grid_images")
+    file_path = joinpath(pwd(), "../analysis/grid_images")
     atoms_c = Cart(sim_params["xtal"].atoms, sim_params["xtal"].box)
     write_xyz(atoms_c, file_path * split(crystal, ".")[1] * "_222grid")
     write_vtk(sim_params["xtal"].box, file_path * split(crystal, ".")[1] * "_222grid")
