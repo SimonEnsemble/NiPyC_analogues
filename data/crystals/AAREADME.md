@@ -1,7 +1,7 @@
 This directory contains the `.cif` files of both experimental and predicted MOFs used in the study.
 
 ## Experimental structures
-`NiPyC2.cif` # obtained from:
+`NiPyC2.cif` # obtained from: https://doi.org/10.1021/jacs.6b10455
 `NiPyC2_experiment.cif` # copy of `NiPyC2.cif` with solvent manually removed
 
 #### possible topologies of Ni(PyC-m-NH2)2 
