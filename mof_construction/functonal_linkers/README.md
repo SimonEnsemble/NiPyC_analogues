@@ -4,6 +4,6 @@ number of steps: 10000
 Algorithm: Steepest Descent
 Convergence: 10e-7
 
-The filename convention is "Linker_FunctionalGroup_CarbonPosition_fragment.xyz" were Linker is the name or abreviation of the linker, FunctionalGroup is the element or molecule attached to a carbon, and CarbonPositon references the type of carbon that the molecule is attached to (i.e. ortho meta para). If fragment is present :wq
+The filename convention is `parent-linker_functional-group_substitution-position_fragment.xyz` were the "parent-linker" is the name or abreviation of the linker, "functional-group" is the element or molecule attached to a carbon, and "sunstitution-positon" references the type of carbon that the molecule is attached to (i.e. ortho meta para). If fragment is present.
 
-For example: "PyC_NH2_ortho_fragment.xyz" is a fragment of a Pyc aromatic ring with an NH2 group functionalized to the ortho Carbon w.r.t. the Nitrogen.
+For example: `PyC_NH2_ortho_fragment.xyz` is a fragment of a pyradine aromatic ring with an NH2 group functionalized to the ortho Carbon w.r.t. the Nitrogen.

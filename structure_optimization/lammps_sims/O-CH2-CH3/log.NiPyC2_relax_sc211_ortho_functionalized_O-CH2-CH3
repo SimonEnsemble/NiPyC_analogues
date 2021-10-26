@@ -1,0 +1,2181 @@
+units           real
+atom_style      full
+boundary        p p p
+
+pair_style      lj/cut 5.000
+bond_style      harmonic
+angle_style     hybrid fourier cosine/periodic
+dihedral_style  harmonic
+improper_style  fourier
+
+pair_modify     tail yes mix arithmetic
+dielectric      1.0
+special_bonds   lj/coul 0.0 0.0 1.0
+box tilt        large
+read_data       data.NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3
+  triclinic box = (0 0 0) to (12.5056 12.5234 10.2743) with tilt (0 -0.227594 0)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  164 atoms
+  scanning bonds ...
+  6 = max bonds/atom
+  scanning angles ...
+  15 = max angles/atom
+  scanning dihedrals ...
+  9 = max dihedrals/atom
+  scanning impropers ...
+  3 = max impropers/atom
+  reading bonds ...
+  184 bonds
+  reading angles ...
+  348 angles
+  reading dihedrals ...
+  368 dihedrals
+  reading impropers ...
+  168 impropers
+  6 = max # of 1-2 neighbors
+  9 = max # of 1-3 neighbors
+  12 = max # of special neighbors
+  special bonds CPU = 0.00016255 secs
+  read_data CPU = 0.00440112 secs
+
+#### Atom Groupings ####
+group           fram     id   1:164
+164 atoms in group fram
+#### END Atom Groupings ####
+
+dump            NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_xyzmov all xyz 20000 NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_mov.xyz
+dump_modify     NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_xyzmov element Ni O N C H O C
+min_style       cg
+print           "MinStep,CellMinStep,AtomMinStep,FinalStep,Energy,EDiff" file NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+variable        min_eval   equal 1.00e-06
+variable        prev_E     equal 50000.00
+variable        iter       loop 100000
+label           loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7
+  ghost atom cutoff = 7
+  binsize = 3.5, bins = 4 4 3
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton/tri
+      stencil: half/bin/3d/newton/tri
+      bin: standard
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+       0            0 1.7153036e+09    2375.8801 1.715306e+09 2.9238203e+11    1609.0819 
+     459            0    174.79668    1801.4706    1976.2673    603.97533    1714.1747 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.189227 on 1 procs for 459 steps with 164 atoms
+
+99.2% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+            1715305975      1976.26731017      1976.26731017
+  Force two-norm initial, final = 6.24034e+10 72.4478
+  Force max component initial, final = 2.90446e+10 41.9897
+  Final line search alpha, max atom move = 1.83604e-12 7.70949e-11
+  Iterations, force evaluations = 459 774
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.094163   | 0.094163   | 0.094163   |   0.0 | 49.76
+Bond    | 0.055573   | 0.055573   | 0.055573   |   0.0 | 29.37
+Neigh   | 0.015439   | 0.015439   | 0.015439   |   0.0 |  8.16
+Comm    | 0.0054956  | 0.0054956  | 0.0054956  |   0.0 |  2.90
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01856    |            |       |  9.81
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1587 ave 1587 max 1587 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10643 ave 10643 max 10643 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10643
+Ave neighs/atom = 64.8963
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 23
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 459
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 459
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     459            0    174.79668    1801.4706    1976.2673    603.97533 
+    6320 1.3466802e-10    108.67527    1721.7055    1830.3808   -15888.628 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 1.09142 on 1 procs for 5861 steps with 164 atoms
+
+99.5% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1976.26731017      1830.38077908      1830.38077908
+  Force two-norm initial, final = 53.5488 4.70638e-05
+  Force max component initial, final = 16.6722 7.80685e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 5861 5861
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.66104    | 0.66104    | 0.66104    |   0.0 | 60.57
+Bond    | 0.35999    | 0.35999    | 0.35999    |   0.0 | 32.98
+Neigh   | 0.0069654  | 0.0069654  | 0.0069654  |   0.0 |  0.64
+Comm    | 0.035774   | 0.035774   | 0.035774   |   0.0 |  3.28
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.02765    |            |       |  2.53
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1564 ave 1564 max 1564 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10622 ave 10622 max 10622 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10622
+Ave neighs/atom = 64.7683
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 9
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 459
+variable        temppe     equal $(pe)
+variable        temppe     equal 1830.3807790751836819
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(50000-${temppe})
+variable        min_E      equal abs(50000-1830.38077907518)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1830.38077907518
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    6320 1.3466802e-10    108.67527    1721.7055    1830.3808   -15888.628    1714.1747 
+    6347 1.3466802e-10    133.71605    1687.3687    1821.0847   -487.08024    1679.5006 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0239695 on 1 procs for 27 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1830.38077908      1821.08470405      1821.08470405
+  Force two-norm initial, final = 802.725 51.8685
+  Force max component initial, final = 600.484 30.3872
+  Final line search alpha, max atom move = 2.41276e-12 7.33168e-11
+  Iterations, force evaluations = 27 107
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.013358   | 0.013358   | 0.013358   |   0.0 | 55.73
+Bond    | 0.0074264  | 0.0074264  | 0.0074264  |   0.0 | 30.98
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00067869 | 0.00067869 | 0.00067869 |   0.0 |  2.83
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.002506   |            |       | 10.46
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1566 ave 1566 max 1566 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10620 ave 10620 max 10620 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10620
+Ave neighs/atom = 64.7561
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 6347
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 6347
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+    6347            0    133.71605    1687.3687    1821.0847   -487.08024 
+    9249 1.0517134e-10    122.64087    1695.6034    1818.2443   -5015.1114 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.546311 on 1 procs for 2902 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1821.08470405        1818.244314        1818.244314
+  Force two-norm initial, final = 37.7693 3.6953e-05
+  Force max component initial, final = 10.7997 5.59995e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2902 2902
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.33635    | 0.33635    | 0.33635    |   0.0 | 61.57
+Bond    | 0.17841    | 0.17841    | 0.17841    |   0.0 | 32.66
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.017836   | 0.017836   | 0.017836   |   0.0 |  3.26
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01371    |            |       |  2.51
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1578 ave 1578 max 1578 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10846 ave 10846 max 10846 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10846
+Ave neighs/atom = 66.1341
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 6347
+variable        temppe     equal $(pe)
+variable        temppe     equal 1818.244314000592567
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1830.38077907518-${temppe})
+variable        min_E      equal abs(1830.38077907518-1818.24431400059)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1818.24431400059
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+    9249 1.0517134e-10    122.64087    1695.6034    1818.2443   -5015.1114    1679.5006 
+    9257 1.0517134e-10    131.29674    1686.1862    1817.4829   -59.655115    1671.3737 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0151923 on 1 procs for 8 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+           1818.244314      1817.48294926      1817.48294926
+  Force two-norm initial, final = 303.2 32.6638
+  Force max component initial, final = 215.747 15.8423
+  Final line search alpha, max atom move = 8.5826e-12 1.35968e-10
+  Iterations, force evaluations = 8 67
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0085976  | 0.0085976  | 0.0085976  |   0.0 | 56.59
+Bond    | 0.0045891  | 0.0045891  | 0.0045891  |   0.0 | 30.21
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00044575 | 0.00044575 | 0.00044575 |   0.0 |  2.93
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.00156    |            |       | 10.27
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1586 ave 1586 max 1586 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10853 ave 10853 max 10853 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10853
+Ave neighs/atom = 66.1768
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 9257
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 9257
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+    9257            0    131.29674    1686.1862    1817.4829   -59.655115 
+   11389 1.1880634e-10    126.77958    1690.2189    1816.9985    -2226.226 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.404431 on 1 procs for 2132 steps with 164 atoms
+
+99.5% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1817.48294926      1816.99846669      1816.99846669
+  Force two-norm initial, final = 24.5977 3.38999e-05
+  Force max component initial, final = 3.85657 9.86577e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2132 2132
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.24842    | 0.24842    | 0.24842    |   0.0 | 61.42
+Bond    | 0.13209    | 0.13209    | 0.13209    |   0.0 | 32.66
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.013711   | 0.013711   | 0.013711   |   0.0 |  3.39
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01022    |            |       |  2.53
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1586 ave 1586 max 1586 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10915 ave 10915 max 10915 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10915
+Ave neighs/atom = 66.5549
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 9257
+variable        temppe     equal $(pe)
+variable        temppe     equal 1816.9984666933598874
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1818.24431400059-${temppe})
+variable        min_E      equal abs(1818.24431400059-1816.99846669336)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1816.99846669336
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   11389 1.1880634e-10    126.77958    1690.2189    1816.9985    -2226.226    1671.3737 
+   11391 1.1880634e-10    129.62098     1687.234     1816.855    466.22227    1668.8094 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0124818 on 1 procs for 2 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1816.99846669      1816.85496155      1816.85496155
+  Force two-norm initial, final = 192.523 47.5904
+  Force max component initial, final = 134.298 31.1792
+  Final line search alpha, max atom move = 5.10133e-12 1.59055e-10
+  Iterations, force evaluations = 2 55
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0070252  | 0.0070252  | 0.0070252  |   0.0 | 56.28
+Bond    | 0.0037949  | 0.0037949  | 0.0037949  |   0.0 | 30.40
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00035413 | 0.00035413 | 0.00035413 |   0.0 |  2.84
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001308   |            |       | 10.48
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1592 ave 1592 max 1592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10928 ave 10928 max 10928 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10928
+Ave neighs/atom = 66.6341
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 11391
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 11391
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   11391            0    129.62098     1687.234     1816.855    466.22227 
+   13506 1.5281217e-10    128.16464    1688.5603    1816.7249   -1378.2014 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.398398 on 1 procs for 2115 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1816.85496155      1816.72490043      1816.72490043
+  Force two-norm initial, final = 13.9439 3.99387e-05
+  Force max component initial, final = 2.36267 9.20437e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2115 2115
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.24517    | 0.24517    | 0.24517    |   0.0 | 61.54
+Bond    | 0.13       | 0.13       | 0.13       |   0.0 | 32.63
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.013091   | 0.013091   | 0.013091   |   0.0 |  3.29
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01014    |            |       |  2.54
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1592 ave 1592 max 1592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10942 ave 10942 max 10942 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10942
+Ave neighs/atom = 66.7195
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 11391
+variable        temppe     equal $(pe)
+variable        temppe     equal 1816.7249004293951202
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1816.99846669336-${temppe})
+variable        min_E      equal abs(1816.99846669336-1816.7249004294)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1816.7249004294
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   13506 1.5281217e-10    128.16464    1688.5603    1816.7249   -1378.2014    1668.8094 
+   13508 1.5281217e-10    130.11795    1686.4877    1816.6056    351.73962    1667.1703 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0124548 on 1 procs for 2 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1816.72490043      1816.60561703      1816.60561703
+  Force two-norm initial, final = 162.327 38.255
+  Force max component initial, final = 105.38 26.8592
+  Final line search alpha, max atom move = 6.78094e-12 1.82131e-10
+  Iterations, force evaluations = 2 55
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0069839  | 0.0069839  | 0.0069839  |   0.0 | 56.07
+Bond    | 0.0037852  | 0.0037852  | 0.0037852  |   0.0 | 30.39
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00034304 | 0.00034304 | 0.00034304 |   0.0 |  2.75
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001343   |            |       | 10.78
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1592 ave 1592 max 1592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10948 ave 10948 max 10948 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10948
+Ave neighs/atom = 66.7561
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 13508
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 13508
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   13508            0    130.11795    1686.4877    1816.6056    351.73962 
+   15682 1.1777526e-10    129.20241    1687.2977    1816.5001    -801.3924 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.409005 on 1 procs for 2174 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1816.60561703      1816.50008985      1816.50008985
+  Force two-norm initial, final = 12.2179 4.12005e-05
+  Force max component initial, final = 1.9293 8.86178e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2174 2174
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.25207    | 0.25207    | 0.25207    |   0.0 | 61.63
+Bond    | 0.13325    | 0.13325    | 0.13325    |   0.0 | 32.58
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.013347   | 0.013347   | 0.013347   |   0.0 |  3.26
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01034    |            |       |  2.53
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1592 ave 1592 max 1592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10960 ave 10960 max 10960 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10960
+Ave neighs/atom = 66.8293
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 13508
+variable        temppe     equal $(pe)
+variable        temppe     equal 1816.5000898496830359
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1816.7249004294-${temppe})
+variable        min_E      equal abs(1816.7249004294-1816.50008984968)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1816.50008984968
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   15682 1.1777526e-10    129.20241    1687.2977    1816.5001    -801.3924    1667.1703 
+   15684 1.1777526e-10    130.51809    1685.8859     1816.404    233.29194    1666.1908 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0122341 on 1 procs for 2 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1816.50008985      1816.40396441      1816.40396441
+  Force two-norm initial, final = 141.163 31.336
+  Force max component initial, final = 92.0523 22.5377
+  Final line search alpha, max atom move = 7.84995e-12 1.76919e-10
+  Iterations, force evaluations = 2 55
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0068428  | 0.0068428  | 0.0068428  |   0.0 | 55.93
+Bond    | 0.0037763  | 0.0037763  | 0.0037763  |   0.0 | 30.87
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00034195 | 0.00034195 | 0.00034195 |   0.0 |  2.80
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001273   |            |       | 10.41
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1592 ave 1592 max 1592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10959 ave 10959 max 10959 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10959
+Ave neighs/atom = 66.8232
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 15684
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 15684
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   15684            0    130.51809    1685.8859     1816.404    233.29194 
+   18217 1.2820984e-10    130.02905    1686.3334    1816.3624   -414.48833 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.478022 on 1 procs for 2533 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1816.40396441      1816.36243398      1816.36243398
+  Force two-norm initial, final = 10.9307 3.96853e-05
+  Force max component initial, final = 1.60543 6.63355e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2533 2533
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.29501    | 0.29501    | 0.29501    |   0.0 | 61.71
+Bond    | 0.15538    | 0.15538    | 0.15538    |   0.0 | 32.50
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.015636   | 0.015636   | 0.015636   |   0.0 |  3.27
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.012      |            |       |  2.51
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1592 ave 1592 max 1592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10959 ave 10959 max 10959 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10959
+Ave neighs/atom = 66.8232
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 15684
+variable        temppe     equal $(pe)
+variable        temppe     equal 1816.3624339777727528
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1816.50008984968-${temppe})
+variable        min_E      equal abs(1816.50008984968-1816.36243397777)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1816.36243397777
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   18217 1.2820984e-10    130.02905    1686.3334    1816.3624   -414.48833    1666.1908 
+   18222 1.2820984e-10    132.13923    1684.0383    1816.1776    1199.7149    1664.3367 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0149892 on 1 procs for 5 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1816.36243398      1816.17757418      1816.17757418
+  Force two-norm initial, final = 126.056 56.3414
+  Force max component initial, final = 91.6401 44.8719
+  Final line search alpha, max atom move = 2.08842e-12 9.37113e-11
+  Iterations, force evaluations = 5 65
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0083533  | 0.0083533  | 0.0083533  |   0.0 | 55.73
+Bond    | 0.0046117  | 0.0046117  | 0.0046117  |   0.0 | 30.77
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00044624 | 0.00044624 | 0.00044624 |   0.0 |  2.98
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001578   |            |       | 10.53
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1592 ave 1592 max 1592 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10960 ave 10960 max 10960 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10960
+Ave neighs/atom = 66.8293
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 18222
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 18222
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   18222            0    132.13923    1684.0383    1816.1776    1199.7149 
+   20360 6.6960435e-11    131.13748    1684.9844    1816.1218    326.25226 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.4108 on 1 procs for 2138 steps with 164 atoms
+
+98.9% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1816.17757418      1816.12183435      1816.12183435
+  Force two-norm initial, final = 8.96387 2.86099e-05
+  Force max component initial, final = 1.17582 9.39163e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2138 2138
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.25285    | 0.25285    | 0.25285    |   0.0 | 61.55
+Bond    | 0.13415    | 0.13415    | 0.13415    |   0.0 | 32.66
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.013348   | 0.013348   | 0.013348   |   0.0 |  3.25
+Output  | 0.00015161 | 0.00015161 | 0.00015161 |   0.0 |  0.04
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0103     |            |       |  2.51
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10972 ave 10972 max 10972 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10972
+Ave neighs/atom = 66.9024
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 18222
+variable        temppe     equal $(pe)
+variable        temppe     equal 1816.1218343494128931
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1816.36243397777-${temppe})
+variable        min_E      equal abs(1816.36243397777-1816.12183434941)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1816.12183434941
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   20360 6.6960435e-11    131.13748    1684.9844    1816.1218    326.25226    1664.3367 
+   20362 6.6960435e-11    131.07681    1684.9511    1816.0279   -71.683713    1664.7361 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0120146 on 1 procs for 2 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1816.12183435      1816.02786253      1816.02786253
+  Force two-norm initial, final = 111.61 17.8541
+  Force max component initial, final = 97.6897 13.2696
+  Final line search alpha, max atom move = 2.12612e-11 2.82127e-10
+  Iterations, force evaluations = 2 53
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.006714   | 0.006714   | 0.006714   |   0.0 | 55.88
+Bond    | 0.0036499  | 0.0036499  | 0.0036499  |   0.0 | 30.38
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00033813 | 0.00033813 | 0.00033813 |   0.0 |  2.81
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001313   |            |       | 10.92
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10973 ave 10973 max 10973 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10973
+Ave neighs/atom = 66.9085
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 20362
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 20362
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   20362            0    131.07681    1684.9511    1816.0279   -71.683713 
+   22665 1.1165758e-10    131.34906    1684.5906    1815.9397    277.52688 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.437004 on 1 procs for 2303 steps with 164 atoms
+
+99.4% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1816.02786253      1815.93969756      1815.93969756
+  Force two-norm initial, final = 8.7573 4.11139e-05
+  Force max component initial, final = 1.58263 9.59341e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2303 2303
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.26968    | 0.26968    | 0.26968    |   0.0 | 61.71
+Bond    | 0.14215    | 0.14215    | 0.14215    |   0.0 | 32.53
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.014262   | 0.014262   | 0.014262   |   0.0 |  3.26
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01091    |            |       |  2.50
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10971 ave 10971 max 10971 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10971
+Ave neighs/atom = 66.8963
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 20362
+variable        temppe     equal $(pe)
+variable        temppe     equal 1815.9396975585623295
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1816.12183434941-${temppe})
+variable        min_E      equal abs(1816.12183434941-1815.93969755856)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1815.93969755856
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   22665 1.1165758e-10    131.34906    1684.5906    1815.9397    277.52688    1664.7361 
+   22670 1.1165758e-10     132.1843    1683.6094    1815.7937    693.75389    1664.3775 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0144558 on 1 procs for 5 steps with 164 atoms
+
+98.9% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1815.93969756       1815.7936851       1815.7936851
+  Force two-norm initial, final = 102.169 32.2508
+  Force max component initial, final = 89.3428 20.5499
+  Final line search alpha, max atom move = 7.25122e-12 1.49012e-10
+  Iterations, force evaluations = 5 63
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0080816  | 0.0080816  | 0.0080816  |   0.0 | 55.91
+Bond    | 0.0044796  | 0.0044796  | 0.0044796  |   0.0 | 30.99
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00040628 | 0.00040628 | 0.00040628 |   0.0 |  2.81
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001488   |            |       | 10.30
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10974 ave 10974 max 10974 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10974
+Ave neighs/atom = 66.9146
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 22670
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 22670
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   22670            0     132.1843    1683.6094    1815.7937    693.75389 
+   24946 1.5247968e-10    131.97569    1683.7325    1815.7082    523.15142 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.434179 on 1 procs for 2276 steps with 164 atoms
+
+98.5% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+          1815.7936851      1815.70817021      1815.70817021
+  Force two-norm initial, final = 11.332 4.51078e-05
+  Force max component initial, final = 2.17494 1.13994e-05
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2276 2276
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.26779    | 0.26779    | 0.26779    |   0.0 | 61.68
+Bond    | 0.14121    | 0.14121    | 0.14121    |   0.0 | 32.52
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.014341   | 0.014341   | 0.014341   |   0.0 |  3.30
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01084    |            |       |  2.50
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10969 ave 10969 max 10969 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10969
+Ave neighs/atom = 66.8841
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 22670
+variable        temppe     equal $(pe)
+variable        temppe     equal 1815.7081702132952614
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1815.93969755856-${temppe})
+variable        min_E      equal abs(1815.93969755856-1815.7081702133)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1815.7081702133
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   24946 1.5247968e-10    131.97569    1683.7325    1815.7082    523.15142    1664.3775 
+   24950 1.5247968e-10    131.53902    1684.0907    1815.6298   -330.96297    1665.1061 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0138895 on 1 procs for 4 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1815.70817021      1815.62975804      1815.62975804
+  Force two-norm initial, final = 90.7477 20.9294
+  Force max component initial, final = 84.3891 19.5704
+  Final line search alpha, max atom move = 2.22111e-11 4.34681e-10
+  Iterations, force evaluations = 4 61
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0078494  | 0.0078494  | 0.0078494  |   0.0 | 56.51
+Bond    | 0.0041962  | 0.0041962  | 0.0041962  |   0.0 | 30.21
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00039921 | 0.00039921 | 0.00039921 |   0.0 |  2.87
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001445   |            |       | 10.40
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10974 ave 10974 max 10974 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10974
+Ave neighs/atom = 66.9146
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 24950
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 24950
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   24950            0    131.53902    1684.0907    1815.6298   -330.96297 
+   27218 1.3344061e-10    132.00161    1683.5772    1815.5788    392.27574 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.428829 on 1 procs for 2268 steps with 164 atoms
+
+98.7% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1815.62975804      1815.57881239      1815.57881239
+  Force two-norm initial, final = 6.4895 4.01386e-05
+  Force max component initial, final = 1.23998 1.09532e-05
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 2268 2268
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.26481    | 0.26481    | 0.26481    |   0.0 | 61.75
+Bond    | 0.13944    | 0.13944    | 0.13944    |   0.0 | 32.52
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.013878   | 0.013878   | 0.013878   |   0.0 |  3.24
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0107     |            |       |  2.50
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10968 ave 10968 max 10968 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10968
+Ave neighs/atom = 66.878
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 24950
+variable        temppe     equal $(pe)
+variable        temppe     equal 1815.57881239215817
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1815.7081702133-${temppe})
+variable        min_E      equal abs(1815.7081702133-1815.57881239216)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 1815.57881239216
+next            iter
+jump            SELF loop_min
+min_style       cg
+fix             1 all box/relax aniso 0.0 vmax 0.01
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+   27218 1.3344061e-10    132.00161    1683.5772    1815.5788    392.27574    1665.1061 
+   27219 1.3344061e-10    132.00161    1683.5772    1815.5788    392.27574    1665.1061 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.012552 on 1 procs for 1 steps with 164 atoms
+
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         1815.57881239      1815.57881239      1815.57881239
+  Force two-norm initial, final = 82.9603 82.9603
+  Force max component initial, final = 75.7648 75.7648
+  Final line search alpha, max atom move = 9.83382e-13 7.45058e-11
+  Iterations, force evaluations = 1 55
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0070307  | 0.0070307  | 0.0070307  |   0.0 | 56.01
+Bond    | 0.0038305  | 0.0038305  | 0.0038305  |   0.0 | 30.52
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00036968 | 0.00036968 | 0.00036968 |   0.0 |  2.95
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001321   |            |       | 10.53
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10969 ave 10969 max 10969 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10969
+Ave neighs/atom = 66.8841
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix           1
+min_style       fire
+variable        tempstp    equal $(step)
+variable        tempstp    equal 27219
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 27219
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+  Parameters for fire: 
+    dmax delaystep dtgrow dtshrink alpha0 alphashrink tmax tmin    integrator halfstepback 
+     0.1        20    1.1      0.5   0.25        0.99   10 0.02 eulerimplicit          yes 
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   27219            0    132.00161    1683.5772    1815.5788    392.27574 
+   27273 8.9937084e-11    132.00161    1683.5772    1815.5788    392.27508 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0106678 on 1 procs for 54 steps with 164 atoms
+
+99.7% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1815.57881239      1815.57881239      1815.57881239
+  Force two-norm initial, final = 4.01386e-05 3.5637e-05
+  Force max component initial, final = 1.09532e-05 9.66614e-06
+  Final line search alpha, max atom move = 0 0
+  Iterations, force evaluations = 54 54
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0065044  | 0.0065044  | 0.0065044  |   0.0 | 60.97
+Bond    | 0.0034092  | 0.0034092  | 0.0034092  |   0.0 | 31.96
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00034359 | 0.00034359 | 0.00034359 |   0.0 |  3.22
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0004106  |            |       |  3.85
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1596 ave 1596 max 1596 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10969 ave 10969 max 10969 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10969
+Ave neighs/atom = 66.8841
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 27219
+variable        temppe     equal $(pe)
+variable        temppe     equal 1815.5788123920087855
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(1815.57881239216-${temppe})
+variable        min_E      equal abs(1815.57881239216-1815.57881239201)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E}" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+jump SELF break_min
+undump          NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_xyzmov
+
+# Dump last snapshot for restart
+variable curr_lx equal lx
+variable curr_ly equal ly
+variable curr_lz equal lz
+change_box all x final 0 ${curr_lx} y final 0 ${curr_ly} z final 0 ${curr_lz}
+change_box all x final 0 15.7848367916326 y final 0 ${curr_ly} z final 0 ${curr_lz}
+change_box all x final 0 15.7848367916326 y final 0 10.7347442971356 z final 0 ${curr_lz}
+change_box all x final 0 15.7848367916326 y final 0 10.7347442971356 z final 0 9.82675477291984
+  triclinic box = (0 0.894328 0.223762) to (15.7848 11.6291 10.0505) with tilt (0 -0.217681 0)
+  triclinic box = (0 0 0.223762) to (15.7848 10.7347 10.0505) with tilt (0 -0.217681 0)
+  triclinic box = (0 0 0) to (15.7848 10.7347 9.82675) with tilt (0 -0.217681 0)
+
+reset_timestep 0
+dump            NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart all atom 1 NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart.lammpstrj
+dump_modify     NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart scale no sort id
+run 0
+WARNING: No fixes defined, atoms won't move (src/verlet.cpp:52)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.12 | 16.12 | 16.12 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0 8.9937084e-11    132.00161    1683.5772    1815.5788    392.27508 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 7.7099e-07 on 1 procs for 0 steps with 164 atoms
+
+129.7% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 7.71e-07   |            |       |100.00
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1581 ave 1581 max 1581 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    10969 ave 10969 max 10969 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 10969
+Ave neighs/atom = 66.8841
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+undump          NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart
+Total wall time: 0:00:05
+units           real
+atom_style      full
+boundary        p p p
+
+pair_style      lj/cut 5.000
+bond_style      harmonic
+angle_style     hybrid cosine/periodic fourier
+dihedral_style  harmonic
+improper_style  fourier
+
+special_bonds   lj/coul 0.0 0.0 1.0
+dielectric      1.0
+pair_modify     tail yes mix arithmetic
+box tilt        large
+read_data       data.NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3
+  triclinic box = (0 0 0) to (12.5056 12.5234 10.2743) with tilt (0 -0.227594 0)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  164 atoms
+  scanning bonds ...
+  6 = max bonds/atom
+  scanning angles ...
+  15 = max angles/atom
+  scanning dihedrals ...
+  9 = max dihedrals/atom
+  scanning impropers ...
+  3 = max impropers/atom
+  reading bonds ...
+  184 bonds
+  reading angles ...
+  348 angles
+  reading dihedrals ...
+  368 dihedrals
+  reading impropers ...
+  168 impropers
+  6 = max # of 1-2 neighbors
+  9 = max # of 1-3 neighbors
+  12 = max # of special neighbors
+  special bonds CPU = 0.000215253 secs
+  read_data CPU = 0.00804703 secs
+
+#### Atom Groupings ####
+group           fram     id   1:164
+164 atoms in group fram
+#### END Atom Groupings ####
+
+dump            NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_xyzmov all xyz 20000 NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_mov.xyz
+dump_modify     NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_xyzmov element Ni O N C H O C
+min_style       cg
+print           "MinStep,CellMinStep,AtomMinStep,FinalStep,Energy,EDiff,vol,lx,ly,lz,xy,xz,yz" file NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+variable        min_eval   equal 1.00e-06
+variable        prev_E     equal 50000.00
+variable        iter       loop 100000
+label           loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 0
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 0
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7
+  ghost atom cutoff = 7
+  binsize = 3.5, bins = 4 4 3
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton/tri
+      stencil: half/bin/3d/newton/tri
+      bin: standard
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0 1.7153036e+09    2375.8801 1.715306e+09 2.9238203e+11 
+     192            0    306.09952     2136.509    2442.6085   -30189.581 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0997273 on 1 procs for 192 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+            1715305975      2442.60848883      2442.60848883
+  Force two-norm initial, final = 6.09299e+10 20.0527
+  Force max component initial, final = 2.90446e+10 5.67744
+  Final line search alpha, max atom move = 3.02272e-11 1.71613e-10
+  Iterations, force evaluations = 192 403
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.057027   | 0.057027   | 0.057027   |   0.0 | 57.18
+Bond    | 0.027934   | 0.027934   | 0.027934   |   0.0 | 28.01
+Neigh   | 0.0089878  | 0.0089878  | 0.0089878  |   0.0 |  9.01
+Comm    | 0.0033974  | 0.0033974  | 0.0033974  |   0.0 |  3.41
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.002381   |            |       |  2.39
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1650 ave 1650 max 1650 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11419 ave 11419 max 11419 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11419
+Ave neighs/atom = 69.628
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 9
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 0
+variable        temppe     equal $(pe)
+variable        temppe     equal 2442.6084888275336198
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(50000-${temppe})
+variable        min_E      equal abs(50000-2442.60848882753)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2442.60848882753
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 192
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 192
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     192            0    306.09952     2136.509    2442.6085   -30189.581 
+     220            0    308.85216    2130.5106    2439.3627    -28736.33 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.024179 on 1 procs for 28 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2442.60848883      2439.36271536      2439.36271536
+  Force two-norm initial, final = 20.0527 14.1585
+  Force max component initial, final = 5.67744 3.75618
+  Final line search alpha, max atom move = 4.25565e-11 1.5985e-10
+  Iterations, force evaluations = 28 109
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.015127   | 0.015127   | 0.015127   |   0.0 | 62.56
+Bond    | 0.0075366  | 0.0075366  | 0.0075366  |   0.0 | 31.17
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00086415 | 0.00086415 | 0.00086415 |   0.0 |  3.57
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0006508  |            |       |  2.69
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1666 ave 1666 max 1666 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11409 ave 11409 max 11409 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11409
+Ave neighs/atom = 69.5671
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 192
+variable        temppe     equal $(pe)
+variable        temppe     equal 2439.3627153557035854
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2442.60848882753-${temppe})
+variable        min_E      equal abs(2442.60848882753-2439.3627153557)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2439.3627153557
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 220
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 220
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     220            0    308.85216    2130.5106    2439.3627    -28736.33 
+     224            0    308.75867    2130.5365    2439.2952   -28755.709 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0143591 on 1 procs for 4 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2439.36271536      2439.29519648      2439.29519648
+  Force two-norm initial, final = 14.1585 9.96588
+  Force max component initial, final = 3.75618 1.9421
+  Final line search alpha, max atom move = 9.12754e-11 1.77266e-10
+  Iterations, force evaluations = 4 63
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0090573  | 0.0090573  | 0.0090573  |   0.0 | 63.08
+Bond    | 0.004418   | 0.004418   | 0.004418   |   0.0 | 30.77
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00048202 | 0.00048202 | 0.00048202 |   0.0 |  3.36
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0004017  |            |       |  2.80
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1658 ave 1658 max 1658 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11437 ave 11437 max 11437 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11437
+Ave neighs/atom = 69.7378
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 220
+variable        temppe     equal $(pe)
+variable        temppe     equal 2439.2951964785529526
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2439.3627153557-${temppe})
+variable        min_E      equal abs(2439.3627153557-2439.29519647855)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2439.29519647855
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 224
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 224
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     224            0    308.75867    2130.5365    2439.2952   -28755.709 
+     226            0    308.79643    2130.4826     2439.279   -28710.269 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0132986 on 1 procs for 2 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2439.29519648      2439.27900765      2439.27900765
+  Force two-norm initial, final = 9.96588 7.35521
+  Force max component initial, final = 1.9421 1.78498
+  Final line search alpha, max atom move = 2.29017e-10 4.08792e-10
+  Iterations, force evaluations = 2 59
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0083216  | 0.0083216  | 0.0083216  |   0.0 | 62.57
+Bond    | 0.0041628  | 0.0041628  | 0.0041628  |   0.0 | 31.30
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00043541 | 0.00043541 | 0.00043541 |   0.0 |  3.27
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0003788  |            |       |  2.85
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1658 ave 1658 max 1658 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11436 ave 11436 max 11436 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11436
+Ave neighs/atom = 69.7317
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 224
+variable        temppe     equal $(pe)
+variable        temppe     equal 2439.2790076489536659
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2439.29519647855-${temppe})
+variable        min_E      equal abs(2439.29519647855-2439.27900764895)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2439.27900764895
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 226
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 226
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     226            0    308.79643    2130.4826     2439.279   -28710.269 
+     228            0    308.82984     2130.441    2439.2708   -28701.026 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.01391 on 1 procs for 2 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2439.27900765      2439.27081184      2439.27081184
+  Force two-norm initial, final = 7.35521 6.05823
+  Force max component initial, final = 1.78498 1.5581
+  Final line search alpha, max atom move = 2.15365e-10 3.35559e-10
+  Iterations, force evaluations = 2 59
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0087262  | 0.0087262  | 0.0087262  |   0.0 | 62.73
+Bond    | 0.0042673  | 0.0042673  | 0.0042673  |   0.0 | 30.68
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00049523 | 0.00049523 | 0.00049523 |   0.0 |  3.56
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0004213  |            |       |  3.03
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1658 ave 1658 max 1658 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11438 ave 11438 max 11438 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11438
+Ave neighs/atom = 69.7439
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 226
+variable        temppe     equal $(pe)
+variable        temppe     equal 2439.2708118374639525
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2439.27900764895-${temppe})
+variable        min_E      equal abs(2439.27900764895-2439.27081183746)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2439.27081183746
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 228
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 228
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     228            0    308.82984     2130.441    2439.2708   -28701.026 
+     230            0    308.84113    2130.4236    2439.2647   -28687.213 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.013261 on 1 procs for 2 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2439.27081184      2439.26473773      2439.26473773
+  Force two-norm initial, final = 6.05823 5.99342
+  Force max component initial, final = 1.5581 1.48883
+  Final line search alpha, max atom move = 1.83142e-10 2.72666e-10
+  Iterations, force evaluations = 2 59
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0083552  | 0.0083552  | 0.0083552  |   0.0 | 63.01
+Bond    | 0.0040558  | 0.0040558  | 0.0040558  |   0.0 | 30.58
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00045601 | 0.00045601 | 0.00045601 |   0.0 |  3.44
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0003939  |            |       |  2.97
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1658 ave 1658 max 1658 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11438 ave 11438 max 11438 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11438
+Ave neighs/atom = 69.7439
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 228
+variable        temppe     equal $(pe)
+variable        temppe     equal 2439.2647377254475032
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2439.27081183746-${temppe})
+variable        min_E      equal abs(2439.27081183746-2439.26473772545)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2439.26473772545
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 230
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 230
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     230            0    308.84113    2130.4236    2439.2647   -28687.213 
+     328            0    295.21029    2125.0581    2420.2684   -34696.384 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0636449 on 1 procs for 98 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2439.26473773      2420.26838062      2420.26838062
+  Force two-norm initial, final = 5.99342 13.4421
+  Force max component initial, final = 1.48883 3.78711
+  Final line search alpha, max atom move = 4.16291e-11 1.57654e-10
+  Iterations, force evaluations = 98 249
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.038594   | 0.038594   | 0.038594   |   0.0 | 60.64
+Bond    | 0.018549   | 0.018549   | 0.018549   |   0.0 | 29.15
+Neigh   | 0.0027556  | 0.0027556  | 0.0027556  |   0.0 |  4.33
+Comm    | 0.0022354  | 0.0022354  | 0.0022354  |   0.0 |  3.51
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001511   |            |       |  2.37
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1654 ave 1654 max 1654 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11454 ave 11454 max 11454 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11454
+Ave neighs/atom = 69.8415
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 2
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 230
+variable        temppe     equal $(pe)
+variable        temppe     equal 2420.2683806194968383
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2439.26473772545-${temppe})
+variable        min_E      equal abs(2439.26473772545-2420.2683806195)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2420.2683806195
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 328
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 328
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     328            0    295.21029    2125.0581    2420.2684   -34696.384 
+     350            0    294.79377     2124.115    2418.9088   -34434.319 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0230925 on 1 procs for 22 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2420.26838062       2418.9087526       2418.9087526
+  Force two-norm initial, final = 13.4421 9.87282
+  Force max component initial, final = 3.78711 2.07992
+  Final line search alpha, max atom move = 9.09916e-11 1.89255e-10
+  Iterations, force evaluations = 22 97
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.014492   | 0.014492   | 0.014492   |   0.0 | 62.76
+Bond    | 0.0072202  | 0.0072202  | 0.0072202  |   0.0 | 31.27
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00077891 | 0.00077891 | 0.00077891 |   0.0 |  3.37
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0006016  |            |       |  2.61
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1638 ave 1638 max 1638 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11464 ave 11464 max 11464 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11464
+Ave neighs/atom = 69.9024
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 328
+variable        temppe     equal $(pe)
+variable        temppe     equal 2418.9087526042685568
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2420.2683806195-${temppe})
+variable        min_E      equal abs(2420.2683806195-2418.90875260427)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2418.90875260427
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 350
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 350
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     350            0    294.79377     2124.115    2418.9088   -34434.319 
+     355            0    294.91788     2123.939    2418.8568   -34253.077 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0193883 on 1 procs for 5 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+          2418.9087526      2418.85683404      2418.85683404
+  Force two-norm initial, final = 9.87282 7.26864
+  Force max component initial, final = 2.07992 1.65621
+  Final line search alpha, max atom move = 1.3001e-10 2.15324e-10
+  Iterations, force evaluations = 5 65
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.012252   | 0.012252   | 0.012252   |   0.0 | 63.19
+Bond    | 0.005792   | 0.005792   | 0.005792   |   0.0 | 29.87
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00072923 | 0.00072923 | 0.00072923 |   0.0 |  3.76
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0006149  |            |       |  3.17
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1646 ave 1646 max 1646 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11456 ave 11456 max 11456 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11456
+Ave neighs/atom = 69.8537
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 350
+variable        temppe     equal $(pe)
+variable        temppe     equal 2418.8568340376168635
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2418.90875260427-${temppe})
+variable        min_E      equal abs(2418.90875260427-2418.85683403762)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2418.85683403762
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 355
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 355
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     355            0    294.91788     2123.939    2418.8568   -34253.077 
+     358            0    294.93024    2123.9121    2418.8423   -34247.651 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.0183742 on 1 procs for 3 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2418.85683404      2418.84234334      2418.84234334
+  Force two-norm initial, final = 7.26864 3.70725
+  Force max component initial, final = 1.65621 0.606688
+  Final line search alpha, max atom move = 5.52867e-10 3.35418e-10
+  Iterations, force evaluations = 3 64
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.011691   | 0.011691   | 0.011691   |   0.0 | 63.62
+Bond    | 0.0054943  | 0.0054943  | 0.0054943  |   0.0 | 29.90
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00065809 | 0.00065809 | 0.00065809 |   0.0 |  3.58
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0005313  |            |       |  2.89
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1646 ave 1646 max 1646 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11454 ave 11454 max 11454 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11454
+Ave neighs/atom = 69.8415
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 355
+variable        temppe     equal $(pe)
+variable        temppe     equal 2418.8423433350239975
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2418.85683403762-${temppe})
+variable        min_E      equal abs(2418.85683403762-2418.84234333502)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+variable        prev_E     equal ${temppe}
+variable        prev_E     equal 2418.84234333502
+next            iter
+jump            SELF loop_min
+min_style       cg
+variable        tempstp    equal $(step)
+variable        tempstp    equal 358
+variable        CellMinStep equal ${tempstp}
+variable        CellMinStep equal 358
+minimize        1.0e-15 1.0e-15 10000 100000
+WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:190)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 17.24 | 17.24 | 17.24 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     358            0    294.93024    2123.9121    2418.8423   -34247.651 
+     359            0    294.93024    2123.9121    2418.8423   -34247.651 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 0.014263 on 1 procs for 1 steps with 164 atoms
+
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = linesearch alpha is zero
+  Energy initial, next-to-last, final = 
+         2418.84234334      2418.84234334      2418.84234334
+  Force two-norm initial, final = 3.70725 3.70725
+  Force max component initial, final = 0.606688 0.606688
+  Final line search alpha, max atom move = 6.14037e-10 3.72529e-10
+  Iterations, force evaluations = 1 56
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0088581  | 0.0088581  | 0.0088581  |   0.0 | 62.11
+Bond    | 0.0043704  | 0.0043704  | 0.0043704  |   0.0 | 30.64
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00051415 | 0.00051415 | 0.00051415 |   0.0 |  3.60
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0005204  |            |       |  3.65
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1646 ave 1646 max 1646 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11453 ave 11453 max 11453 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11453
+Ave neighs/atom = 69.8354
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+variable        AtomMinStep equal ${tempstp}
+variable        AtomMinStep equal 358
+variable        temppe     equal $(pe)
+variable        temppe     equal 2418.8423433350235427
+variable        min_E      equal abs(${prev_E}-${temppe})
+variable        min_E      equal abs(2418.84234333502-${temppe})
+variable        min_E      equal abs(2418.84234333502-2418.84234333502)
+print           "${iter},${CellMinStep},${AtomMinStep},${AtomMinStep},$(pe),${min_E},$(vol),$(lx),$(ly),$(lz),$(xy),$(xz),$(yz)" append NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3.min.csv screen no
+if              "${min_E} < ${min_eval}" then "jump SELF break_min"
+jump SELF break_min
+undump          NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_xyzmov
+
+# Dump last snapshot for restart
+variable curr_lx equal lx
+variable curr_ly equal ly
+variable curr_lz equal lz
+change_box all x final 0 ${curr_lx} y final 0 ${curr_ly} z final 0 ${curr_lz}
+change_box all x final 0 12.5056 y final 0 ${curr_ly} z final 0 ${curr_lz}
+change_box all x final 0 12.5056 y final 0 12.5234 z final 0 ${curr_lz}
+change_box all x final 0 12.5056 y final 0 12.5234 z final 0 10.274279
+  triclinic box = (0 0 0) to (12.5056 12.5234 10.2743) with tilt (0 -0.227594 0)
+  triclinic box = (0 0 0) to (12.5056 12.5234 10.2743) with tilt (0 -0.227594 0)
+  triclinic box = (0 0 0) to (12.5056 12.5234 10.2743) with tilt (0 -0.227594 0)
+
+reset_timestep 0
+dump            NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart all atom 1 NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart.lammpstrj
+dump_modify     NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart scale no sort id
+run 0
+WARNING: No fixes defined, atoms won't move (src/verlet.cpp:52)
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Per MPI rank memory allocation (min/avg/max) = 16.11 | 16.11 | 16.11 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0    294.93024    2123.9121    2418.8423   -34247.651 
+WARNING: Bond/angle/dihedral extent > half of periodic box length (src/domain.cpp:906)
+Loop time of 1.106e-06 on 1 procs for 0 steps with 164 atoms
+
+361.7% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1.106e-06  |            |       |100.00
+
+Nlocal:    164 ave 164 max 164 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    1646 ave 1646 max 1646 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    11453 ave 11453 max 11453 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 11453
+Ave neighs/atom = 69.8354
+Ave special neighs/atom = 6.29268
+Neighbor list builds = 0
+Dangerous builds = 0
+undump          NiPyC2_relax_sc211_ortho_functionalized_O-CH2-CH3_restart
+Total wall time: 0:00:00

@@ -1,0 +1,96 @@
+Mon Nov  2 14:11:30 PST 2020
+running mol sim in NiPyC2_relax_sc222_meta_functionalized_CH3_pbesol_relax.cif with Xe and UFF
+Simulating (μVT) adsorption of Xe in NiPyC2_relax_sc222_meta_functionalized_CH3_pbesol_relax.cif at 298.000000 K and 0.010000 bar (bar) with UFF force field.
+	# burn cycles: 25000
+	# sample cycles: 25000
+	ideal equation of state fugacity = 0.010000 bar
+	the crystal:
+		replicated (3,2,2) for short-range cutoff of 14.000000 Å
+		density [kg/m³]: 1366.127263496767
+		chemical formula: Dict(:N => 2,:H => 12,:Ni => 1,:O => 4,:C => 14)
+		# atoms: 6336
+		# point charges: 0
+	the molecule:
+		unique species: [:Xe]
+		# atoms: 1
+		# point charges: 0
+	Tracking adsorbate spatial probability density grid of atomic species Xe, updated every 1 cycles (after burn cycles)
+		density grid voxel spacing specified as 0.200 Å => 64 by 127 by 104 voxels
+		density grid is over original crystal box
+	Markov chain proposals:
+		probability of insertion: 0.350000
+		probability of deletion: 0.350000
+		probability of translation: 0.250000
+		probability of rotation: 0.000000
+		probability of reinsertion: 0.050000
+	Block  1/5 statistics:
+	# samples: 367663
+	⟨N⟩ (molecules) = 74.00731920263938
+	⟨U_gh, vdw⟩ (K) = -305184.8363959096
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -2251.4963623301624
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -307436.33275823976
+	Block  2/5 statistics:
+	# samples: 371879
+	⟨N⟩ (molecules) = 74.9446405954625
+	⟨U_gh, vdw⟩ (K) = -308812.7138984442
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -2322.6443102732987
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -311135.35820871755
+	Block  3/5 statistics:
+	# samples: 395445
+	⟨N⟩ (molecules) = 79.39229728533677
+	⟨U_gh, vdw⟩ (K) = -327027.2480675249
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -2699.6543675347993
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -329726.9024350597
+	Block  4/5 statistics:
+	# samples: 386995
+	⟨N⟩ (molecules) = 78.0921872375612
+	⟨U_gh, vdw⟩ (K) = -321712.5140279417
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -2521.423018614551
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -324233.9370465562
+	Block  5/5 statistics:
+	# samples: 397887
+	⟨N⟩ (molecules) = 80.0998298511889
+	⟨U_gh, vdw⟩ (K) = -331100.22524126305
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -2652.2399108602167
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -333752.4651521233
+	Estimated elapsed time: 1731 seconds
+	Total # MC steps: 3857272
+
+Unit cell replication factors: 3 2 2
+
+
+# sample cycles: 25000
+# burn cycles: 25000
+# samples: 1919869
+deletion	1349576 total proposals.
+	0.810625 % proposals accepted.
+translation	965098 total proposals.
+	17.178774 % proposals accepted.
+reinsertion	193007 total proposals.
+	0.249732 % proposals accepted.
+insertion	1349591 total proposals.
+	0.816470 % proposals accepted.
+
+⟨N⟩ (molecules): 77.384105 +/- 2.417996
+⟨N⟩ (molecules/unit cell): 6.448675 +/- 0.201500
+⟨N⟩ (mmol/g): 1.217835 +/- 0.038053
+
+⟨U_gg, vdw⟩ (K): -2495.050055 +/- 176.810209
+⟨U_gh, vdw⟩ (K): -319088.977183 +/- 10130.112420
+⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U⟩ (K): -321584.027238 +/- 10306.922630
+
+Q_st (K) = 4485.414127 = 37.291733 kJ/mol
+
+	results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_Xe_in_NiPyC2_relax_sc222_meta_functionalized_CH3_pbesol_relax.cif_298.000K_0.0100000bar_UFF_25000burn_25000sample.jld2
