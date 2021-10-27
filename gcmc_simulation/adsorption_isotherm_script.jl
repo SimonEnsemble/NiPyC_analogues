@@ -2,15 +2,11 @@ using PorousMaterials
 ###
 #  Define paths
 ###
-#@eval PorousMaterials PATH_TO_DATA = joinpath("/nfs/stak/users/gantzlen/DTRA/data")
-#@info PorousMaterials.PATH_TO_DATA
+set_paths(joinpath("/nfs/stak/users/gantzlen/DTRA/data"))
 
-## post QE relaxation .cif file location
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath("..", "structural_relaxation", "post-relaxation_cifs")
-# @eval PorousMaterials PATH_TO_CRYSTALS = joinpath(PorousMaterials.PATH_TO_DATA, "crystals", "tmp_xtal")
-@info PorousMaterials.PATH_TO_CRYSTALS
-
+# post QE relaxation .cif file location
+#rc[:paths][:crystals] = joinpath("/nfs/stak/users/gantzlen/DTRA/structural_relaxation/post-relaxation_cifs")
+@info rc[:paths]
 
 ###
 #  Read command line arguments: name of - crystal structure, adsorbate, and forcefield
@@ -19,9 +15,9 @@ if length(ARGS) != 3
     error("pass the crystal structure name as a command line argument followed by the adsorbate then the forcefield,
  	such as: julia cof_isotherm_sim.jl COF-102.cif Xe UFF.csv")
 end
-crystal = ARGS[1]
+crystal   = ARGS[1]
 adsorbate = ARGS[2]
-ffield = ARGS[3]
+ffield    = ARGS[3]
 println("running mol sim in ", crystal, " with ", adsorbate, " and ", ffield)
 
 ###
@@ -42,7 +38,7 @@ strip_numbers_from_atom_labels!(sim_params["xtal"])
 
 kwargs = Dict(:n_burn_cycles   => 50000, 
               :n_sample_cycles => 50000,
-              :calculate_density_grid => false,
+              :calculate_density_grid => true,
               :density_grid_sim_box   => false
              )
 
@@ -50,30 +46,7 @@ kwargs = Dict(:n_burn_cycles   => 50000,
 #  density grid config
 ###
 if kwargs[:calculate_density_grid]
-    @warn "density grid being calculated over a 2x2x2 cell for plotting convenience"
-
     sim_params["pressures"] = [0.01, 0.1, 1.0]
-
-    # which xtals do you want to calculate the grid for
-    xtals_of_interest = ["NiPyC2_experiment.cif",
-                         "NiPyC2_relax_sc211_meta_functionalized_NH2_pbesol_relax.cif",
-                         "NiPyC2_relax_sc211_meta_functionalized_CH3_pbesol_relax.cif",
-                         "NiPyC2_relax_sc211_meta_functionalized_N-C-O_pbesol_relax.cif"]
-
-    # set specific rep factors for plotting purposes
-    rep_factors = [(2 ,2, 2), (1, 2, 2), (1, 2, 2), (1, 2, 2)]
-
-    # only define if we are calculating grid
-    reps = Dict(zip(xtals_of_interest, rep_factors))
-
-    # redefine input xtal
-    sim_params["xtal"] = replicate(sim_params["xtal"], reps[crystal])
-
-    # write xyz and vtk for plotting
-#    file_path = joinpath(pwd(), "analysis/grid_images/density_grid")
-#    atoms_c = Cart(sim_params["xtal"].atoms, sim_params["xtal"].box)
-#    write_xyz(atoms_c, file_path * split(crystal, ".")[1] * "_222grid")
-#    write_vtk(sim_params["xtal"].box, file_path * split(crystal, ".")[1] * "_222grid")
 end
 
 ###

@@ -5,8 +5,8 @@ This directory contains the `.cif` files of both experimental and predicted MOFs
 `NiPyC2_experiment.cif` # copy of `NiPyC2.cif` with solvent manually removed
 
 #### possible topologies of Ni(PyC-m-NH2)2 
-`P21-n_Ni-PyC-NH2.cif` 
-`Pn_Ni-PyC-NH2.cif`
+`P21-n_Ni-PyC-NH2.cif` # trans config of PyC ligand
+`Pn_Ni-PyC-NH2.cif`    # cis config of PyC ligand (same as parent MOF)
 
 #### MOF used as compeatative benchmark 
 `SBMOF-1.cif` # obtained from: 

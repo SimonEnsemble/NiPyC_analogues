@@ -7,7 +7,7 @@ do
     # make output directory if it doesn't exist
     mkdir -p ../data/simulation_logs/$xtal
     # loop over adsorbates
-    for gas in Kr #Kr Ar Xe
+    for gas in Xe Kr #Kr Ar Xe
     do 
         # loop over forcefields
         for ljff in UFF # Dreiding
