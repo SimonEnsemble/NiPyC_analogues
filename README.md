@@ -1,12 +1,4 @@
-File structure:
-
-### TODO:
-- list to long to put here >.< 
-
-
-### Data
-The `data` directory contains input and output files for GCMC simulations.
-
+## File structure:
 
 - `analysis`
 - `data`
@@ -16,6 +8,8 @@ The `data` directory contains input and output files for GCMC simulations.
 - `structure_optimization`
 - `XRD`
 
+### Data
+The `data` directory contains input and output files for GCMC simulations.
 
 
 ## NOTATION: 
@@ -26,6 +20,6 @@ The `data` directory contains input and output files for GCMC simulations.
 The directories NiPyC2_experimental, NiPyC2_relax, and NiPyC2_vc-relax are populated with 2x1x1 replicated and functionalized versions of their respective `.cif` files. The replication is done so that we can get a larger sampling to the randomized position of the functional group while not being so large that the DFT calculations take too long to converge.
 
 ## Resources:
-https://pubs.acs.org/doi/full/10.1021/jacs.6b10455 xtal downloaded from here and the DMF solvent was deleted via cutting out lines of the `.cif`
+https://pubs.acs.org/doi/full/10.1021/jacs.6b10455 Ni(PyC)2 downloaded from here and the DMF solvent was deleted via cutting out lines of the `.cif`
 
 https://pubs.acs.org/doi/full/10.1021/cg300274n SBMOF-1 downloaded from here, `cg300274n_si_003.cif` (14.66 kb), corresponding to the activated structure. (there are two, one activated, one not).
