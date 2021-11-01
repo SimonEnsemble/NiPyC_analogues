@@ -7,13 +7,13 @@ do
     # make output directory if it doesn't exist
     mkdir -p ../data/simulation_logs/$xtal
     # loop over adsorbates
-    for gas in Xe Kr #Kr Ar Xe
+    for gas in Kr Xe # Kr Ar Xe
     do 
         # loop over forcefields
         for ljff in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $ljff"
-            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 16 \
+            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 8 \
                    --mail-type=ALL --mail-user=gantzlen \
                    -o ../data/simulation_logs/$xtal/"$xtal-$gas-$ljff.o" \
                    -e ../data/simulation_logs/$xtal/"$xtal-$gas-$ljff.e" \
