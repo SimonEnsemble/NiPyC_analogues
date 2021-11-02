@@ -1,3 +1,56 @@
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -22,6 +75,59 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -46,6 +152,59 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -70,6 +229,59 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -94,6 +306,59 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -118,6 +383,59 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -142,6 +460,59 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -166,6 +537,59 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] (::Distributed.var"#1#2"{Base.PkgId})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/Distributed.jl:79
+│     [21] (::Distributed.var"#103#104"{Distributed.CallMsg{:call}})()
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:274
+│     [22] run_work_thunk(thunk::Distributed.var"#103#104"{Distributed.CallMsg{:call}}, print_error::Bool)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
+│     [23] run_work_thunk(rv::Distributed.RemoteValue, thunk::Function)
+│        @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:72
+│     [24] (::Distributed.var"#96#98"{Distributed.RemoteValue, Distributed.var"#103#104"{Distributed.CallMsg{:call}}})()
+│        @ Distributed ./task.jl:411
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -190,6 +614,57 @@
 ┌ Warning: simulations path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
+┌ Warning: Error requiring `OffsetArrays` from `ArrayInterface`
+│   exception =
+│    UndefVarError: IdOffsetRange not defined
+│    Stacktrace:
+│      [1] getproperty(x::Module, f::Symbol)
+│        @ Base ./Base.jl:26
+│      [2] top-level scope
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:919
+│      [3] eval
+│        @ ./boot.jl:360 [inlined]
+│      [4] eval
+│        @ ~/.julia/packages/ArrayInterface/FSyre/src/ArrayInterface.jl:1 [inlined]
+│      [5] (::ArrayInterface.var"#81#108")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:99
+│      [6] err(f::Any, listener::Module, modname::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:47
+│      [7] (::ArrayInterface.var"#80#107")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:98
+│      [8] withpath(f::Any, path::String)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:37
+│      [9] (::ArrayInterface.var"#79#106")()
+│        @ ArrayInterface ~/.julia/packages/Requires/7Ncym/src/require.jl:97
+│     [10] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [11] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [12] foreach(f::typeof(Base.invokelatest), itr::Vector{Function})
+│        @ Base ./abstractarray.jl:2141
+│     [13] loadpkg(pkg::Base.PkgId)
+│        @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:27
+│     [14] #invokelatest#2
+│        @ ./essentials.jl:708 [inlined]
+│     [15] invokelatest
+│        @ ./essentials.jl:706 [inlined]
+│     [16] _tryrequire_from_serialized(modkey::Base.PkgId, build_id::UInt64, modpath::String)
+│        @ Base ./loading.jl:693
+│     [17] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+│        @ Base ./loading.jl:749
+│     [18] _require(pkg::Base.PkgId)
+│        @ Base ./loading.jl:998
+│     [19] require(uuidkey::Base.PkgId)
+│        @ Base ./loading.jl:914
+│     [20] require(into::Module, mod::Symbol)
+│        @ Base ./loading.jl:901
+│     [21] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:386
+│     [22] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:285
+│     [23] _start()
+│        @ Base ./client.jl:485
+└ @ Requires ~/.julia/packages/Requires/7Ncym/src/require.jl:49
 ┌ Warning: crystals path directory not found
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/crystals"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
@@ -215,50 +690,3 @@
 │   path = "/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"
 └ @ Xtals ~/.julia/dev/Xtals/src/misc.jl:181
 [ Info: Dict(:forcefields => "/nfs/stak/users/gantzlen/DTRA/data/forcefields", :grids => "/nfs/stak/users/gantzlen/DTRA/data/grids", :molecules => "/nfs/stak/users/gantzlen/DTRA/data/molecules", :crystals => "/nfs/stak/users/gantzlen/DTRA/data/crystals", :data => "/nfs/stak/users/gantzlen/DTRA/data", :simulations => "/nfs/stak/users/gantzlen/DTRA/data/simulations")
-ERROR: LoadError: On worker 2:
-IOError: mkdir("/nfs/stak/users/gantzlen/DTRA/gcmc_simulation/data/simulations"; mode=0o777): no such file or directory (ENOENT)
-Stacktrace:
- [1] uv_error
-   @ ./libuv.jl:97 [inlined]
- [2] #mkdir#7
-   @ ./file.jl:179
- [3] mkdir
-   @ ./file.jl:172
- [4] #μVT_sim#75
-   @ ~/.julia/dev/PorousMaterials/src/gcmc.jl:668
- [5] run_pressure
-   @ ~/.julia/dev/PorousMaterials/src/gcmc.jl:887
- [6] #106
-   @ /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:278
- [7] run_work_thunk
-   @ /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:63
- [8] macro expansion
-   @ /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/process_messages.jl:278 [inlined]
- [9] #105
-   @ ./task.jl:411
-Stacktrace:
-  [1] (::Base.var"#837#839")(x::Task)
-    @ Base ./asyncmap.jl:177
-  [2] foreach(f::Base.var"#837#839", itr::Vector{Any})
-    @ Base ./abstractarray.jl:2141
-  [3] maptwice(wrapped_f::Function, chnl::Channel{Any}, worker_tasks::Vector{Any}, c::Vector{Float64})
-    @ Base ./asyncmap.jl:177
-  [4] wrap_n_exec_twice
-    @ ./asyncmap.jl:153 [inlined]
-  [5] #async_usemap#822
-    @ ./asyncmap.jl:103 [inlined]
-  [6] #asyncmap#821
-    @ ./asyncmap.jl:81 [inlined]
-  [7] pmap(f::Function, p::WorkerPool, c::Vector{Float64}; distributed::Bool, batch_size::Int64, on_error::Nothing, retry_delays::Vector{Any}, retry_check::Nothing)
-    @ Distributed /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/pmap.jl:126
-  [8] pmap
-    @ /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/pmap.jl:101 [inlined]
-  [9] #pmap#215
-    @ /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/pmap.jl:156 [inlined]
- [10] pmap
-    @ /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.6/Distributed/src/pmap.jl:156 [inlined]
- [11] adsorption_isotherm(xtal::Crystal, molecule::Molecule{Cart}, temperature::Float64, pressures::Vector{Float64}, ljff::LJForceField; n_burn_cycles::Int64, n_sample_cycles::Int64, sample_frequency::Int64, verbose::Bool, ewald_precision::Float64, eos::Symbol, show_progress_bar::Bool, write_adsorbate_snapshots::Bool, snapshot_frequency::Int64, calculate_density_grid::Bool, density_grid_dx::Float64, density_grid_species::Nothing, density_grid_sim_box::Bool, results_filename_comment::String)
-    @ PorousMaterials ~/.julia/dev/PorousMaterials/src/gcmc.jl:908
- [12] top-level scope
-    @ ~/DTRA/gcmc_simulation/adsorption_isotherm_script.jl:55
-in expression starting at /nfs/stak/users/gantzlen/DTRA/gcmc_simulation/adsorption_isotherm_script.jl:55

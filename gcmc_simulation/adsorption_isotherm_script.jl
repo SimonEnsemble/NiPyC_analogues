@@ -36,9 +36,12 @@ sim_params = Dict("xtal"        => Crystal(crystal, remove_duplicates=true),
 
 strip_numbers_from_atom_labels!(sim_params["xtal"])
 
-kwargs = Dict(:n_burn_cycles   => 50000, 
-              :n_sample_cycles => 50000,
+#:n_burn_cycles   => 50000, 
+#:n_sample_cycles => 50000,
+
+kwargs = Dict(
               :calculate_density_grid => true,
+              :density_grid_molecular_species => sim_params["molecule"].species,
               :density_grid_sim_box   => false
              )
 
@@ -52,10 +55,20 @@ end
 ###
 #  Run simulation
 ###
-results = adsorption_isotherm(sim_params["xtal"],
-                              sim_params["molecule"],
-                              sim_params["temperature"],
-                              sim_params["pressures"],
-                              sim_params["ljff"];
-                              kwargs...
-                             )
+#results = adsorption_isotherm(sim_params["xtal"],
+#                              sim_params["molecule"],
+#                              sim_params["temperature"],
+#                              sim_params["pressures"],
+#                              sim_params["ljff"];
+#                              kwargs...
+#                             )
+
+for i in 1:length(sim_params["pressures"])
+    results = μVT_sim(sim_params["xtal"],
+                       sim_params["molecule"],
+                       sim_params["temperature"],
+                       sim_params["pressures"][i],
+                       sim_params["ljff"];
+                       kwargs...
+                       )
+end
