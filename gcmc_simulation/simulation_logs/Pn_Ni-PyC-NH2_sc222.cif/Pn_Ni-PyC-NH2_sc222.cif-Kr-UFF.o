@@ -1,0 +1,319 @@
+Mon Nov  1 15:59:49 PDT 2021
+running mol sim in Pn_Ni-PyC-NH2_sc222.cif with Kr and UFF
+μVT simulation
+crystal: Pn_Ni-PyC-NH2_sc222.cif
+temperature: 298.000000 K
+
+adsorbates:
+Kr	partial pressure = 0.010000 bar
+ force field.
+UFF	# burn cycles: 50000
+	# sample cycles: 50000
+	ideal equation of state, Kr partial fugacity = 0.010000 bar
+	the crystal:
+		replicated (2,2,2) for short-range cutoff of 14.000000 Å
+		density [kg/m³]: 1236.1234328181902
+		chemical formula: Dict(:N => 4, :H => 10, :Ni => 1, :O => 4, :C => 12)
+		# atoms: 3968
+		# point charges: 0
+	the molecules:
+	Kr
+		unique species: [:Kr]
+		# atoms: 1
+		# point charges: 0
+	Tracking adsorbate spatial probability density grid of adsorbate Kr, updated every 1 cycles (after burn cycles)
+		density grid voxel spacing specified as 1.000 Å => 23 by 25 by 16 voxels
+		density grid is over original crystal box
+	Markov chain proposals:
+		probability of insertion: 0.350000
+		probability of deletion: 0.350000
+		probability of translation: 0.250000
+		probability of rotation: 0.000000
+		probability of reinsertion: 0.050000
+		probability of identity change: 0.000000
+		translation step size: 2.0 Å
+		translation step size adjusted to: 1.6666666666666667 Å
+		translation step size adjusted to: 2.0 Å
+		translation step size adjusted to: 1.6666666666666667 Å
+	Block  1/5 statistics:
+	# samples: 25337
+	⟨N⟩ (molecules) = [2.283458973043375]
+	⟨U_gh, vdw⟩ (K) = -5693.583583215663
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1.1777635684729415
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -5694.761346784135
+	Block  2/5 statistics:
+	# samples: 22176
+	⟨N⟩ (molecules) = [1.82877886002886]
+	⟨U_gh, vdw⟩ (K) = -4544.220369267695
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1.7603697202681516
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -4545.9807389879625
+	Block  3/5 statistics:
+	# samples: 21011
+	⟨N⟩ (molecules) = [1.7618866308124317]
+	⟨U_gh, vdw⟩ (K) = -4393.227900479393
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1.0246635985225214
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -4394.252564077915
+	Block  4/5 statistics:
+	# samples: 22767
+	⟨N⟩ (molecules) = [2.0407168269864275]
+	⟨U_gh, vdw⟩ (K) = -5092.230783834624
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -0.9642062871645093
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -5093.194990121789
+	Block  5/5 statistics:
+	# samples: 23108
+	⟨N⟩ (molecules) = [1.956595118573654]
+	⟨U_gh, vdw⟩ (K) = -4869.36437391008
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -0.9756133345264578
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -4870.339987244606
+	Estimated elapsed time: 31 seconds
+	Total # MC steps: 233664
+
+Unit cell replication factors: 2 2 2
+
+
+# sample cycles: 50000
+# burn cycles: 50000
+# samples: 114399
+reinsertion	11744 total proposals.
+	2.188351 % proposals accepted.
+deletion	81706 total proposals.
+	4.775659 % proposals accepted.
+translation	58471 total proposals.
+	40.565408 % proposals accepted.
+insertion	81743 total proposals.
+	4.773497 % proposals accepted.
+
+Kr
+⟨N⟩ (molecules): 1.985192 +/- 0.178887
+⟨N⟩ (molecules/unit cell): 0.248149 +/- 0.022361
+⟨N⟩ (mmol/g): 0.046585 +/- 0.004198
+
+⟨U_gg, vdw⟩ (K): -1.179247 +/- 0.293772
+⟨U_gh, vdw⟩ (K): -4945.787636 +/- 448.952808
+⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U⟩ (K): -4946.966883 +/- 449.246581
+
+Q_st (K) = 2792.054293 = 23.213139 kJ/mol
+
+	results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_xtal_Pn_Ni-PyC-NH2_sc222.cif_T_298.000K_Kr_P_0.010000bar_UFF_50000burn_50000sample.jld2
+μVT simulation
+crystal: Pn_Ni-PyC-NH2_sc222.cif
+temperature: 298.000000 K
+
+adsorbates:
+Kr	partial pressure = 0.100000 bar
+ force field.
+UFF	# burn cycles: 50000
+	# sample cycles: 50000
+	ideal equation of state, Kr partial fugacity = 0.100000 bar
+	the crystal:
+		replicated (2,2,2) for short-range cutoff of 14.000000 Å
+		density [kg/m³]: 1236.1234328181902
+		chemical formula: Dict(:N => 4, :H => 10, :Ni => 1, :O => 4, :C => 12)
+		# atoms: 3968
+		# point charges: 0
+	the molecules:
+	Kr
+		unique species: [:Kr]
+		# atoms: 1
+		# point charges: 0
+	Tracking adsorbate spatial probability density grid of adsorbate Kr, updated every 1 cycles (after burn cycles)
+		density grid voxel spacing specified as 1.000 Å => 23 by 25 by 16 voxels
+		density grid is over original crystal box
+	Markov chain proposals:
+		probability of insertion: 0.350000
+		probability of deletion: 0.350000
+		probability of translation: 0.250000
+		probability of rotation: 0.000000
+		probability of reinsertion: 0.050000
+		probability of identity change: 0.000000
+		translation step size: 2.0 Å
+		translation step size adjusted to: 1.6666666666666667 Å
+	Block  1/5 statistics:
+	# samples: 181075
+	⟨N⟩ (molecules) = [17.750926411707855]
+	⟨U_gh, vdw⟩ (K) = -44237.04756995036
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -75.84603790814595
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -44312.89360785851
+	Block  2/5 statistics:
+	# samples: 164963
+	⟨N⟩ (molecules) = [16.484163115365263]
+	⟨U_gh, vdw⟩ (K) = -41005.07532818385
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -73.07951099023848
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -41078.15483917409
+	Block  3/5 statistics:
+	# samples: 174809
+	⟨N⟩ (molecules) = [17.291541053378257]
+	⟨U_gh, vdw⟩ (K) = -43024.843862838236
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -76.84099398524712
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -43101.68485682348
+	Block  4/5 statistics:
+	# samples: 177209
+	⟨N⟩ (molecules) = [17.658747580540492]
+	⟨U_gh, vdw⟩ (K) = -43958.30986332764
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -82.53918130647527
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -44040.84904463411
+	Block  5/5 statistics:
+	# samples: 166034
+	⟨N⟩ (molecules) = [16.514701808063407]
+	⟨U_gh, vdw⟩ (K) = -41089.28310854513
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -67.98888720501355
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -41157.27199575015
+	Estimated elapsed time: 244 seconds
+	Total # MC steps: 1733326
+
+Unit cell replication factors: 2 2 2
+
+
+# sample cycles: 50000
+# burn cycles: 50000
+# samples: 864090
+reinsertion	86740 total proposals.
+	2.184690 % proposals accepted.
+deletion	606741 total proposals.
+	4.296891 % proposals accepted.
+translation	432744 total proposals.
+	45.444189 % proposals accepted.
+insertion	607101 total proposals.
+	4.296814 % proposals accepted.
+
+Kr
+⟨N⟩ (molecules): 17.159710 +/- 0.534332
+⟨N⟩ (molecules/unit cell): 2.144964 +/- 0.066791
+⟨N⟩ (mmol/g): 0.402673 +/- 0.012539
+
+⟨U_gg, vdw⟩ (K): -75.382063 +/- 4.668197
+⟨U_gh, vdw⟩ (K): -42712.795803 +/- 1351.667174
+⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U⟩ (K): -42788.177866 +/- 1356.335371
+
+Q_st (K) = 2785.566025 = 23.159196 kJ/mol
+
+	results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_xtal_Pn_Ni-PyC-NH2_sc222.cif_T_298.000K_Kr_P_0.100000bar_UFF_50000burn_50000sample.jld2
+μVT simulation
+crystal: Pn_Ni-PyC-NH2_sc222.cif
+temperature: 298.000000 K
+
+adsorbates:
+Kr	partial pressure = 1.000000 bar
+ force field.
+UFF	# burn cycles: 50000
+	# sample cycles: 50000
+	ideal equation of state, Kr partial fugacity = 1.000000 bar
+	the crystal:
+		replicated (2,2,2) for short-range cutoff of 14.000000 Å
+		density [kg/m³]: 1236.1234328181902
+		chemical formula: Dict(:N => 4, :H => 10, :Ni => 1, :O => 4, :C => 12)
+		# atoms: 3968
+		# point charges: 0
+	the molecules:
+	Kr
+		unique species: [:Kr]
+		# atoms: 1
+		# point charges: 0
+	Tracking adsorbate spatial probability density grid of adsorbate Kr, updated every 1 cycles (after burn cycles)
+		density grid voxel spacing specified as 1.000 Å => 23 by 25 by 16 voxels
+		density grid is over original crystal box
+	Markov chain proposals:
+		probability of insertion: 0.350000
+		probability of deletion: 0.350000
+		probability of translation: 0.250000
+		probability of rotation: 0.000000
+		probability of reinsertion: 0.050000
+		probability of identity change: 0.000000
+		translation step size: 2.0 Å
+		translation step size adjusted to: 1.6666666666666667 Å
+	Block  1/5 statistics:
+	# samples: 847206
+	⟨N⟩ (molecules) = [84.08419203830002]
+	⟨U_gh, vdw⟩ (K) = -209086.96431519708
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1849.5811415165167
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -210936.5454567136
+	Block  2/5 statistics:
+	# samples: 854718
+	⟨N⟩ (molecules) = [84.8492017250134]
+	⟨U_gh, vdw⟩ (K) = -210684.17069251955
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1864.2953634490602
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -212548.46605596863
+	Block  3/5 statistics:
+	# samples: 844018
+	⟨N⟩ (molecules) = [83.80461909580127]
+	⟨U_gh, vdw⟩ (K) = -208123.24969013216
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1808.2566781278952
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -209931.50636826004
+	Block  4/5 statistics:
+	# samples: 838181
+	⟨N⟩ (molecules) = [83.20593165438014]
+	⟨U_gh, vdw⟩ (K) = -206705.8855558404
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1767.7609484776688
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -208473.64650431808
+	Block  5/5 statistics:
+	# samples: 854704
+	⟨N⟩ (molecules) = [84.8661384526105]
+	⟨U_gh, vdw⟩ (K) = -210940.73514723303
+	⟨U_gh, Coulomb⟩ (K) = 0.0
+	⟨U_gg, vdw⟩ (K) = -1867.9645292098749
+	⟨U_gg, Coulomb⟩ (K) = 0.0
+	⟨U⟩ (K) = -212808.6996764429
+	Estimated elapsed time: 1500 seconds
+	Total # MC steps: 8444120
+
+Unit cell replication factors: 2 2 2
+
+
+# sample cycles: 50000
+# burn cycles: 50000
+# samples: 4238827
+reinsertion	423153 total proposals.
+	0.974825 % proposals accepted.
+deletion	2955874 total proposals.
+	2.146066 % proposals accepted.
+translation	2111906 total proposals.
+	45.892052 % proposals accepted.
+insertion	2953187 total proposals.
+	2.150795 % proposals accepted.
+
+Kr
+⟨N⟩ (molecules): 84.166784 +/- 0.622265
+⟨N⟩ (molecules/unit cell): 10.520848 +/- 0.077783
+⟨N⟩ (mmol/g): 1.975074 +/- 0.014602
+
+⟨U_gg, vdw⟩ (K): -1831.847496 +/- 37.535454
+⟨U_gh, vdw⟩ (K): -209120.091149 +/- 1554.686619
+⟨U_gg, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U_gh, electro⟩ (K): 0.000000 +/- 0.000000
+⟨U⟩ (K): -210951.938645 +/- 1592.222073
+
+Q_st (K) = 2808.545848 = 23.350250 kJ/mol
+
+	results dictionary saved in /nfs/stak/users/gantzlen/DTRA/data/simulations/muVT_xtal_Pn_Ni-PyC-NH2_sc222.cif_T_298.000K_Kr_P_1.000000bar_UFF_50000burn_50000sample.jld2

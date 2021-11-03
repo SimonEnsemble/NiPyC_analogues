@@ -5,9 +5,9 @@ module load slurm
 for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
     # make output directory if it doesn't exist
-    mkdir -p ../data/simulation_logs/$xtal
+    mkdir -p ./simulation_logs/$xtal
     # loop over adsorbates
-    for gas in Kr Xe # Kr Ar Xe
+    for gas in Xe # Kr Ar Xe
     do 
         # loop over forcefields
         for ljff in UFF # Dreiding
