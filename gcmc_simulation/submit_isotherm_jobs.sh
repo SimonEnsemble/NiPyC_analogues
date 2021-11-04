@@ -5,19 +5,19 @@ module load slurm
 for xtal in $(cat ./AA_mofs_to_sim.txt)
 do
     # make output directory if it doesn't exist
-    mkdir -p ./simulation_logs/$xtal
+    mkdir -p ./simulation_logs/henry_calcs/$xtal
     # loop over adsorbates
-    for gas in Xe # Kr Ar Xe
+    for gas in Kr Ar Xe
     do 
         # loop over forcefields
         for ljff in UFF # Dreiding
         do 
             echo "submitting job for $xtal with $gas using $ljff"
-            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 8 \
+            sbatch -J "$xtal-$gas-$ljff" -A simon-grp -p mime5 -n 1 \
                    --mail-type=ALL --mail-user=gantzlen \
-                   -o ../data/simulation_logs/$xtal/"$xtal-$gas-$ljff.o" \
-                   -e ../data/simulation_logs/$xtal/"$xtal-$gas-$ljff.e" \
-                   --export=xtal="$xtal",gas="$gas",ljff="$ljff" gcmc_submit.sh
+                   -o ./simulation_logs/henry_calcs/$xtal/"$xtal-$gas-$ljff.o" \
+                   -e ./simulation_logs/henry_calcs/$xtal/"$xtal-$gas-$ljff.e" \
+                   --export=xtal="$xtal",gas="$gas",ljff="$ljff" henry_submit.sh
         done
     done
 done
