@@ -1,7 +1,7 @@
 using DataFrames, CSV
 
 # read in lines to get COF filenames
-filename = joinpath(pwd(), "AA_cofs_to_sim.txt")
+filename = joinpath(pwd(), "AA_mofs_to_sim.txt")
 cof_name_file = open(filename)
 cof_names = readlines(cof_name_file)
 close(cof_name_file)
