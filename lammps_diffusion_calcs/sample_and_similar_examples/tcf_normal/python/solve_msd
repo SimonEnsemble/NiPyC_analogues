@@ -1,0 +1,430 @@
+#! /usr/bin/env python
+
+"""
+Analyze MSD, and determine diffusion coefficients
+"""
+
+import numpy as np
+import pylab as pl
+import scipy.stats
+import argparse
+import sys
+
+
+def MergeFiles(filelist):
+    """
+    Read a set of MSD-files, and calculate the average values, 
+    we then then print the data to file, before we read it back 
+    in again right away.
+    """
+
+    files = len(filelist)
+
+    if files == 1:
+        print("Working with one file. No point in doing all this extra work.")
+        print("--merge can not be used with this")
+        sys.exit()
+
+    # load the first file, so we can check the sizes.
+    data = np.loadtxt(filelist[0])
+    rows = data.shape[0]
+    cols = data.shape[1]
+
+    container = np.zeros((rows,5,files))
+    container[:,:,0] = data
+
+    for i in range(1,len(filelist)):
+        data = np.loadtxt(filelist[i])
+        if data.shape[0] != rows:
+            print("We have wrong number of rows in file %s" % filelist[i])
+        
+        if data.shape[1] != cols:
+            print("We have wrong number of cols in file %s" % filelist[i])
+
+        container[:,:,i] = data[:,:]
+
+    data_avg = container.mean(axis=2) 
+    data_std = container.std(axis=2)
+
+    with open("tmp.msd","w") as f:
+        for i in range(data_avg.shape[0]):
+            f.write((5*"%10.5f   ") % (data_avg[i,0],data_avg[i,1],data_avg[i,2],data_avg[i,3],data_avg[i,4]))
+            f.write((4*"%10.5f   ") % (data_std[i,1],data_std[i,2],data_std[i,3],data_std[i,4]))
+            f.write("\n")
+
+    outdata = np.zeros((rows,9))
+    outdata[:,:5] = data_avg[:,:]
+    outdata[:,5:] = data_std[:,1:]
+
+    return outdata
+
+        
+
+
+class MSD:
+    def __init__(self,count,box=None,filename=None,data=None,decompose=False):
+        
+        self.count = count
+        # we add the length of the box. the msd should be diffusive 
+        # after box**2. after this length, if not, we might have a problem.
+        # the system is not really explored
+        if box!=None:
+            self.box = float(box)
+        else:
+            self.box = None
+
+        self.decompose=decompose
+
+        if self.decompose:
+            self.scale = 1.0e-8/2.0 
+        else:
+            self.scale = 1.0e-8/6.0
+
+        if filename!=None:
+            data = np.loadtxt(filename)
+        elif data == None:
+            print("We have a system with no clear input.")
+            sys.exit()
+            
+        self.ParseArgs(data)
+
+        self.maxv = None
+        self.minv = None
+
+
+
+    def AddMM(self,minv,maxv):
+        """
+        Add a max and min val, used for interpolation.
+        Also, find the index in the time-array that can be used for this.
+        """
+
+        self.minv = minv
+        self.maxv = maxv
+
+        if self.minv!=None:
+            self.min_ind = np.argmax(self.time>minv)
+            print("Minimum value set to %f" % self.minv)
+            print("with index %i" % self.min_ind)
+        else:
+            self.min_ind = None
+
+        if self.maxv!=None:
+            self.max_ind = np.argmax(self.time>maxv)
+            print("Maximum value set to %f" % self.maxv)
+            print("with index %i" % self.max_ind)
+        else:
+            self.max_ind = None
+
+
+    def ParseArgs(self,data):
+        """
+        Parse the data
+        """
+
+        if data.shape[1] == 5:
+            self.errorbar = False
+            self.MSDx_std = None
+            self.MSDy_std = None
+            self.MSDz_std = None
+            self.MSDavg_std = None
+        elif data.shape[1] == 9:
+            self.errorbar = True
+            self.MSDx_std = data[:,5]
+            self.MSDy_std = data[:,6]
+            self.MSDz_std = data[:,7]
+            self.MSDavg_std = data[:,8]
+        else:
+            print("We have an unknown number of cols.")
+            print("We have this array dimentions: ", data.shape)
+
+        self.time = data[:,0]
+        self.MSDx = data[:,1]
+        self.MSDy = data[:,2]
+        self.MSDz = data[:,3]
+        self.MSDavg = data[:,4]
+
+        self.itime = 1.0/self.time
+        self.iMSDx = self.MSDx/(2.0*self.time)
+        self.iMSDy = self.MSDy/(2.0*self.time)
+        self.iMSDz = self.MSDz/(2.0*self.time)
+        self.iMSDavg = self.MSDavg / (6.0*self.time)
+
+        if self.errorbar:
+            self.iMSDavg_std =(self.MSDavg_std/(6.0*self.time))
+            self.iMSDx_std = (self.MSDx_std/(2.0*self.time))
+            self.iMSDy_std = (self.MSDy_std/(2.0*self.time))
+            self.iMSDz_std = (self.MSDz_std/(2.0*self.time))
+        else:
+            self.iMSDavg_std = None
+            self.iMSDx_std = None
+            self.iMSDy_std = None
+            self.iMSDz_std = None
+        
+
+        
+    def ShowLinesLogLog(self,ax):
+        """
+        add lines to a log/log figure
+        """
+
+        ## add lines to the log-log figure
+        tmax = self.time.max()
+        tmin = self.time.min()
+
+        t1 = np.logspace(np.log10(tmin),np.log10(tmax),200)
+
+        ax.plot(t1,self.MSDavg[0]+t1,"-",color="red",lw=2)
+        ax.plot(t1,t1**2,"-",color="black")
+
+
+
+    def PlotOneDataset(self,atitle,data,data_err,idata,idata_err):
+        """
+        Plot one set of data.
+        """
+
+        fig = pl.figure(figsize=(8,8))
+
+        # add a title in the figure
+        fig.suptitle(atitle)
+
+        # create exes 
+        axlin = fig.add_subplot(2,2,1)
+        axlog = fig.add_subplot(2,2,2)
+        axinv = fig.add_subplot(2,2,3)
+
+        # add the guiding axes in loglog plot
+        self.ShowLinesLogLog(axlog)
+
+        axlin.errorbar(self.time,data,yerr=data_err)
+        axlog.errorbar(self.time,data,yerr=data_err)
+        axinv.errorbar(self.itime,idata,yerr=idata_err)
+
+        if self.maxv!=None:
+            axlin.axvline(self.maxv)
+            axlog.axvline(self.maxv)
+            axinv.axvline(1.0/self.maxv)
+
+        if self.minv!=None:
+            axlin.axvline(self.minv)
+            axlog.axvline(self.minv)
+            axinv.axvline(1.0/self.minv)
+
+        if (self.box !=None):
+            axlin.axhline(self.box**2,ls="--",color="red")
+            axlog.axhline(self.box**2,ls="--",color="red")
+        
+        # if we have defined a complete range, we can show this in an additional figure.
+        if self.minv != None and self.maxv!=None:
+
+            axzoom = fig.add_subplot(2,2,4)
+
+            if self.decompose:
+                axzoom.plot(self.time[self.min_ind:self.max_ind],self.MSDx[self.min_ind:self.max_ind],"o-",label="")
+                axzoom.plot(self.time[self.min_ind:self.max_ind],self.MSDy[self.min_ind:self.max_ind],"o-",label="")
+                axzoom.plot(self.time[self.min_ind:self.max_ind],self.MSDz[self.min_ind:self.max_ind],"o-",label="")
+            else:
+                axzoom.plot(self.time[self.min_ind:self.max_ind],self.MSDavg[self.min_ind:self.max_ind],"o-")
+        
+        axlin.set_xlabel("Time [ps]")
+        axlog.set_xlabel("Time [ps]")
+        axinv.set_xlabel("1/Time [1/ps]")
+        
+        axlin.set_ylabel("MSD [AA2]")
+        axlog.set_ylabel("MSD [AA2]")
+        axinv.set_ylabel("MSD/(2d*t) [AA2/ps]")
+
+        axlin.set_xscale("linear")
+        axlin.set_yscale("linear")
+        
+        axlog.set_xscale("log")
+        axlog.set_yscale("log")
+        
+        axinv.set_xscale("log")
+        axinv.set_yscale("linear")
+
+
+    def PlotData(self):
+        """
+        Plot the MSD in x,y,and z-direction. These should 
+        be the same if the system is isotropic.
+        """
+
+
+        if self.decompose:
+            self.PlotOneDataset("MSD-x",self.MSDx,self.MSDx_std,self.iMSDx,self.iMSDx_std)
+            self.PlotOneDataset("MSD-y",self.MSDy,self.MSDy_std,self.iMSDy,self.iMSDy_std)
+            self.PlotOneDataset("MSD-z",self.MSDz,self.MSDz_std,self.iMSDz,self.iMSDz_std)
+        else:
+            self.PlotOneDataset("MSD-avg",self.MSDavg,self.MSDavg_std,self.iMSDavg,self.iMSDavg_std)
+
+
+
+
+
+        pl.show()
+
+
+
+    def LinearFit(self,time,msd):
+        """
+        Do linear regression on a dataset.
+
+        First, we do regression on the data in linear space, then we do the same thing
+        in log-space. In log-space, we should get a fit that is very close to 1.
+        """
+            
+        linear_fit = scipy.stats.linregress(time,msd)
+        log_fit = scipy.stats.linregress(np.log10(time),np.log10(msd))
+
+        return linear_fit,log_fit
+
+
+    def PrintData(self,lindata,logdata,name):
+        """
+        Print the data to screen (in a nice way)
+        """
+
+        print(" Value for %s" % name)
+        print("\t For fitting in the linear scope:")
+        print("\t Curve had a linear slope of       %10.5f [AA^2/ps]" % lindata[0])
+        print("\t giving a diffusion coeff of       %10.5f [m^2/s]" % (lindata[0]*self.scale))
+        print("\t giving a diffusion coeff of       %g [m^2/s]" % (lindata[0]*self.scale))
+        print("\t We intersect at                   %10.5f [AA^2]" % lindata[1])
+        print("\t R-squared value: (1 is goal)      %10.5f " % lindata[2]**2)
+        print("\t P-value: (should be small)        %10.5f " % lindata[3])
+        print("\t S-value: (should be small)        %10.5f " % lindata[4])
+
+        print("\n\t For fitting in the log scope:")
+        print("\t Slope: (should be very close to 1)        %10.5f" % logdata[0])
+        print("\t R-squared: (should be very close to 1)    %10.5f" % (logdata[2]**2))
+
+
+
+
+    def FindSlope(self): 
+        """
+        We find the slope of the data in the linear regime.
+        """
+        
+        if self.minv==None or self.maxv==None:
+            print("Cannot calculate slope. We have not specified range. ")
+            print("Use --min NUMBER and --max NUMBER to specify linear ")
+            print("(diffusive regime).")
+            return
+
+
+        time = self.time[self.min_ind:self.max_ind]
+
+        # we print this data to screen right away if we find it. 
+        print(72*"=")
+        if self.decompose:
+            print("Solving for MSD for {x,y,z}")
+            linear_x_fit,log_x_fit = self.LinearFit(time,self.MSDx[self.min_ind:self.max_ind])
+            linear_y_fit,log_y_fit = self.LinearFit(time,self.MSDy[self.min_ind:self.max_ind])
+            linear_z_fit,log_z_fit = self.LinearFit(time,self.MSDz[self.min_ind:self.max_ind])
+
+            self.ShowResiduals(linear_x_fit,time,self.MSDx[self.min_ind:self.max_ind])
+
+            self.PrintData(linear_x_fit,log_x_fit,"x-dir")
+            self.PrintData(linear_y_fit,log_y_fit,"y-dir")
+            self.PrintData(linear_z_fit,log_z_fit,"z-dir")
+
+            self.FindAverageDiffusion(linear_x_fix,linear_y_fit,linear_z_fit)
+
+        else:
+            print("Solving for MSD for average")
+            linear_fit,log_fit = self.LinearFit(time,self.MSDavg[self.min_ind:self.max_ind])
+            self.PrintData(linear_fit,log_fit,"Average")
+        print(72*"=")
+        
+
+    def ShowResiduals(self,linear_fit,time,data):
+        """
+        Show the residuals on a linear and a log scale.
+        """
+
+        fig = pl.figure()
+        axlin = fig.add_subplot(2,1,1)
+        axlog = fig.add_subplot(2,1,2)
+
+        residuals = data - ma
+
+        axlin.plot()
+
+
+
+
+
+
+    def FindAverageDiffusion(self,linearx,lineary,linearz):
+        """
+        Find the average diffusion coefficient. This should be more or
+        less the same as we find using the mean msd-data to find it.
+        Can be a nice test.
+        """
+            
+        diff = ((linearx[0] + lineary[0] + linearz[0])*self.scale)/ 3.0 
+
+        print("\n \t We found the average diffusion coefficient to be %10.5f [m^2/s]\n" % diff)
+
+
+
+
+
+
+def main(args):
+    """
+    Here comes the main function
+    """
+
+    # parse max/min values.
+    if(args.maxm!=None):
+        maxval = float(args.maxm)
+    else:
+        maxval = None
+    
+    if(args.minm!=None):
+        minval = float(args.minm)
+    else:
+        minval = None
+
+    if args.files == None:
+        print("We have no input-files. No point to do anything.")
+    elif args.merge:
+        data = MergeFiles(args.files)
+        msd = MSD(0,filename=None,data=data,box=args.box_side,decompose=args.decompose)
+    elif (len(args.files)==1):
+        msd = MSD(0,filename=args.files[0],box=args.box_side,decompose=args.decompose)
+    else:
+        print("We have several files, but are not merging")
+        print("What is it you are trying to do?")
+        sys.exit()
+
+    msd.AddMM(minval,maxval)
+    msd.FindSlope()
+
+    if args.show:
+        msd.PlotData()
+
+
+
+
+
+if __name__ == "__main__":
+    print("Analyzing MSD")
+
+    parser = argparse.ArgumentParser(description=__doc__)
+
+    parser.add_argument("-f","--file",dest="files",nargs="+",help="Input-files")
+    parser.add_argument("-s","--show",dest="show",action="store_true",help="Show the x-y-z directions")
+    parser.add_argument("--max",dest="maxm",type=float,help="Max value for extrapolation")
+    parser.add_argument("--min",dest="minm",type=float,help="Mix value for extrapolation")
+    parser.add_argument("-m","--merge",dest="merge",action="store_true",help="Merge values.")
+    parser.add_argument("-l","--box",dest="box_side",help="Add the length of the box")
+    parser.add_argument("-d","--decompose",dest="decompose",action="store_true",help="Show the MSD decomposed in x,y, and z-direction")
+
+    args = parser.parse_args()
+    print args
+    main(args)
