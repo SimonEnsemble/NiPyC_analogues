@@ -38,2163 +38,8 @@ read_data       data.NiPyC2_experiment_with_Xe
   6 = max # of 1-2 neighbors
   9 = max # of 1-3 neighbors
   12 = max # of special neighbors
-  special bonds CPU = 0.000727984 secs
-  read_data CPU = 0.0381047 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-#fix             6 fram rigid/nvt                # hold MOF atoms fixed
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)
-fix             4 xe vector 500 c_msd[4]
-variable        fitslope equal slope(f_4) #/6/(500*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_twopoint v_fitslope # prints this info to log file
-
-thermo          5000
-run             1000000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 16
-  ghost atom cutoff = 16
-  binsize = 8, bins = 4 5 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton/tri
-      stencil: half/bin/3d/newton/tri
-      bin: standard
-WARNING: Inconsistent image flags (src/domain.cpp:785)
-Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
-Step v_eqtemp c_msd[4] v_twopoint v_fitslope 
-       0          298            0            0        1e+20 
-    5000          298            0            0            0 
-   10000          298            0            0            0 
-   15000          298            0            0            0 
-   20000          298            0            0            0 
-   25000          298            0            0            0 
-   30000          298            0            0            0 
-   35000          298            0            0            0 
-   40000          298            0            0            0 
-   45000          298            0            0            0 
-   50000          298            0            0 9.1978017e-38 
-   55000          298            0            0 6.0840188e-38 
-   60000          298            0            0 4.0444268e-38 
-   65000          298            0            0 2.6730464e-38 
-   70000          298            0            0 1.7314324e-38 
-   75000          298            0            0 1.0740634e-38 
-   80000          298            0            0 6.0919109e-39 
-   85000          298            0            0 2.7733169e-39 
-   90000          298            0            0 3.8976179e-40 
-   95000          298            0            0 -1.3267635e-39 
-  100000          298            0            0 -2.5614555e-39 
-  105000          298            0            0 9.4966717e-38 
-  110000          298            0            0 7.7296709e-38 
-  115000          298            0            0 1.4624753e-37 
-  120000          298            0            0 1.9928993e-37 
-  125000          298            0            0 1.6690662e-37 
-  130000          298            0            0 1.5598679e-37 
-  135000          298            0            0 1.3121945e-37 
-  140000          298            0            0 1.1041146e-37 
-  145000          298            0            0 9.2850252e-38 
-  150000          298            0            0 7.7967726e-38 
-  155000          298            0            0 6.5307639e-38 
-  160000          298            0            0 5.4501123e-38 
-  165000          298            0            0 4.524807e-38 
-  170000          298            0            0 3.7302875e-38 
-  175000          298            0            0 3.0463427e-38 
-  180000          298            0            0 2.4562551e-38 
-  185000          298            0            0 1.946129e-38 
-  190000          298            0            0 1.5043618e-38 
-  195000          298            0            0 1.1212238e-38 
-  200000          298            0            0 7.8852233e-39 
-  205000          298            0            0 4.993328e-39 
-  210000          298            0            0 2.4778093e-39 
-  215000          298            0            0 2.4998281e-38 
-  220000          298            0            0 2.0910765e-38 
-  225000          298            0            0 1.7282969e-38 
-  230000          298            0            0 1.4059415e-38 
-  235000          298            0            0 1.1192097e-38 
-  240000          298            0            0 8.6393628e-39 
-  245000          298            0            0 6.3649743e-39 
-  250000          298            0            0 4.3373282e-39 
-  255000          298            0            0 6.8416017e-39 
-  260000          298            0            0 4.9026559e-39 
-  265000          298            0            0 3.164416e-39 
-  270000          298            0            0 1.605551e-39 
-  275000          298            0            0 2.0723334e-40 
-  280000          298            0            0 -1.0471877e-39 
-  285000          298            0            0 -2.172465e-39 
-  290000          298            0            0 -3.1816938e-39 
-  295000          298            0            0 -4.0865178e-39 
-  300000          298            0            0 -4.8973072e-39 
-  305000          298            0            0 -5.6233129e-39 
-  310000          298            0            0 5.4621609e-39 
-  315000          298            0            0 4.1486929e-39 
-  320000          298            0            0 2.9484107e-39 
-  325000          298            0            0 1.8512798e-39 
-  330000          298            0            0 4.2588586e-38 
-  335000          298            0            0 3.9220981e-38 
-  340000          298            0            0 3.6091456e-38 
-  345000          298            0            0 3.3181184e-38 
-  350000          298            0            0 3.0473034e-38 
-  355000          298            0            0 2.7951391e-38 
-  360000          298            0            0 2.5602013e-38 
-  365000          298            0            0 2.3411889e-38 
-  370000          298            0            0 2.1369123e-38 
-  375000          298            0            0 1.9462822e-38 
-  380000          298            0            0 1.7683005e-38 
-  385000          298            0            0 4.6760548e-38 
-  390000          298            0            0 4.3653124e-38 
-  395000          298            0            0 4.0734168e-38 
-  400000          298            0            0 3.7990829e-38 
-  405000          298            0            0 3.5411256e-38 
-  410000          298            0            0 3.298451e-38 
-  415000          298            0            0 3.0700483e-38 
-  420000          298            0            0 2.8549829e-38 
-  425000          298            0            0 2.6523896e-38 
-  430000          298            0            0 2.6142677e-38 
-  435000          298            0            0 2.4273215e-38 
-  440000          298            0            0 2.2509653e-38 
-  445000          298            0            0 2.6543555e-38 
-  450000          298            0            0 2.4721609e-38 
-  455000          298            0            0 2.2999368e-38 
-  460000          298            0            0 2.1370815e-38 
-  465000          298            0            0 1.9830344e-38 
-  470000          298            0            0 1.8372729e-38 
-  475000          298            0            0 1.6993096e-38 
-  480000          298            0            0 1.5686895e-38 
-  485000          298            0            0 1.4449876e-38 
-  490000          298 4.8148249e-35 1.6376955e-41 1.3577949e-38 
-  495000          298            0            0 3.1073004e-38 
-  500000          298            0            0 2.9272541e-38 
-  505000          298            0            0 2.7559817e-38 
-  510000          298            0            0 2.5930077e-38 
-  515000          298            0            0 2.4378859e-38 
-  520000          298            0            0 2.2901973e-38 
-  525000          298            0            0 2.1559686e-38 
-  530000          298            0            0 2.0217494e-38 
-  535000          298            0            0 1.8938622e-38 
-  540000          298            0            0 1.7719794e-38 
-  545000          298            0            0 1.6557924e-38 
-  550000          298            0            0 1.5450107e-38 
-  555000          298 7.7037198e-34 2.3134294e-40 3.3073585e-38 
-  560000          298            0            0 3.1406291e-38 
-  565000          298            0            0 2.9811292e-38 
-  570000          298            0            0 2.8285087e-38 
-  575000          298            0            0 4.0622754e-38 
-  580000          298            0            0 3.9604884e-38 
-  585000          298            0            0 3.7783427e-38 
-  590000          298            0            0 3.6036835e-38 
-  595000          298            0            0 4.7188034e-38 
-  600000          298            0            0 4.5156514e-38 
-  605000          298            0            0 4.3205672e-38 
-  610000          298            0            0 4.1331886e-38 
-  615000          298            0            0 3.9531723e-38 
-  620000          298            0            0 3.8540757e-38 
-  625000          298            0            0 3.6854745e-38 
-  630000          298            0            0 3.5233894e-38 
-  635000          298            0            0 3.3675377e-38 
-  640000          298            0            0 3.2176507e-38 
-  645000          298            0            0 3.0734732e-38 
-  650000          298            0            0 2.934762e-38 
-  655000          298            0            0 2.8679557e-38 
-  660000          298            0            0 2.7374912e-38 
-  665000          298            0            0 2.6118998e-38 
-  670000          298            0            0 2.4909793e-38 
-  675000          298            0            0 2.3745372e-38 
-  680000          298            0            0 2.2623899e-38 
-  685000          298            0            0 2.1543624e-38 
-  690000          298            0            0 2.0502879e-38 
-  695000          298            0            0 1.9500071e-38 
-  700000          298            0            0 1.8533681e-38 
-  705000          298            0            0 1.760226e-38 
-  710000          298            0            0 2.6380318e-38 
-  715000          298            0            0 2.5246268e-38 
-  720000          298            0            0 2.4151542e-38 
-  725000          298            0            0 2.3094626e-38 
-  730000          298            0            0 2.4211383e-38 
-  735000          298            0            0 2.3168003e-38 
-  740000          298            0            0 2.2160031e-38 
-  745000          298            0            0 2.325279e-38 
-  750000          298            0            0 2.2384634e-38 
-  755000          298            0            0 2.1418706e-38 
-  760000          298            0            0 2.0484865e-38 
-  765000          298            0            0 1.9581936e-38 
-  770000          298            0            0 1.8708794e-38 
-  775000          298            0            0 2.5535278e-38 
-  780000          298            0            0 2.4523428e-38 
-  785000          298            0            0 2.3543808e-38 
-  790000          298            0            0 2.2595281e-38 
-  795000          298            0            0 2.1676756e-38 
-  800000          298            0            0 2.0787182e-38 
-  805000          298            0            0 2.701855e-38 
-  810000          298            0            0 2.6010031e-38 
-  815000          298            0            0 2.503233e-38 
-  820000          298            0            0 2.4084399e-38 
-  825000          298            0            0 2.3165232e-38 
-  830000          298            0            0 2.2273862e-38 
-  835000          298            0            0 2.140936e-38 
-  840000          298 7.7037198e-34 1.5285158e-40 2.2205604e-38 
-  845000          298            0            0 2.1353795e-38 
-  850000          298            0            0 2.0527277e-38 
-  855000          298            0            0 1.9725224e-38 
-  860000          298            0            0 1.8946836e-38 
-  865000          298 4.8148249e-35 9.2771192e-42 1.8287704e-38 
-  870000          298            0            0 1.7552174e-38 
-  875000          298            0            0 1.6838146e-38 
-  880000          298            0            0 1.6144932e-38 
-  885000          298            0            0 2.1323473e-38 
-  890000          298            0            0 2.0539177e-38 
-  895000          298            0            0 1.9777042e-38 
-  900000          298            0            0 1.9036379e-38 
-  905000          298            0            0 1.8316522e-38 
-  910000          298            0            0 1.7703037e-38 
-  915000          298            0            0 1.702101e-38 
-  920000          298            0            0 1.6357974e-38 
-  925000          298            0            0 1.5713349e-38 
-  930000          298            0            0 1.5086578e-38 
-  935000          298            0            0 1.447712e-38 
-  940000          298            0            0 1.3884454e-38 
-  945000          298            0            0 1.3308078e-38 
-  950000          298            0            0 1.2747505e-38 
-  955000          298 1.9259299e-34 3.3611343e-41 1.2518524e-38 
-  960000          298            0            0 1.1981621e-38 
-  965000          298            0            0 1.1459309e-38 
-  970000          298 3.0814879e-33 5.2946528e-40 1.5856139e-38 
-  975000          298            0            0 1.526181e-38 
-  980000          298            0            0 1.4683111e-38 
-  985000          298            0            0 1.4119593e-38 
-  990000          298            0            0 1.3570824e-38 
-  995000          298            0            0 1.3036383e-38 
- 1000000          298            0            0 1.2515864e-38 
-Loop time of 810.712 on 1 procs for 1000000 steps with 2431 atoms
-
-Performance: 106.573 ns/day, 0.225 hours/ns, 1233.483 timesteps/s
-100.0% CPU use with 1 MPI tasks x no OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 17.727     | 17.727     | 17.727     |   0.0 |  2.19
-Bond    | 704.2      | 704.2      | 704.2      |   0.0 | 86.86
-Neigh   | 1.1291     | 1.1291     | 1.1291     |   0.0 |  0.14
-Comm    | 56.601     | 56.601     | 56.601     |   0.0 |  6.98
-Output  | 2.6083     | 2.6083     | 2.6083     |   0.0 |  0.32
-Modify  | 8.7246     | 8.7246     | 8.7246     |   0.0 |  1.08
-Other   |            | 19.72      |            |       |  2.43
-
-Nlocal:    2431 ave 2431 max 2431 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:    16166 ave 16166 max 16166 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:    1162 ave 1162 max 1162 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 1162
-Ave neighs/atom = 0.477993
-Ave special neighs/atom = 6.58988
-Neighbor list builds = 17
-Dangerous builds = 0
-unfix           3
-unfix           4
-undump          NiPyC2_experiment_with_Xe_xyzmov
-
-
-### NOTE:
-# These fixes are overkill if you simply want to hold a collection of atoms stationary.
-# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
-#
-# The force and torque keywords discussed next are only allowed for the rigid styles
-# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
-#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial
-# center-of-mass translational or angular velocity is 0.0.
-# Otherwise the initial translational or angular momentum the body has will persist.
-###
-Total wall time: 0:13:30
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000899724 secs
-  read_data CPU = 0.0505558 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-#fix             6 fram rigid/nvt                # hold MOF atoms fixed
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             4 xe vector 50 c_msd[4]
-variable        fitslope equal slope(f_4)/6/(10*dt) #/6/(500*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_twopoint v_fitslope # prints this info to log file
-ERROR: Could not find thermo custom variable name (src/thermo.cpp:979)
-Last command: thermo_style    custom step v_eqtemp c_msd[4] v_twopoint v_fitslope # prints this info to log file
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000863406 secs
-  read_data CPU = 0.0294398 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-#fix             6 fram rigid/nvt                # hold MOF atoms fixed
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             4 xe vector 50 c_msd[4]
-variable        fitslope equal slope(f_4)/6/(10*dt) #/6/(500*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
-
-thermo          5000
-run             100000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 16
-  ghost atom cutoff = 16
-  binsize = 8, bins = 4 5 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton/tri
-      stencil: half/bin/3d/newton/tri
-      bin: standard
-WARNING: Inconsistent image flags (src/domain.cpp:785)
-Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
-Step v_eqtemp c_msd[4] v_fitslope 
-       0          298            0 1.6666667e+18 
-    5000          298            0 -5.6831946e-39 
-   10000          298            0 2.8460617e-40 
-   15000          298            0 -2.7401701e-39 
-   20000          298            0 -1.715529e-39 
-   25000          298            0 -1.6107612e-39 
-   30000          298            0 -4.5669126e-40 
-   35000          298            0 -6.6604932e-40 
-   40000          298            0 -5.9411415e-40 
-   45000          298            0 -2.3540241e-40 
-   50000          298            0 -3.0843114e-40 
-   55000          298            0 -3.4883129e-40 
-   60000          298            0 -1.7494296e-40 
-   65000          298            0 -1.9061714e-40 
-   70000          298            0 -2.3078419e-40 
-   75000          298            0 -2.517062e-40 
-   80000          298            0 -1.3143077e-40 
-   85000          298            0 -5.7195056e-41 
-   90000          298            0 -1.1405415e-41 
-   95000          298            0 3.3145589e-41 
-  100000          298            0 8.4291107e-41 
-Loop time of 82.5759 on 1 procs for 100000 steps with 2431 atoms
-
-Performance: 104.631 ns/day, 0.229 hours/ns, 1211.007 timesteps/s
-99.9% CPU use with 1 MPI tasks x no OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 1.8159     | 1.8159     | 1.8159     |   0.0 |  2.20
-Bond    | 71.913     | 71.913     | 71.913     |   0.0 | 87.09
-Neigh   | 0.064883   | 0.064883   | 0.064883   |   0.0 |  0.08
-Comm    | 5.7652     | 5.7652     | 5.7652     |   0.0 |  6.98
-Output  | 0.26795    | 0.26795    | 0.26795    |   0.0 |  0.32
-Modify  | 0.90729    | 0.90729    | 0.90729    |   0.0 |  1.10
-Other   |            | 1.842      |            |       |  2.23
-
-Nlocal:    2431 ave 2431 max 2431 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:    16166 ave 16166 max 16166 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:    1158 ave 1158 max 1158 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 1158
-Ave neighs/atom = 0.476347
-Ave special neighs/atom = 6.58988
-Neighbor list builds = 1
-Dangerous builds = 0
-unfix           3
-unfix           4
-undump          NiPyC2_experiment_with_Xe_xyzmov
-
-
-### NOTE:
-# These fixes are overkill if you simply want to hold a collection of atoms stationary.
-# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
-#
-# The force and torque keywords discussed next are only allowed for the rigid styles
-# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
-#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial
-# center-of-mass translational or angular velocity is 0.0.
-# Otherwise the initial translational or angular momentum the body has will persist.
-###
-Total wall time: 0:01:22
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000780951 secs
-  read_data CPU = 0.0397928 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-#fix             6 fram rigid/nvt                # hold MOF atoms fixed
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             4 xe vector 50 c_msd[4]
-variable        fitslope equal slope(f_4) #/6/(500*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
-
-thermo          5000
-run             100000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 16
-  ghost atom cutoff = 16
-  binsize = 8, bins = 4 5 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton/tri
-      stencil: half/bin/3d/newton/tri
-      bin: standard
-WARNING: Inconsistent image flags (src/domain.cpp:785)
-Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
-Step v_eqtemp c_msd[4] v_fitslope 
-       0          298            0        1e+20 
-    5000          298            0 -3.4099167e-37 
-   10000          298            0 1.707637e-38 
-   15000          298            0 -1.644102e-37 
-   20000          298            0 -1.0293174e-37 
-   25000          298            0 -9.6645671e-38 
-   30000          298            0 -2.7401476e-38 
-   35000          298            0 -3.9962959e-38 
-   40000          298            0 -3.5646849e-38 
-   45000          298            0 -1.4124145e-38 
-   50000          298            0 -1.8505868e-38 
-   55000          298            0 -2.0929878e-38 
-   60000          298            0 -1.0496577e-38 
-   65000          298            0 -1.1437028e-38 
-   70000          298            0 -1.3847051e-38 
-   75000          298            0 -1.5102372e-38 
-   80000          298            0 -7.8858463e-39 
-   85000          298            0 -3.4317034e-39 
-   90000          298            0 -6.8432491e-40 
-   95000          298            0 1.9887354e-39 
-  100000          298            0 5.0574664e-39 
-Loop time of 82.1516 on 1 procs for 100000 steps with 2431 atoms
-
-Performance: 105.171 ns/day, 0.228 hours/ns, 1217.262 timesteps/s
-100.0% CPU use with 1 MPI tasks x no OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 1.8309     | 1.8309     | 1.8309     |   0.0 |  2.23
-Bond    | 71.422     | 71.422     | 71.422     |   0.0 | 86.94
-Neigh   | 0.065098   | 0.065098   | 0.065098   |   0.0 |  0.08
-Comm    | 5.7815     | 5.7815     | 5.7815     |   0.0 |  7.04
-Output  | 0.2722     | 0.2722     | 0.2722     |   0.0 |  0.33
-Modify  | 0.90765    | 0.90765    | 0.90765    |   0.0 |  1.10
-Other   |            | 1.872      |            |       |  2.28
-
-Nlocal:    2431 ave 2431 max 2431 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:    16166 ave 16166 max 16166 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:    1158 ave 1158 max 1158 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 1158
-Ave neighs/atom = 0.476347
-Ave special neighs/atom = 6.58988
-Neighbor list builds = 1
-Dangerous builds = 0
-unfix           3
-unfix           4
-undump          NiPyC2_experiment_with_Xe_xyzmov
-
-
-### NOTE:
-# These fixes are overkill if you simply want to hold a collection of atoms stationary.
-# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
-#
-# The force and torque keywords discussed next are only allowed for the rigid styles
-# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
-#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial
-# center-of-mass translational or angular velocity is 0.0.
-# Otherwise the initial translational or angular momentum the body has will persist.
-###
-Total wall time: 0:01:22
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.00089921 secs
-  read_data CPU = 0.0294039 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-#fix             6 fram rigid/nvt                # hold MOF atoms fixed
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             4 xe vector 5 c_msd[4]
-variable        fitslope equal slope(f_4)/6/(5*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
-
-thermo          5000
-run             100000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 16
-  ghost atom cutoff = 16
-  binsize = 8, bins = 4 5 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton/tri
-      stencil: half/bin/3d/newton/tri
-      bin: standard
-WARNING: Inconsistent image flags (src/domain.cpp:785)
-Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
-Step v_eqtemp c_msd[4] v_fitslope 
-       0          298            0 3.3333333e+18 
-    5000          298            0 -1.8385106e-40 
-   10000          298            0 5.9675035e-40 
-   15000          298            0 -3.4015649e-40 
-   20000          298            0 -3.6084538e-40 
-   25000          298            0 -1.7588119e-40 
-   30000          298            0 -1.0364371e-40 
-   35000          298            0 -8.0612789e-41 
-   40000          298            0 -8.3798722e-41 
-   45000          298            0 -9.5721934e-41 
-   50000          298            0 -8.0706322e-41 
-   55000          298            0 -9.2050766e-41 
-   60000          298            0 -8.9809567e-41 
-   65000          298            0 -7.8135093e-41 
-   70000          298            0 -5.8609021e-41 
-   75000          298            0 -5.162644e-41 
-   80000          298            0 -3.5226071e-41 
-   85000          298            0 -1.1180202e-41 
-   90000          298            0 -1.0836438e-41 
-   95000          298            0 -1.4057295e-41 
-  100000          298            0 -1.1694506e-41 
-Loop time of 80.7546 on 1 procs for 100000 steps with 2431 atoms
-
-Performance: 106.991 ns/day, 0.224 hours/ns, 1238.319 timesteps/s
-100.0% CPU use with 1 MPI tasks x no OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 1.7647     | 1.7647     | 1.7647     |   0.0 |  2.19
-Bond    | 70.299     | 70.299     | 70.299     |   0.0 | 87.05
-Neigh   | 0.065377   | 0.065377   | 0.065377   |   0.0 |  0.08
-Comm    | 5.6662     | 5.6662     | 5.6662     |   0.0 |  7.02
-Output  | 0.26266    | 0.26266    | 0.26266    |   0.0 |  0.33
-Modify  | 0.92821    | 0.92821    | 0.92821    |   0.0 |  1.15
-Other   |            | 1.769      |            |       |  2.19
-
-Nlocal:    2431 ave 2431 max 2431 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:    16166 ave 16166 max 16166 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:    1158 ave 1158 max 1158 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 1158
-Ave neighs/atom = 0.476347
-Ave special neighs/atom = 6.58988
-Neighbor list builds = 1
-Dangerous builds = 0
-unfix           3
-unfix           4
-undump          NiPyC2_experiment_with_Xe_xyzmov
-
-
-### NOTE:
-# These fixes are overkill if you simply want to hold a collection of atoms stationary.
-# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
-#
-# The force and torque keywords discussed next are only allowed for the rigid styles
-# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
-#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial
-# center-of-mass translational or angular velocity is 0.0.
-# Otherwise the initial translational or angular momentum the body has will persist.
-###
-Total wall time: 0:01:20
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000816833 secs
-  read_data CPU = 0.0490362 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-#neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-fix             5 fram rigid/nvt                # hold MOF atoms fixed
-ERROR: Illegal fix rigid command (src/RIGID/fix_rigid.cpp:89)
-Last command: fix             5 fram rigid/nvt                # hold MOF atoms fixed
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000700022 secs
-  read_data CPU = 0.0384437 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-#neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-fix             4 fram rigid/nvt group fram               # hold MOF atoms fixed
-ERROR: Expected integer parameter instead of 'fram' in input script or data file (src/RIGID/fix_rigid.cpp:227)
-Last command: fix             4 fram rigid/nvt group fram               # hold MOF atoms fixed
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000744083 secs
-  read_data CPU = 0.0389755 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-#neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-fix             4 fram rigid/nvt group fram               # hold MOF atoms fixed
-ERROR: Expected integer parameter instead of 'fram' in input script or data file (src/RIGID/fix_rigid.cpp:227)
-Last command: fix             4 fram rigid/nvt group fram               # hold MOF atoms fixed
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000739484 secs
-  read_data CPU = 0.0192595 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-#neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-fix             4 fram rigid/nvt group 1 fram               # hold MOF atoms fixed
-1 rigid bodies with 2430 atoms
-ERROR: Did not set temperature for fix rigid/nvt (src/RIGID/fix_rigid_nvt.cpp:40)
-Last command: fix             4 fram rigid/nvt group 1 fram               # hold MOF atoms fixed
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000788427 secs
-  read_data CPU = 0.0514222 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-#neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-fix             4 fram rigid/nvt group 1 fram temp ${eqtemp} ${eqtemp} ${tdamp} # hold MOF atoms fixed
-fix             4 fram rigid/nvt group 1 fram temp 298 ${eqtemp} ${tdamp} 
-fix             4 fram rigid/nvt group 1 fram temp 298 298 ${tdamp} 
-fix             4 fram rigid/nvt group 1 fram temp 298 298 100 
-1 rigid bodies with 2430 atoms
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             4 xe vector 5 c_msd[4]
-ERROR: Replacing a fix, but new style != old style (src/modify.cpp:854)
-Last command: fix             4 xe vector 5 c_msd[4]
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000885446 secs
-  read_data CPU = 0.0324533 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-#neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-fix             4 fram rigid/nvt group 1 fram temp ${eqtemp} ${eqtemp} ${tdamp} # hold MOF atoms fixed
-fix             4 fram rigid/nvt group 1 fram temp 298 ${eqtemp} ${tdamp} 
-fix             4 fram rigid/nvt group 1 fram temp 298 298 ${tdamp} 
-fix             4 fram rigid/nvt group 1 fram temp 298 298 100 
-1 rigid bodies with 2430 atoms
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             5 xe vector 5 c_msd[4]
-variable        fitslope equal slope(f_4)/6/(5*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
-
-thermo          5000
-run             100000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 16
-  ghost atom cutoff = 16
-  binsize = 8, bins = 4 5 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton/tri
-      stencil: half/bin/3d/newton/tri
-      bin: standard
-WARNING: Inconsistent image flags (src/domain.cpp:785)
-Per MPI rank memory allocation (min/avg/max) = 39.67 | 39.67 | 39.67 Mbytes
-Step v_eqtemp c_msd[4] v_fitslope 
-ERROR: Mismatched fix in variable formula (src/variable.cpp:4166)
-Last command: run             100000
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000871134 secs
-  read_data CPU = 0.0294255 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-#neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-fix             4 fram rigid/nvt group 1 fram temp ${eqtemp} ${eqtemp} ${tdamp} # hold MOF atoms fixed
-fix             4 fram rigid/nvt group 1 fram temp 298 ${eqtemp} ${tdamp} 
-fix             4 fram rigid/nvt group 1 fram temp 298 298 ${tdamp} 
-fix             4 fram rigid/nvt group 1 fram temp 298 298 100 
-1 rigid bodies with 2430 atoms
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000900844 secs
-  read_data CPU = 0.0490071 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-#fix             4 fram rigid/nvt group 1 fram temp ${eqtemp} ${eqtemp} ${tdamp} # hold MOF atoms fixed
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd xe msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             5 xe vector 5 c_msd[4]
-variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
-
-thermo          5000
-run             100000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 16
-  ghost atom cutoff = 16
-  binsize = 8, bins = 4 5 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton/tri
-      stencil: half/bin/3d/newton/tri
-      bin: standard
-WARNING: Inconsistent image flags (src/domain.cpp:785)
-Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
-Step v_eqtemp c_msd[4] v_fitslope 
-       0          298            0 3.3333333e+18 
-    5000          298            0 -1.8385106e-40 
-   10000          298            0 5.9675035e-40 
-   15000          298            0 -3.4015649e-40 
-   20000          298            0 -3.6084538e-40 
-   25000          298            0 -1.7588119e-40 
-   30000          298            0 -1.0364371e-40 
-   35000          298            0 -8.0612789e-41 
-   40000          298            0 -8.3798722e-41 
-   45000          298            0 -9.5721934e-41 
-   50000          298            0 -8.0706322e-41 
-   55000          298            0 -9.2050766e-41 
-   60000          298            0 -8.9809567e-41 
-   65000          298            0 -7.8135093e-41 
-   70000          298            0 -5.8609021e-41 
-   75000          298            0 -5.162644e-41 
-   80000          298            0 -3.5226071e-41 
-   85000          298            0 -1.1180202e-41 
-   90000          298            0 -1.0836438e-41 
-   95000          298            0 -1.4057295e-41 
-  100000          298            0 -1.1694506e-41 
-Loop time of 84.8757 on 1 procs for 100000 steps with 2431 atoms
-
-Performance: 101.796 ns/day, 0.236 hours/ns, 1178.193 timesteps/s
-99.9% CPU use with 1 MPI tasks x no OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 1.8835     | 1.8835     | 1.8835     |   0.0 |  2.22
-Bond    | 73.913     | 73.913     | 73.913     |   0.0 | 87.08
-Neigh   | 0.067431   | 0.067431   | 0.067431   |   0.0 |  0.08
-Comm    | 5.9712     | 5.9712     | 5.9712     |   0.0 |  7.04
-Output  | 0.27325    | 0.27325    | 0.27325    |   0.0 |  0.32
-Modify  | 1.0031     | 1.0031     | 1.0031     |   0.0 |  1.18
-Other   |            | 1.764      |            |       |  2.08
-
-Nlocal:    2431 ave 2431 max 2431 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:    16166 ave 16166 max 16166 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:    1158 ave 1158 max 1158 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 1158
-Ave neighs/atom = 0.476347
-Ave special neighs/atom = 6.58988
-Neighbor list builds = 1
-Dangerous builds = 0
-unfix           3
-#unfix           4
-unfix           5
-undump          NiPyC2_experiment_with_Xe_xyzmov
-
-
-### NOTE:
-# These fixes are overkill if you simply want to hold a collection of atoms stationary.
-# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
-#
-# The force and torque keywords discussed next are only allowed for the rigid styles
-# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
-#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial
-# center-of-mass translational or angular velocity is 0.0.
-# Otherwise the initial translational or angular momentum the body has will persist.
-###
-Total wall time: 0:01:25
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000789028 secs
-  read_data CPU = 0.0442173 secs
+  special bonds CPU = 0.000684133 secs
+  read_data CPU = 0.0371017 secs
 
 #### Atom Groupings ####
 group           xe       id   55
@@ -2321,21 +166,21 @@ Step v_eqtemp c_msd[4] v_fitslope
    90000          298 0.00013546271 3.2065276e-11 
    95000          298 0.00010863514 9.3856568e-12 
   100000          298 0.00045302322 2.8662571e-12 
-Loop time of 82.0487 on 1 procs for 100000 steps with 2431 atoms
+Loop time of 82.0938 on 1 procs for 100000 steps with 2431 atoms
 
-Performance: 105.303 ns/day, 0.228 hours/ns, 1218.789 timesteps/s
+Performance: 105.246 ns/day, 0.228 hours/ns, 1218.119 timesteps/s
 100.0% CPU use with 1 MPI tasks x no OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 1.7764     | 1.7764     | 1.7764     |   0.0 |  2.17
-Bond    | 71.032     | 71.032     | 71.032     |   0.0 | 86.57
-Neigh   | 0.066355   | 0.066355   | 0.066355   |   0.0 |  0.08
-Comm    | 5.6954     | 5.6954     | 5.6954     |   0.0 |  6.94
-Output  | 0.26258    | 0.26258    | 0.26258    |   0.0 |  0.32
-Modify  | 1.4566     | 1.4566     | 1.4566     |   0.0 |  1.78
-Other   |            | 1.759      |            |       |  2.14
+Pair    | 1.7898     | 1.7898     | 1.7898     |   0.0 |  2.18
+Bond    | 71.117     | 71.117     | 71.117     |   0.0 | 86.63
+Neigh   | 0.067517   | 0.067517   | 0.067517   |   0.0 |  0.08
+Comm    | 5.6614     | 5.6614     | 5.6614     |   0.0 |  6.90
+Output  | 0.26289    | 0.26289    | 0.26289    |   0.0 |  0.32
+Modify  | 1.4612     | 1.4612     | 1.4612     |   0.0 |  1.78
+Other   |            | 1.733      |            |       |  2.11
 
 Nlocal:    2431 ave 2431 max 2431 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -2366,3 +211,236 @@ undump          NiPyC2_experiment_with_Xe_xyzmov
 # Otherwise the initial translational or angular momentum the body has will persist.
 ###
 Total wall time: 0:01:22
+
+# --------------------------------- Initialization -------------------------------------- #
+units           real
+atom_style      full
+boundary        p p p
+
+pair_style      lj/cut 14.000
+bond_style      harmonic
+angle_style     cosine/periodic
+dihedral_style  harmonic
+improper_style  fourier
+
+special_bonds   lj/coul 0.0 0.0 1.0
+pair_modify     tail no mix arithmetic
+#dielectric      1.0
+box tilt        large
+read_data       data.NiPyC2_experiment_with_Xe
+  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  2431 atoms
+  scanning bonds ...
+  6 = max bonds/atom
+  scanning angles ...
+  15 = max angles/atom
+  scanning dihedrals ...
+  8 = max dihedrals/atom
+  scanning impropers ...
+  3 = max impropers/atom
+  reading bonds ...
+  2880 bonds
+  reading angles ...
+  5490 angles
+  reading dihedrals ...
+  5760 dihedrals
+  reading impropers ...
+  3780 impropers
+  6 = max # of 1-2 neighbors
+  9 = max # of 1-3 neighbors
+  12 = max # of special neighbors
+  special bonds CPU = 0.000738352 secs
+  read_data CPU = 0.0408965 secs
+
+#### Atom Groupings ####
+group           xe       id   55
+1 atoms in group xe
+group           fram     id   1:54 56:2431
+2430 atoms in group fram
+#### END Atom Groupings ####
+
+###
+# Speed up Calculations by exluding framework-framework interactions
+#   since we are keeping the framework rigid and stationary
+#
+# neigh_modify keyword values ...
+# keyword = exclude
+# values  = group group1-ID group2-ID
+#
+# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
+###
+neigh_modify exclude group fram fram
+
+# ----------------------------- Variables ---------------------- #
+dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 5000 NiPyC2_experiment_with_Xe_mov.xyz
+dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
+variable        dt         equal 1.00
+variable        tdamp      equal 100*${dt}
+variable        tdamp      equal 100*1
+variable        eqtemp     equal 298.00
+
+# ------------------------------ Equilibriation -------------------------------------------- #
+# we do not need to perform equilibriation since we are using a rigid framework
+# and the (single) adsorbate has already been inserted into the material via GCMC
+# which already included an equilibriation phase.
+#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
+#fix             2 xe nve
+#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
+#fix             4 fram nve
+#thermo          0
+#run             50000
+#unfix           1
+#unfix           2
+#unfix           3
+#unfix           4
+
+# --------------------- Production (data gathering) --------------------------------------- #
+# A simple way to hold atoms stationary is to not include those atoms in your time integration.
+#reset_timestep  0
+
+fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
+fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
+fix             3 xe nvt temp 298 298 ${tdamp}
+fix             3 xe nvt temp 298 298 100
+#fix             4 fram rigid/nvt group 1 fram temp ${eqtemp} ${eqtemp} ${tdamp} # hold MOF atoms fixed
+#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
+
+###
+#  mean-squared disp of grp 1
+#
+# A vector of four quantities is calculated by this compute:
+# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
+# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
+#  summed and averaged over atoms in the group.
+#
+# The slope of the MSD versus time is proportional to the diffusion coefficient.
+# MSD values can be accumulated in a vector via the fix vector command,
+#   and a line fit to the vector to compute its slope via the variable slope function,
+#   and thus extract D.
+#
+# fix ID group-ID vector Nevery value1 value2 ...
+#
+# c_ID[I] = Ith component of global vector calculated by a compute with ID
+# f_ID = global scalar calculated by a fix with ID
+# v_name = value calculated by an equal-style variable with name
+#
+# variable name style args...
+#
+# The slope() function uses linear regression to fit a line to the set of points,
+#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
+#   where the Vi are the values in the global vector of length N.
+#   The returned value is the slope of the line.
+#   If the line has a single point or is vertical, it returns 1.0e20.
+###
+compute         msd all msd com yes
+#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
+fix             5 xe vector 5 c_msd[4]
+variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
+
+thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
+
+thermo          5000
+run             200000
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 5 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton/tri
+      stencil: half/bin/3d/newton/tri
+      bin: standard
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
+Step v_eqtemp c_msd[4] v_fitslope 
+       0          298 7.572221e-30 3.3333333e+18 
+    5000          298 0.00029532742 2.8146487e-09 
+   10000          298 0.00016173486 2.2860171e-09 
+   15000          298 9.5979274e-05 1.8836986e-10 
+   20000          298 0.00040715404 1.7299023e-10 
+   25000          298 0.00020756223 2.9637596e-10 
+   30000          298 1.0029512e-05 -3.6546962e-11 
+   35000          298 0.00027965815 1.0497096e-11 
+   40000          298 0.00010987207 2.1261975e-10 
+   45000          298 8.6620405e-06 4.487653e-11 
+   50000          298 0.00019184802 3.5440289e-11 
+   55000          298 0.00025073619 1.4156713e-10 
+   60000          298 1.6807414e-05 1.073004e-10 
+   65000          298 6.4019964e-05 2.2739048e-11 
+   70000          298 0.00041603247 6.3027375e-11 
+   75000          298 6.1881765e-05 5.754579e-11 
+   80000          298 0.00014475642 1.0601188e-11 
+   85000          298 0.00046117676  1.29227e-11 
+   90000          298 0.00013546271 3.2065276e-11 
+   95000          298 0.00010863514 9.3856568e-12 
+  100000          298 0.00045302322 2.8662571e-12 
+  105000          298 0.00017254474 2.7046755e-11 
+  110000          298 7.3527309e-05 1.6453467e-11 
+  115000          298 0.00026116731 5.0309854e-13 
+  120000          298 0.00037881639 1.9585909e-11 
+  125000          298 0.00023932912 2.9486757e-11 
+  130000          298 0.00015222103 3.3346813e-11 
+  135000          298 0.00024695307 3.4187333e-11 
+  140000          298 0.00021077144 4.2131788e-11 
+  145000          298 2.0382661e-05 3.012214e-11 
+  150000          298 0.00010172169 1.772867e-11 
+  155000          298 0.00033235675 2.2233085e-11 
+  160000          298 0.00014492063 2.5037638e-11 
+  165000          298 0.00018772988 2.2424977e-11 
+  170000          298 0.00025503239 2.7425475e-11 
+  175000          298 3.5025365e-05 2.4167715e-11 
+  180000          298 3.9337747e-05 1.3904877e-11 
+  185000          298 0.00037161983 1.3730314e-11 
+  190000          298 0.00023752946 1.7441405e-11 
+  195000          298 0.00019060678 1.7421279e-11 
+  200000          298 0.00037784419 1.6486331e-11 
+Loop time of 164.093 on 1 procs for 200000 steps with 2431 atoms
+
+Performance: 105.306 ns/day, 0.228 hours/ns, 1218.821 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 3.5719     | 3.5719     | 3.5719     |   0.0 |  2.18
+Bond    | 142.38     | 142.38     | 142.38     |   0.0 | 86.77
+Neigh   | 0.070843   | 0.070843   | 0.070843   |   0.0 |  0.04
+Comm    | 11.391     | 11.391     | 11.391     |   0.0 |  6.94
+Output  | 0.11089    | 0.11089    | 0.11089    |   0.0 |  0.07
+Modify  | 2.942      | 2.942      | 2.942      |   0.0 |  1.79
+Other   |            | 3.622      |            |       |  2.21
+
+Nlocal:    2431 ave 2431 max 2431 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    16166 ave 16166 max 16166 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1158 ave 1158 max 1158 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1158
+Ave neighs/atom = 0.476347
+Ave special neighs/atom = 6.58988
+Neighbor list builds = 1
+Dangerous builds = 0
+unfix           3
+#unfix           4
+unfix           5
+undump          NiPyC2_experiment_with_Xe_xyzmov
+
+
+### NOTE:
+# These fixes are overkill if you simply want to hold a collection of atoms stationary.
+# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
+#
+# The force and torque keywords discussed next are only allowed for the rigid styles
+# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
+#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial
+# center-of-mass translational or angular velocity is 0.0.
+# Otherwise the initial translational or angular momentum the body has will persist.
+###
+Total wall time: 0:02:44

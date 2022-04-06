@@ -12,7 +12,9 @@ AND we want to compute the mean-squared displacement. the slope of which gives u
 All of the other sub-directories are reference and tutorial files that will be removed from the repo 
 once I have a working pipeline for these calculations.
 
-
+LAMPPS-INTERFACE COMMAND:
+`lammps-interface --nvt --cutoff 14.0 --xyz 10000 xtal.cif`
+if you want to be sure that you are printing the correct xtal structure, you can issue a command that outputs a cif file which you can inspect. 
 
 
 NOTE: 

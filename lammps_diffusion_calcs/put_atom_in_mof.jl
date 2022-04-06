@@ -1,7 +1,7 @@
 using PorousMaterials
 
 xtal        = Crystal("NiPyC2_experiment.cif")
-xenon       = Molecule("Xe")
+xenon       = Molecule("Xe") # Kr
 temperature = 298.0
 pressure    = 1.0
 ljff        = LJForceField("UFF")
