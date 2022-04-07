@@ -99,8 +99,8 @@ variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
-thermo          5000
-run             200000
+thermo          1000
+run             2000000
 unfix           3
 #unfix           4
 unfix           5

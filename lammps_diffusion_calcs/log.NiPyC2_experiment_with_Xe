@@ -38,221 +38,8 @@ read_data       data.NiPyC2_experiment_with_Xe
   6 = max # of 1-2 neighbors
   9 = max # of 1-3 neighbors
   12 = max # of special neighbors
-  special bonds CPU = 0.000684133 secs
-  read_data CPU = 0.0371017 secs
-
-#### Atom Groupings ####
-group           xe       id   55
-1 atoms in group xe
-group           fram     id   1:54 56:2431
-2430 atoms in group fram
-#### END Atom Groupings ####
-
-###
-# Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
-#
-# neigh_modify keyword values ...
-# keyword = exclude
-# values  = group group1-ID group2-ID
-#
-# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
-###
-neigh_modify exclude group fram fram
-
-# ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
-dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
-variable        dt         equal 1.00
-variable        tdamp      equal 100*${dt}
-variable        tdamp      equal 100*1
-variable        eqtemp     equal 298.00
-
-# ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC
-# which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
-
-# --------------------- Production (data gathering) --------------------------------------- #
-# A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
-
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 ${eqtemp} ${tdamp}
-fix             3 xe nvt temp 298 298 ${tdamp}
-fix             3 xe nvt temp 298 298 100
-#fix             4 fram rigid/nvt group 1 fram temp ${eqtemp} ${eqtemp} ${tdamp} # hold MOF atoms fixed
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
-
-###
-#  mean-squared disp of grp 1
-#
-# A vector of four quantities is calculated by this compute:
-# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
-# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
-#  summed and averaged over atoms in the group.
-#
-# The slope of the MSD versus time is proportional to the diffusion coefficient.
-# MSD values can be accumulated in a vector via the fix vector command,
-#   and a line fit to the vector to compute its slope via the variable slope function,
-#   and thus extract D.
-#
-# fix ID group-ID vector Nevery value1 value2 ...
-#
-# c_ID[I] = Ith component of global vector calculated by a compute with ID
-# f_ID = global scalar calculated by a fix with ID
-# v_name = value calculated by an equal-style variable with name
-#
-# variable name style args...
-#
-# The slope() function uses linear regression to fit a line to the set of points,
-#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
-#   where the Vi are the values in the global vector of length N.
-#   The returned value is the slope of the line.
-#   If the line has a single point or is vertical, it returns 1.0e20.
-###
-compute         msd all msd com yes
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             5 xe vector 5 c_msd[4]
-variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
-
-thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
-
-thermo          5000
-run             100000
-Neighbor list info ...
-  update every 1 steps, delay 10 steps, check yes
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 16
-  ghost atom cutoff = 16
-  binsize = 8, bins = 4 5 4
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/newton/tri
-      stencil: half/bin/3d/newton/tri
-      bin: standard
-WARNING: Inconsistent image flags (src/domain.cpp:785)
-Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
-Step v_eqtemp c_msd[4] v_fitslope 
-       0          298 7.572221e-30 3.3333333e+18 
-    5000          298 0.00029532742 2.8146487e-09 
-   10000          298 0.00016173486 2.2860171e-09 
-   15000          298 9.5979274e-05 1.8836986e-10 
-   20000          298 0.00040715404 1.7299023e-10 
-   25000          298 0.00020756223 2.9637596e-10 
-   30000          298 1.0029512e-05 -3.6546962e-11 
-   35000          298 0.00027965815 1.0497096e-11 
-   40000          298 0.00010987207 2.1261975e-10 
-   45000          298 8.6620405e-06 4.487653e-11 
-   50000          298 0.00019184802 3.5440289e-11 
-   55000          298 0.00025073619 1.4156713e-10 
-   60000          298 1.6807414e-05 1.073004e-10 
-   65000          298 6.4019964e-05 2.2739048e-11 
-   70000          298 0.00041603247 6.3027375e-11 
-   75000          298 6.1881765e-05 5.754579e-11 
-   80000          298 0.00014475642 1.0601188e-11 
-   85000          298 0.00046117676  1.29227e-11 
-   90000          298 0.00013546271 3.2065276e-11 
-   95000          298 0.00010863514 9.3856568e-12 
-  100000          298 0.00045302322 2.8662571e-12 
-Loop time of 82.0938 on 1 procs for 100000 steps with 2431 atoms
-
-Performance: 105.246 ns/day, 0.228 hours/ns, 1218.119 timesteps/s
-100.0% CPU use with 1 MPI tasks x no OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 1.7898     | 1.7898     | 1.7898     |   0.0 |  2.18
-Bond    | 71.117     | 71.117     | 71.117     |   0.0 | 86.63
-Neigh   | 0.067517   | 0.067517   | 0.067517   |   0.0 |  0.08
-Comm    | 5.6614     | 5.6614     | 5.6614     |   0.0 |  6.90
-Output  | 0.26289    | 0.26289    | 0.26289    |   0.0 |  0.32
-Modify  | 1.4612     | 1.4612     | 1.4612     |   0.0 |  1.78
-Other   |            | 1.733      |            |       |  2.11
-
-Nlocal:    2431 ave 2431 max 2431 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:    16166 ave 16166 max 16166 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:    1158 ave 1158 max 1158 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 1158
-Ave neighs/atom = 0.476347
-Ave special neighs/atom = 6.58988
-Neighbor list builds = 1
-Dangerous builds = 0
-unfix           3
-#unfix           4
-unfix           5
-undump          NiPyC2_experiment_with_Xe_xyzmov
-
-
-### NOTE:
-# These fixes are overkill if you simply want to hold a collection of atoms stationary.
-# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
-#
-# The force and torque keywords discussed next are only allowed for the rigid styles
-# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
-#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial
-# center-of-mass translational or angular velocity is 0.0.
-# Otherwise the initial translational or angular momentum the body has will persist.
-###
-Total wall time: 0:01:22
-
-# --------------------------------- Initialization -------------------------------------- #
-units           real
-atom_style      full
-boundary        p p p
-
-pair_style      lj/cut 14.000
-bond_style      harmonic
-angle_style     cosine/periodic
-dihedral_style  harmonic
-improper_style  fourier
-
-special_bonds   lj/coul 0.0 0.0 1.0
-pair_modify     tail no mix arithmetic
-#dielectric      1.0
-box tilt        large
-read_data       data.NiPyC2_experiment_with_Xe
-  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
-  1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  2431 atoms
-  scanning bonds ...
-  6 = max bonds/atom
-  scanning angles ...
-  15 = max angles/atom
-  scanning dihedrals ...
-  8 = max dihedrals/atom
-  scanning impropers ...
-  3 = max impropers/atom
-  reading bonds ...
-  2880 bonds
-  reading angles ...
-  5490 angles
-  reading dihedrals ...
-  5760 dihedrals
-  reading impropers ...
-  3780 impropers
-  6 = max # of 1-2 neighbors
-  9 = max # of 1-3 neighbors
-  12 = max # of special neighbors
-  special bonds CPU = 0.000738352 secs
-  read_data CPU = 0.0408965 secs
+  special bonds CPU = 0.000689422 secs
+  read_data CPU = 0.0395184 secs
 
 #### Atom Groupings ####
 group           xe       id   55
@@ -342,7 +129,7 @@ variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
 thermo          5000
-run             200000
+run             1000000
 Neighbor list info ...
   update every 1 steps, delay 10 steps, check yes
   max neighbors/atom: 2000, page size: 100000
@@ -399,33 +186,193 @@ Step v_eqtemp c_msd[4] v_fitslope
   190000          298 0.00023752946 1.7441405e-11 
   195000          298 0.00019060678 1.7421279e-11 
   200000          298 0.00037784419 1.6486331e-11 
-Loop time of 164.093 on 1 procs for 200000 steps with 2431 atoms
+  205000          298 0.00053058298 1.4699665e-11 
+  210000          298 0.0001988017 1.2127155e-11 
+  215000          298 0.00024295819 1.1428173e-11 
+  220000          298 0.00030842568 1.4770876e-11 
+  225000          298 0.00017661541 1.5257257e-11 
+  230000          298 0.00032641882 1.5991017e-11 
+  235000          298 0.0001130053 2.7274054e-11 
+  240000          298 7.4085107e-05 5.2526185e-11 
+  245000          298 0.00027392961 -5.2479295e-11 
+  250000          298 0.00032859214 -2.0661666e-11 
+  255000          298 0.00010439191 -1.0029765e-11 
+  260000          298 7.0576535e-05 -2.6681466e-12 
+  265000          298 0.00031433378 -4.1582965e-12 
+  270000          298 6.2746915e-06 -2.9832223e-12 
+  275000          298 0.00019217966 -4.2212248e-13 
+  280000          298 0.00023724958 -1.8193552e-12 
+  285000          298 7.5841528e-05 -2.4846087e-14 
+  290000          298 0.00013529095 1.7999755e-12 
+  295000          298 0.00021405494 9.0679651e-14 
+  300000          298 3.7521948e-06 9.8889099e-13 
+  305000          298 0.00016650119 1.7870733e-12 
+  310000          298 0.00024666874 3.6272543e-13 
+  315000          298 5.6217707e-05 1.151942e-12 
+  320000          298 0.00024091599 1.948877e-12 
+  325000          298 0.0003341916 1.1601291e-12 
+  330000          298 7.0330908e-05 1.3123888e-12 
+  335000          298 5.0076391e-05 2.3334882e-12 
+  340000          298 0.00036099483 1.6111985e-12 
+  345000          298 3.1793337e-05 1.2421965e-12 
+  350000          298 4.8010895e-05 2.0333374e-12 
+  355000          298 0.00037400467 1.7836595e-12 
+  360000          298 0.00026602448 9.4090814e-13 
+  365000          298 0.00021180072 4.396849e-13 
+  370000          298 0.00024722537 1.1529304e-13 
+  375000          298 0.00045260941 -5.3062756e-13 
+  380000          298 0.00013689029 -2.3714733e-13 
+  385000          298 0.00014635756 1.557395e-13 
+  390000          298 0.00053008922 -2.4464199e-13 
+  395000          298 0.00037691202 1.5848325e-13 
+  400000          298 8.6397484e-05 5.109925e-13 
+  405000          298 0.0002804161 9.0512593e-13 
+  410000          298 9.0241528e-05 -3.9095331e-13 
+  415000          298 8.2523203e-05 -1.0011187e-12 
+  420000          298 0.00053009661 -9.0409724e-13 
+  425000          298   0.00037938 -1.3130227e-12 
+  430000          298 7.4852656e-05 -1.914874e-12 
+  435000          298 0.00010326293 -3.4534862e-12 
+  440000          298 0.0003008992 -2.5926865e-12 
+  445000          298 1.5211532e-05 -3.4245863e-12 
+  450000          298 0.0003126581 -5.7791897e-12 
+  455000          298 0.00033710698 -6.3501451e-12 
+  460000          298 8.2138828e-05 -1.0214739e-11 
+  465000          298 0.00019853536 -2.6668441e-11 
+  470000          298 0.00021090543 -1.0653953e-10 
+  475000          298 1.8690499e-06 3.8741507e-11 
+  480000          298 0.00030820173 1.8676853e-11 
+  485000          298 0.0001085932 8.6442395e-12 
+  490000          298 9.0461159e-05 9.2095144e-12 
+  495000          298 0.00029976023 7.2971759e-12 
+  500000          298 0.00023355036 4.1346711e-12 
+  505000          298 8.1299243e-05 4.5990004e-12 
+  510000          298 0.00013177995 5.5137704e-12 
+  515000          298 0.00035171721 3.780404e-12 
+  520000          298 0.00012450001 2.4614904e-12 
+  525000          298 9.1076723e-05 -2.7744019e-12 
+  530000          298 0.00038879408 -3.8133583e-12 
+  535000          298 0.00033264265 -2.4170218e-12 
+  540000          298 0.0001518041 -1.8713797e-12 
+  545000          298 0.00018238042 -3.6860723e-12 
+  550000          298 0.0005151932 -5.8704841e-12 
+  555000          298 0.00023527506 -2.8436113e-12 
+  560000          298 0.00024317104 -5.1610446e-12 
+  565000          298 0.00031547317 -6.453176e-12 
+  570000          298 0.00015627902 -6.4207603e-12 
+  575000          298 0.00021278104 -4.9885392e-12 
+  580000          298 0.00029744656 -5.5227784e-12 
+  585000          298 5.578422e-05 -3.6000256e-12 
+  590000          298 0.00022967198 2.6891133e-12 
+  595000          298 0.0004079096 4.5867747e-12 
+  600000          298 0.00021231894 4.0428845e-12 
+  605000          298 0.0001725258 5.072982e-12 
+  610000          298 0.00032130577 1.1330551e-11 
+  615000          298 0.0002145835 4.8461858e-11 
+  620000          298 0.00023162447 -4.229557e-11 
+  625000          298 0.00030785277 -1.947593e-11 
+  630000          298 2.6481901e-05 -1.1867497e-11 
+  635000          298 6.5826945e-05 -6.5068984e-12 
+  640000          298 0.00038450107 7.1119432e-12 
+  645000          298 1.3310974e-05 9.2809626e-12 
+  650000          298 8.8866105e-05 1.0646671e-11 
+  655000          298 0.00040836617 2.4994698e-11 
+  660000          298 0.00019215685 -2.748305e-10 
+  665000          298 0.00024251506 -2.6051099e-11 
+  670000          298 0.00033010524 -1.7259508e-11 
+  675000          298 2.4816307e-05 -1.0416151e-11 
+  680000          298 0.00012679423 7.1415665e-12 
+  685000          298 0.00032380651 1.1201228e-11 
+  690000          298 9.5404878e-05 1.9699023e-11 
+  695000          298 5.8416638e-05 3.6550158e-11 
+  700000          298 0.0003704435 -8.4507993e-11 
+  705000          298 0.00012310172 -2.1271511e-11 
+  710000          298 0.00013336135 -1.1371358e-11 
+  715000          298 0.00022014055 1.0189559e-11 
+  720000          298 0.00030486755 1.8589287e-11 
+  725000          298 0.00045961994 5.2734526e-11 
+  730000          298 0.00013986113 -1.6257937e-10 
+  735000          298 9.1430728e-05 -3.0290939e-11 
+  740000          298 0.00015296882 -1.7080063e-11 
+  745000          298 0.00017256839 1.575858e-11 
+  750000          298 0.0003380575 2.6697185e-11 
+  755000          298 0.00047448542 7.355395e-11 
+  760000          298 8.4122962e-05 -9.3319242e-11 
+  765000          298 0.00013434653 -2.611451e-11 
+  770000          298 0.00032898235 -1.6632642e-11 
+  775000          298 0.00031901034 2.5131068e-11 
+  780000          298 0.00021958546 7.8497077e-11 
+  785000          298 0.00014417221 -1.1720295e-10 
+  790000          298 8.9246164e-05 -3.4408123e-11 
+  795000          298 0.00030230804 2.1960871e-11 
+  800000          298 0.00044955617 4.6393364e-11 
+  805000          298 0.00024223946 5.4618751e-10 
+  810000          298 0.00015143847 -6.5820013e-11 
+  815000          298 0.00013161684 -3.1191096e-11 
+  820000          298 0.00040462244 3.9233639e-11 
+  825000          298 0.0001103005 1.2249992e-10 
+  830000          298 7.5990263e-05 -1.1878189e-10 
+  835000          298 0.00016598107 -4.0409751e-11 
+  840000          298 0.00026603561 3.8581582e-11 
+  845000          298 0.00052695455 1.4313565e-10 
+  850000          298 0.00035598294 -1.0259586e-10 
+  855000          298 0.00012269205 -3.7684761e-11 
+  860000          298 0.00013057193 5.9287584e-11 
+  865000          298 0.00018461021 4.3060108e-08 
+  870000          298 0.00041911191 -6.2228264e-11 
+  875000          298 0.00018567346 4.2422326e-11 
+  880000          298 4.0188522e-05 1.1754302e-10 
+  885000          298 0.00015739401 -1.2818324e-10 
+  890000          298 0.00030102329 -4.4116236e-11 
+  895000          298 0.00047249166 7.2639839e-11 
+  900000          298 0.00027790137 -7.8074498e-10 
+  905000          298 5.9904612e-05 -5.9995546e-11 
+  910000          298   8.6371e-05 6.9910427e-11 
+  915000          298 0.00028344495 -5.3022001e-10 
+  920000          298 0.00044484223 -6.0078711e-11 
+  925000          298 0.00020419196 8.7806513e-11 
+  930000          298 6.2486432e-05 -3.4655057e-10 
+  935000          298 8.6235846e-05 -5.43554e-11 
+  940000          298 0.00035330995 9.7017988e-11 
+  945000          298 0.00043760922 -2.2233789e-10 
+  950000          298 0.0002711851 -5.8568587e-11 
+  955000          298 0.00011058819 1.5556087e-10 
+  960000          298 3.8018204e-05 -1.2598991e-10 
+  965000          298 0.00031785256 6.9864785e-11 
+  970000          298 0.00034879019 -1.2023662e-09 
+  975000          298 0.00015988816 -6.6988957e-11 
+  980000          298 0.00013485578 1.8175142e-10 
+  985000          298 0.00015227966 -1.1659131e-10 
+  990000          298 0.00043353361 8.5980298e-11 
+  995000          298 0.00044543429 -3.9054597e-10 
+ 1000000          298 0.00023262194 -6.425891e-11 
+Loop time of 845.234 on 1 procs for 1000000 steps with 2431 atoms
 
-Performance: 105.306 ns/day, 0.228 hours/ns, 1218.821 timesteps/s
-100.0% CPU use with 1 MPI tasks x no OpenMP threads
+Performance: 102.220 ns/day, 0.235 hours/ns, 1183.105 timesteps/s
+99.9% CPU use with 1 MPI tasks x no OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 3.5719     | 3.5719     | 3.5719     |   0.0 |  2.18
-Bond    | 142.38     | 142.38     | 142.38     |   0.0 | 86.77
-Neigh   | 0.070843   | 0.070843   | 0.070843   |   0.0 |  0.04
-Comm    | 11.391     | 11.391     | 11.391     |   0.0 |  6.94
-Output  | 0.11089    | 0.11089    | 0.11089    |   0.0 |  0.07
-Modify  | 2.942      | 2.942      | 2.942      |   0.0 |  1.79
-Other   |            | 3.622      |            |       |  2.21
+Pair    | 19.14      | 19.14      | 19.14      |   0.0 |  2.26
+Bond    | 731.9      | 731.9      | 731.9      |   0.0 | 86.59
+Neigh   | 1.1536     | 1.1536     | 1.1536     |   0.0 |  0.14
+Comm    | 59.064     | 59.064     | 59.064     |   0.0 |  6.99
+Output  | 0.63373    | 0.63373    | 0.63373    |   0.0 |  0.07
+Modify  | 15.419     | 15.419     | 15.419     |   0.0 |  1.82
+Other   |            | 17.92      |            |       |  2.12
 
 Nlocal:    2431 ave 2431 max 2431 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 Nghost:    16166 ave 16166 max 16166 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:    1158 ave 1158 max 1158 min
+Neighs:    1162 ave 1162 max 1162 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 
-Total # of neighbors = 1158
-Ave neighs/atom = 0.476347
+Total # of neighbors = 1162
+Ave neighs/atom = 0.477993
 Ave special neighs/atom = 6.58988
-Neighbor list builds = 1
+Neighbor list builds = 17
 Dangerous builds = 0
 unfix           3
 #unfix           4
@@ -443,4 +390,4 @@ undump          NiPyC2_experiment_with_Xe_xyzmov
 # center-of-mass translational or angular velocity is 0.0.
 # Otherwise the initial translational or angular momentum the body has will persist.
 ###
-Total wall time: 0:02:44
+Total wall time: 0:14:05
