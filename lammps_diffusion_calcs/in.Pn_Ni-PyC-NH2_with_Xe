@@ -19,8 +19,8 @@ box tilt        large
 read_data       data.Pn_Ni-PyC-NH2_with_Xe
 
 #### Atom Groupings ####
-group           xe       id   63
-group           fram     id   1:62 64:2233
+group           xe       id   2233   # 63
+group           fram     id   1:2232 # 1:62 64:2233
 #### END Atom Groupings ####
 
 ###
@@ -101,8 +101,8 @@ thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to l
 
 
 
-thermo          5000
-run             200000
+thermo          2000
+run             500000
 unfix           1
 unfix           2
 undump          Pn_Ni-PyC-NH2_with_Xe_xyzmov

@@ -1,0 +1,209 @@
+
+# --------------------------------- Initialization -------------------------------------- #
+units           real
+atom_style      full
+boundary        p p p
+
+pair_style      lj/cut 14.000
+bond_style      harmonic
+angle_style     cosine/periodic
+dihedral_style  harmonic
+improper_style  fourier
+
+special_bonds   lj/coul 0.0 0.0 1.0
+pair_modify     tail no mix arithmetic
+#dielectric      1.0
+box tilt        large
+read_data       data.NiPyC2_experiment_with_Kr
+  triclinic box = (0 0 0) to (31.264 37.5702 30.8228) with tilt (0 -0.682783 0)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  2431 atoms
+  scanning bonds ...
+  6 = max bonds/atom
+  scanning angles ...
+  15 = max angles/atom
+  scanning dihedrals ...
+  8 = max dihedrals/atom
+  scanning impropers ...
+  3 = max impropers/atom
+  reading bonds ...
+  2880 bonds
+  reading angles ...
+  5490 angles
+  reading dihedrals ...
+  5760 dihedrals
+  reading impropers ...
+  3780 impropers
+  6 = max # of 1-2 neighbors
+  9 = max # of 1-3 neighbors
+  12 = max # of special neighbors
+  special bonds CPU = 0.000707122 secs
+  read_data CPU = 0.0400731 secs
+
+#### Atom Groupings ####
+group           kr       id   2431   # 55
+1 atoms in group kr
+group           fram     id   1:2430 # 1:54 56:2431
+2430 atoms in group fram
+#### END Atom Groupings ####
+
+###
+# Speed up Calculations by exluding framework-framework interactions
+#   since we are keeping the framework rigid and stationary
+#
+# neigh_modify keyword values ...
+# keyword = exclude
+# values  = group group1-ID group2-ID
+#
+# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
+###
+neigh_modify exclude group fram fram
+
+# ----------------------------- Variables ---------------------- #
+dump            NiPyC2_experiment_with_Kr_xyzmov all xyz 5000 NiPyC2_experiment_with_Kr_mov.xyz
+dump_modify     NiPyC2_experiment_with_Kr_xyzmov element Ni O N C H Kr
+variable        dt         equal 1.00
+variable        tdamp      equal 100*${dt}
+variable        tdamp      equal 100*1
+variable        eqtemp     equal 298.00
+
+# ------------------------------ Equilibriation -------------------------------------------- #
+# we do not need to perform equilibriation since we are using a rigid framework
+# and the (single) adsorbate has already been inserted into the material via GCMC
+# which already included an equilibriation phase.
+
+
+# --------------------- Production (data gathering) --------------------------------------- #
+# A simple way to hold atoms stationary is to not include those atoms in your time integration.
+#reset_timestep  0
+
+fix             3 kr nvt temp ${eqtemp} ${eqtemp} ${tdamp}
+fix             3 kr nvt temp 298 ${eqtemp} ${tdamp}
+fix             3 kr nvt temp 298 298 ${tdamp}
+fix             3 kr nvt temp 298 298 100
+
+###
+#  mean-squared disp of grp 1
+#
+# A vector of four quantities is calculated by this compute:
+# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group.
+# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz),
+#  summed and averaged over atoms in the group.
+#
+# The slope of the MSD versus time is proportional to the diffusion coefficient.
+# MSD values can be accumulated in a vector via the fix vector command,
+#   and a line fit to the vector to compute its slope via the variable slope function,
+#   and thus extract D.
+#
+# fix ID group-ID vector Nevery value1 value2 ...
+#
+# c_ID[I] = Ith component of global vector calculated by a compute with ID
+# f_ID = global scalar calculated by a fix with ID
+# v_name = value calculated by an equal-style variable with name
+#
+# variable name style args...
+#
+# The slope() function uses linear regression to fit a line to the set of points,
+#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN),
+#   where the Vi are the values in the global vector of length N.
+#   The returned value is the slope of the line.
+#   If the line has a single point or is vertical, it returns 1.0e20.
+###
+compute         msd all msd com yes
+fix             5 kr vector 5 c_msd[4]
+variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
+
+thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
+
+thermo          5000
+run             200000
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 5 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton/tri
+      stencil: half/bin/3d/newton/tri
+      bin: standard
+WARNING: Inconsistent image flags (src/domain.cpp:785)
+Per MPI rank memory allocation (min/avg/max) = 31.83 | 31.83 | 31.83 Mbytes
+Step v_eqtemp c_msd[4] v_fitslope 
+       0          298 7.7464778e-30 3.3333333e+18 
+    5000          298 0.00043731817 -1.2555927e-08 
+   10000          298 0.0018324633 -7.9604515e-09 
+   15000          298 0.0014085936 1.8897192e-09 
+   20000          298 0.00029580501 -2.6193618e-10 
+   25000          298 0.0016329057 -1.3887963e-09 
+   30000          298 0.0011720927 -1.0608008e-09 
+   35000          298 0.0013827482 -2.4792633e-10 
+   40000          298 0.00012474961 -1.4587787e-09 
+   45000          298 0.0002908996 -1.6666509e-09 
+   50000          298 0.0012452418 -1.1159497e-09 
+   55000          298 0.00087910602 -3.4525571e-10 
+   60000          298 0.00026031911 -4.7674417e-10 
+   65000          298 0.00054842061 -5.0082205e-10 
+   70000          298 0.00071510922 -7.1202894e-10 
+   75000          298 0.0017782678 -1.9223938e-10 
+   80000          298 0.0020721974 2.2773067e-10 
+   85000          298  0.001026715 3.6292232e-10 
+   90000          298 0.00019319597 7.556819e-11 
+   95000          298 0.00034716549 -2.0462812e-10 
+  100000          298 0.00050835773 -3.097017e-10 
+  105000          298 0.0014305898 -3.6696659e-10 
+  110000          298 0.0018482102 -2.5789968e-10 
+  115000          298 0.00087156147 -1.8322874e-10 
+  120000          298 0.00079098261 -1.46816e-10 
+  125000          298 0.00019829151 -1.2187938e-10 
+  130000          298 0.00025241289 -1.3937036e-10 
+  135000          298 0.00048495502 -1.1120135e-10 
+  140000          298 0.00015637775 -9.1981366e-12 
+  145000          298 0.00072001074 -1.0284897e-10 
+  150000          298  0.001165998 3.8892377e-12 
+  155000          298 0.00098275868 4.1189664e-11 
+  160000          298 0.0014515814 7.7381443e-11 
+  165000          298 0.0012783546 1.1289584e-10 
+  170000          298 0.00045582111 1.1347752e-10 
+  175000          298 0.00098405572 1.9111468e-10 
+  180000          298 0.0021116014 1.7951771e-10 
+  185000          298 6.5864639e-05 1.4158772e-10 
+  190000          298 0.00019367095 1.1676579e-10 
+  195000          298 0.0022519124 6.9930257e-11 
+  200000          298 0.0015270107 9.2705791e-11 
+Loop time of 181.528 on 1 procs for 200000 steps with 2431 atoms
+
+Performance: 95.192 ns/day, 0.252 hours/ns, 1101.761 timesteps/s
+100.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 3.7416     | 3.7416     | 3.7416     |   0.0 |  2.06
+Bond    | 145.42     | 145.42     | 145.42     |   0.0 | 80.11
+Neigh   | 13.839     | 13.839     | 13.839     |   0.0 |  7.62
+Comm    | 11.76      | 11.76      | 11.76      |   0.0 |  6.48
+Output  | 0.11112    | 0.11112    | 0.11112    |   0.0 |  0.06
+Modify  | 3.0421     | 3.0421     | 3.0421     |   0.0 |  1.68
+Other   |            | 3.614      |            |       |  1.99
+
+Nlocal:    2431 ave 2431 max 2431 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    16166 ave 16166 max 16166 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1167 ave 1167 max 1167 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1167
+Ave neighs/atom = 0.480049
+Ave special neighs/atom = 6.58988
+Neighbor list builds = 203
+Dangerous builds = 0
+unfix           3
+unfix           5
+undump          NiPyC2_experiment_with_Kr_xyzmov
+
+Total wall time: 0:03:01

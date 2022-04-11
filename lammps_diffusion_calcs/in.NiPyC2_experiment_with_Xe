@@ -19,8 +19,8 @@ box tilt        large
 read_data       data.NiPyC2_experiment_with_Xe
 
 #### Atom Groupings ####
-group           xe       id   55
-group           fram     id   1:54 56:2431
+group           xe       id   2431   # 55
+group           fram     id   1:2430 # 1:54 56:2431
 #### END Atom Groupings ####
 
 ###
@@ -73,7 +73,11 @@ fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 # The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz), 
 #  summed and averaged over atoms in the group.
 #
+# The displacement of an atom is from its reference position. 
+# This is normally the original position at the time the compute command was issued, unless the average keyword is set to yes. 
+# The value of the displacement will be 0.0 for atoms not in the specified compute group.
 # The slope of the MSD versus time is proportional to the diffusion coefficient.
+# 
 # MSD values can be accumulated in a vector via the fix vector command, 
 #   and a line fit to the vector to compute its slope via the variable slope function, 
 #   and thus extract D.
@@ -99,8 +103,8 @@ variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
-thermo          1000
-run             2000000
+thermo          2000
+run             500000
 unfix           3
 #unfix           4
 unfix           5
