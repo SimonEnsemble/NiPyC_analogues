@@ -36,7 +36,7 @@ group           fram     id   1:2232 # 1:62 64:2233
 neigh_modify exclude group fram fram
 
 # ----------------------------- Variables ---------------------- #
-dump            Pn_Ni-PyC-NH2_with_Kr_xyzmov all xyz 5000 Pn_Ni-PyC-NH2_with_Kr_mov.xyz
+dump            Pn_Ni-PyC-NH2_with_Kr_xyzmov all xyz 1000 Pn_Ni-PyC-NH2_with_Kr_mov.xyz
 dump_modify     Pn_Ni-PyC-NH2_with_Kr_xyzmov element Ni O C H N Kr
 variable        dt         equal 1.00
 variable        tdamp      equal 100*${dt}
@@ -61,7 +61,7 @@ variable        eqtemp     equal 298.00
 # A simple way to hold atoms stationary is to not include those atoms in your time integration.
 #reset_timestep  0
 
-fix             1 kr nvt temp 298.00 298.00 ${tdamp}
+fix             1 kr nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 #fix             6 fram nvt temp 298.00 298.00 ${tdamp}
 
 
@@ -94,15 +94,15 @@ fix             1 kr nvt temp 298.00 298.00 ${tdamp}
 ###
 compute         msd all msd com yes
 #variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             2 kr vector 5 c_msd[4]
-variable        fitslope equal slope(f_2)/6/(5*dt) # why dividing slope?
+fix             2 kr vector 500 c_msd[4]
+variable        fitslope equal slope(f_2)/6/(500*dt) # why dividing slope?
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
 
 
-thermo          2000
-run             500000
+thermo          1000
+run             1000000
 unfix           1
 unfix           2
 undump          Pn_Ni-PyC-NH2_with_Kr_xyzmov

@@ -24,8 +24,11 @@ group           fram     id   1:2430 # 1:54 56:2431
 #### END Atom Groupings ####
 
 ###
+# Fixes are overkill if you simply want to hold a collection of atoms stationary.
+# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
+# 
 # Speed up Calculations by exluding framework-framework interactions
-#   since we are keeping the framework rigid and stationary
+# since we are keeping the framework rigid and stationary.
 # 
 # neigh_modify keyword values ...
 # keyword = exclude
@@ -36,7 +39,7 @@ group           fram     id   1:2430 # 1:54 56:2431
 neigh_modify exclude group fram fram 
 
 # ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 5000 NiPyC2_experiment_with_Xe_mov.xyz
+dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
 dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
 variable        dt         equal 1.00
 variable        tdamp      equal 100*${dt}
@@ -62,7 +65,6 @@ variable        eqtemp     equal 298.00
 #reset_timestep  0
 
 fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-#fix             4 fram rigid/nvt group 1 fram temp ${eqtemp} ${eqtemp} ${tdamp} # hold MOF atoms fixed
 #fix             6 fram nvt temp 298.00 298.00 ${tdamp}
 
 ### 
@@ -97,27 +99,15 @@ fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 #   If the line has a single point or is vertical, it returns 1.0e20.
 ###
 compute         msd all msd com yes 
-#variable        twopoint equal c_msd[4]/6/(step*dt+1.0e-6) # scaled r_sqr(t)... not used? idk what this is for...
-fix             5 xe vector 5 c_msd[4]
-variable        fitslope equal slope(f_5)/6/(5*dt) # why dividing slope?
+fix             5 xe vector 500 c_msd[4]
+variable        fitslope equal slope(f_5)/6/(500*dt) # why dividing slope?
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
-thermo          2000
-run             500000
+thermo          1000
+run             1000000
 unfix           3
-#unfix           4
 unfix           5
 undump          NiPyC2_experiment_with_Xe_xyzmov
 
 
-### NOTE:
-# These fixes are overkill if you simply want to hold a collection of atoms stationary.
-# A simpler way to hold atoms stationary is to not include those atoms in your time integration.
-#
-# The force and torque keywords discussed next are only allowed for the rigid styles
-# An xflag, yflag, or zflag set to off means turn off the component of force of torque in that dimension.
-#  if you expect a rigid body not to move or rotate by using these keywords, you must insure its initial 
-# center-of-mass translational or angular velocity is 0.0. 
-# Otherwise the initial translational or angular momentum the body has will persist.
-###
