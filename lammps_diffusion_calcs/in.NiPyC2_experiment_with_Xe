@@ -19,8 +19,8 @@ box tilt        large
 read_data       data.NiPyC2_experiment_with_Xe
 
 #### Atom Groupings ####
-group           xe       id   2431   # 55
-group           fram     id   1:2430 # 1:54 56:2431
+group           xe       id   2431 
+group           fram     id   1:2430 
 #### END Atom Groupings ####
 
 ###
@@ -49,23 +49,13 @@ variable        eqtemp     equal 298.00
 # we do not need to perform equilibriation since we are using a rigid framework
 # and the (single) adsorbate has already been inserted into the material via GCMC 
 # which already included an equilibriation phase.
-#fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 8646
-#fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
-#thermo          0
-#run             50000
-#unfix           1
-#unfix           2
-#unfix           3
-#unfix           4
+
 
 # --------------------- Production (data gathering) --------------------------------------- #
 # A simple way to hold atoms stationary is to not include those atoms in your time integration.
 #reset_timestep  0
 
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
-#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
+fix             1 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 
 ### 
 #  mean-squared disp of grp 1 
@@ -98,16 +88,17 @@ fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 #   The returned value is the slope of the line. 
 #   If the line has a single point or is vertical, it returns 1.0e20.
 ###
-compute         msd all msd com yes 
-fix             5 xe vector 500 c_msd[4]
-variable        fitslope equal slope(f_5)/6/(500*dt) # why dividing slope?
+compute         msd all msd com yes       # define comupte 
+fix             2 xe vector 500 c_msd[4]  # what and how often to evaluate compute
+variable        fitslope equal slope(f_2)/6/(500*dt) # calculate diffusion coeff
+# note: slope function treats timestep=1, but time between evals is 500*dt, hence the scaling factor
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
 thermo          1000
 run             1000000
-unfix           3
-unfix           5
+unfix           1
+unfix           2
 undump          NiPyC2_experiment_with_Xe_xyzmov
 
 
