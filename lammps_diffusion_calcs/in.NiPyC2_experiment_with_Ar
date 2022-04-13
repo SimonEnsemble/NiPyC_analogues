@@ -46,11 +46,20 @@ variable        eqtemp     equal 298.00
 # we do not need to perform equilibriation since we are using a rigid framework
 # and the (single) adsorbate has already been inserted into the material via GCMC 
 # which already included an equilibriation phase.
-
+fix             1 ar langevin ${eqtemp} ${eqtemp} ${tdamp} 533641
+fix             2 ar nve
+#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
+#fix             4 fram nve
+thermo          1000
+run             200000
+unfix           1
+unfix           2
+#unfix           3
+#unfix           4
 
 # --------------------- Production (data gathering) --------------------------------------- #
 # A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
+reset_timestep  0
 
 fix             3 ar nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 
@@ -82,14 +91,14 @@ fix             3 ar nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 #   If the line has a single point or is vertical, it returns 1.0e20.
 ###
 compute         msd all msd com yes 
-fix             5 ar vector 500 c_msd[4]
-variable        fitslope equal slope(f_5)/6/(500*dt) # why dividing slope?
+fix             4 ar vector 500 c_msd[4]
+variable        fitslope equal slope(f_4)/6/(500*dt) 
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
 thermo          1000
 run             1000000
 unfix           3
-unfix           5
+unfix           4
 undump          NiPyC2_experiment_with_Ar_xyzmov
 

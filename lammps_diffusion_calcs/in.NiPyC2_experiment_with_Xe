@@ -49,13 +49,22 @@ variable        eqtemp     equal 298.00
 # we do not need to perform equilibriation since we are using a rigid framework
 # and the (single) adsorbate has already been inserted into the material via GCMC 
 # which already included an equilibriation phase.
-
+fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 523910
+fix             2 xe nve
+#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
+#fix             4 fram nve
+thermo          0
+run             200000
+unfix           1
+unfix           2
+#unfix           3
+#unfix           4
 
 # --------------------- Production (data gathering) --------------------------------------- #
 # A simple way to hold atoms stationary is to not include those atoms in your time integration.
-#reset_timestep  0
+reset_timestep  0
 
-fix             1 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
+fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 
 ### 
 #  mean-squared disp of grp 1 
@@ -89,16 +98,16 @@ fix             1 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 #   If the line has a single point or is vertical, it returns 1.0e20.
 ###
 compute         msd all msd com yes       # define comupte 
-fix             2 xe vector 500 c_msd[4]  # what and how often to evaluate compute
-variable        fitslope equal slope(f_2)/6/(500*dt) # calculate diffusion coeff
+fix             4 xe vector 10 c_msd[4]  # what and how often to evaluate compute
+variable        fitslope equal slope(f_4)/6/(500*dt) # calculate diffusion coeff
 # note: slope function treats timestep=1, but time between evals is 500*dt, hence the scaling factor
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
-thermo          1000
+thermo          10
 run             1000000
-unfix           1
-unfix           2
+unfix           3
+unfix           4
 undump          NiPyC2_experiment_with_Xe_xyzmov
 
 
