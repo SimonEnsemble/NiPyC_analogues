@@ -105,7 +105,7 @@ variable        fitslope equal slope(f_4)/6/(500*dt) # calculate diffusion coeff
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
 thermo          10
-run             1000000
+run             2000000
 unfix           3
 unfix           4
 undump          NiPyC2_experiment_with_Xe_xyzmov
