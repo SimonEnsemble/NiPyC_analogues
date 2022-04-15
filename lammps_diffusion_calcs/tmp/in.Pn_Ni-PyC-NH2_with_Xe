@@ -1,0 +1,109 @@
+# generate simulation log file
+log             log.Pn_Ni-PyC-NH2_with_Xe append
+
+# --------------------------------- Initialization -------------------------------------- #
+units           real
+atom_style      full
+boundary        p p p
+
+pair_style      lj/cut 14.000
+bond_style      harmonic
+angle_style     cosine/periodic
+dihedral_style  harmonic
+improper_style  fourier
+
+special_bonds   lj/coul 0.0 0.0 1.0
+#dielectric      1.0
+pair_modify     tail yes mix arithmetic
+box tilt        large
+read_data       data.Pn_Ni-PyC-NH2_with_Xe
+
+#### Atom Groupings ####
+group           xe       id   2233   
+group           fram     id   1:2232 
+#### END Atom Groupings ####
+
+###
+# Speed up Calculations by exluding framework-framework interactions
+#   since we are keeping the framework rigid and stationary
+# 
+# neigh_modify keyword values ...
+# keyword = exclude
+# values  = group group1-ID group2-ID
+# 
+# group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
+###
+neigh_modify exclude group fram fram
+
+# ----------------------------- Variables ---------------------- #
+dump            Pn_Ni-PyC-NH2_with_Xe_xyzmov all xyz 1000 Pn_Ni-PyC-NH2_with_Xe_mov.xyz
+dump_modify     Pn_Ni-PyC-NH2_with_Xe_xyzmov element Ni O C H N Xe
+variable        dt         equal 1.00
+variable        tdamp      equal 100*${dt}
+variable        eqtemp     equal 298.00
+
+# ------------------------------ Equilibriation -------------------------------------------- #
+# we do not need to perform equilibriation since we are using a rigid framework
+# and the (single) adsorbate has already been inserted into the material via GCMC 
+# which already included an equilibriation phase.
+fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 879143
+fix             2 xe nve
+#fix             3 fram langevin 298.00 298.00 ${tdamp} 1500201
+#fix             4 fram nve
+thermo          0
+run             200000
+unfix           1
+unfix           2
+#unfix           3
+#unfix           4
+
+# --------------------- Production (data gathering) --------------------------------------- #
+# A simple way to hold atoms stationary is to not include those atoms in your time integration.
+reset_timestep  0
+
+fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
+#fix             6 fram nvt temp 298.00 298.00 ${tdamp}
+
+
+### 
+#  mean-squared disp of grp 1 
+#
+# A vector of four quantities is calculated by this compute: 
+# The first 3 elements of the vector are the squared dx,dy,dz displacements, summed and averaged over atoms in the group. 
+# The fourth element is the total squared displacement, i.e. (dx*dx + dy*dy + dz*dz), 
+#  summed and averaged over atoms in the group.
+#
+# The slope of the MSD versus time is proportional to the diffusion coefficient.
+# MSD values can be accumulated in a vector via the fix vector command, 
+#   and a line fit to the vector to compute its slope via the variable slope function, 
+#   and thus extract D.
+#
+# fix ID group-ID vector Nevery value1 value2 ...
+#
+# c_ID[I] = Ith component of global vector calculated by a compute with ID 
+# f_ID = global scalar calculated by a fix with ID
+# v_name = value calculated by an equal-style variable with name
+# 
+# variable name style args...
+# 
+# The slope() function uses linear regression to fit a line to the set of points, 
+#   equally spaced by 1 in their x coordinate: (1,V1), (2,V2), …, (N,VN), 
+#   where the Vi are the values in the global vector of length N. 
+#   The returned value is the slope of the line. 
+#   If the line has a single point or is vertical, it returns 1.0e20.
+###
+compute         msd all msd com yes
+fix             4 xe vector 10 c_msd[4]
+variable        fitslope equal slope(f_4)/6/(500*dt) # why dividing slope?
+
+thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
+
+
+
+thermo          10
+run             2000000
+unfix           3
+unfix           4
+undump          Pn_Ni-PyC-NH2_with_Xe_xyzmov
+
+

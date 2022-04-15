@@ -51,7 +51,7 @@ fix             2 kr nve
 #fix             3 fram langevin 298.00 298.00 ${tdamp} 1500201
 #fix             4 fram nve
 thermo          0
-run             200000
+run             500000
 unfix           1
 unfix           2
 #unfix           3
@@ -101,7 +101,7 @@ thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to l
 
 
 thermo          10
-run             2000000
+run             5000000
 unfix           3
 unfix           4
 undump          Pn_Ni-PyC-NH2_with_Kr_xyzmov

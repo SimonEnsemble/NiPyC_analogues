@@ -36,35 +36,37 @@ group           fram     id   1:2430
 # 
 # group1-ID, group2-ID = exclude if one atom is in 1st group, other in 2nd
 ###
-neigh_modify exclude group fram fram 
+#neigh_modify exclude group fram fram 
 
 # ----------------------------- Variables ---------------------- #
-dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 1000 NiPyC2_experiment_with_Xe_mov.xyz
+dump            NiPyC2_experiment_with_Xe_xyzmov all xyz 100 NiPyC2_experiment_with_Xe_mov.xyz
 dump_modify     NiPyC2_experiment_with_Xe_xyzmov element Ni O N C H Xe
 variable        dt         equal 1.00
 variable        tdamp      equal 100*${dt}
 variable        eqtemp     equal 298.00
 
 # ------------------------------ Equilibriation -------------------------------------------- #
-# we do not need to perform equilibriation since we are using a rigid framework
-# and the (single) adsorbate has already been inserted into the material via GCMC 
-# which already included an equilibriation phase.
+# The fix momentum command can be used to insure the entire collection of atoms (or a subset of them) 
+# does not drift or rotate during the simulation due to random perturbations (e.g. fix langevin thermostatting).
 fix             1 xe langevin ${eqtemp} ${eqtemp} ${tdamp} 523910
 fix             2 xe nve
-#fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
-#fix             4 fram nve
+fix             3 fram langevin 298.00 298.00 ${tdamp} 965287
+fix             4 fram nve
+fix             8 all momentum 1 linear 1 1 1 angular
 thermo          0
 run             200000
 unfix           1
 unfix           2
-#unfix           3
-#unfix           4
+unfix           3
+unfix           4
+unfix           8
 
 # --------------------- Production (data gathering) --------------------------------------- #
 # A simple way to hold atoms stationary is to not include those atoms in your time integration.
 reset_timestep  0
 
-fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
+fix             5 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
+fix             6 fram nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 
 ### 
 #  mean-squared disp of grp 1 
@@ -98,16 +100,17 @@ fix             3 xe nvt temp ${eqtemp} ${eqtemp} ${tdamp}
 #   If the line has a single point or is vertical, it returns 1.0e20.
 ###
 compute         msd all msd com yes       # define comupte 
-fix             4 xe vector 10 c_msd[4]  # what and how often to evaluate compute
-variable        fitslope equal slope(f_4)/6/(500*dt) # calculate diffusion coeff
+fix             7 xe vector 10 c_msd[4]   # what and how often to evaluate compute
+variable        fitslope equal slope(f_7) # calculate diffusion coeff
 # note: slope function treats timestep=1, but time between evals is 500*dt, hence the scaling factor
 
 thermo_style    custom step v_eqtemp c_msd[4] v_fitslope # prints this info to log file
 
-thermo          10
-run             2000000
-unfix           3
-unfix           4
+thermo          50
+run             5000000
+unfix           5
+unfix           6
+unfix           7
 undump          NiPyC2_experiment_with_Xe_xyzmov
 
 
