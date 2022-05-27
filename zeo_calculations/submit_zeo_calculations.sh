@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "#### START #### " `date`
 
-probe_radius=1.55 # atomic radius of N2 probe in Angstroms
-num_samples=50000  # number of Monte Carlo integration samples
+probe_radius=1.55  # atomic radius of N2 probe in Angstroms
+num_samples=500000 # number of Monte Carlo integration samples
 crystals_loc=../data/crystals
 
 output_loc=./zeo_outputs
