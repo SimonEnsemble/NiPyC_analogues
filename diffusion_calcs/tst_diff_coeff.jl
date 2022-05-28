@@ -38,69 +38,32 @@ md"
 2. make a scatter that plots the energy minimum
 "
 
-# ╔═╡ 1ef243c7-ba0d-437d-987b-db9522e50174
-begin
-	R = 8.31446261815324 / 1000 # Ideal Gas Constant, units: kJ/(mol-K)
-	T = 298.0                   # units: K
-	β = 1 / (R * T)             # units: (kJ/mol)⁻¹
-	
-	ljff = LJForceField("UFF")
-	
-	adsorbate = Molecule("Xe")
-	# adsorbate = Molecule("Kr")
-	if adsorbate.species == :Xe
-		mw_adsorbate = 131.293 / 1000 # kg/mol
-	elseif adsorbate.species == :Kr
-		mw_adsorbate = 83.798 / 1000
-	end
-	
-	xtal = Crystal("NiPyC2_experiment.cif")
-	# xtal = Crystal("Pn_Ni-PyC-NH2.cif")
-	rep_factors = replication_factors(xtal, ljff)
-end
-
-# ╔═╡ 89deadc6-291d-4920-ab54-d9a134fbc4b1
-write_xyz(xtal)
-
-# ╔═╡ 5e771f12-1a74-4e70-8a11-e0391cf5a4f9
-write_vtk(xtal.box, "unit_cell")
-
 # ╔═╡ f9a6c7f7-5aeb-4051-93be-11c2b28eecb2
-begin
-	function compute_seg_grid(xtal::Crystal, adsorbate::Molecule, ljff::LJForceField;
-	                          resolution::Float64=0.1,     # units: Å
-		                      energy_cutoff::Float64=50.0  # units: kJ/mol
-	)
-		grid = energy_grid(xtal, adsorbate, ljff, resolution=resolution)
-		
-		segmented_grid = PorousMaterials._segment_grid(grid, energy_cutoff, true)
-		
-		connections = PorousMaterials._build_list_of_connections(segmented_grid)
-		return segmented_grid, connections
-	end
-
-	# run
-	segmented_grid, connections = compute_seg_grid(xtal, adsorbate, ljff,
-		resolution=0.1)
+function compute_seg_grid(xtal::Crystal, adsorbate::Molecule, ljff::LJForceField;
+						  resolution::Float64=0.1,     # units: Å
+						  energy_cutoff::Float64=50.0  # units: kJ/mol
+)
+	grid = energy_grid(xtal, adsorbate, ljff, resolution=resolution)
+	
+	segmented_grid = PorousMaterials._segment_grid(grid, energy_cutoff, true)
+	
+	connections = PorousMaterials._build_list_of_connections(segmented_grid)
+	return segmented_grid, connections
 end
 
 # ╔═╡ bb290539-17b0-4b1f-acf6-5334af142111
-begin
-	function get_channel(connections::Vector{PorousMaterials.SegmentConnection};
-						 connection_id::Int=1)
-		for con in connections
-			if con.src == con.dst && con.src == connection_id
-				q_axis = con.direction
-				id_q_axis = findfirst(q_axis .== 1)
-				return q_axis, id_q_axis
-			else
-				continue
-			end
+function get_channel(connections::Vector{PorousMaterials.SegmentConnection};
+					 connection_id::Int=1)
+	for con in connections
+		if con.src == con.dst && con.src == connection_id
+			q_axis = con.direction
+			id_q_axis = findfirst(q_axis .== 1)
+			return q_axis, id_q_axis
+		else
+			continue
 		end
-		return
 	end
-
-	q_axis, id_q_axis = get_channel(connections)
+	return
 end
 
 # ╔═╡ b77fa782-5a58-43e0-9854-e5feffcdbc97
@@ -115,7 +78,9 @@ function free_energy_on_plane(q::Float64, _xtal::Crystal, _adsorbate::Molecule,
 	                          ljff::LJForceField, id_q_axis::Int, 
 	                          segmented_grid::Grid{Int64}, 
 	                          rep_factors::Tuple{Int, Int, Int}; 
-                              nb_total_insertions::Union{Float64, Int64}=1e6)	
+                              nb_total_insertions::Union{Float64, Int64}=1e6,
+							  Temp::Float64=298.0, 
+							  R_btz::Float64=0.00831446261815324)	
     avg_boltzmann = 0.0 # will be the free energy
 	nb_total_insertions = Int(nb_total_insertions) # make sure it's an Int 
 
@@ -145,59 +110,146 @@ function free_energy_on_plane(q::Float64, _xtal::Crystal, _adsorbate::Molecule,
             
 		energy = vdw_energy(xtal, adsorbate, ljff) # units: K
             
-        avg_boltzmann += exp(-energy / T)
+        avg_boltzmann += exp(-energy / Temp)
     end # MC integration
 	avg_boltzmann /= nb_insertions
 
-	return - R * T * log(avg_boltzmann) # kJ/mol
+	return - R_btz * Temp * log(avg_boltzmann) # kJ/mol
 end
 
-# ╔═╡ d815302c-477d-4d02-80e9-677426000e8e
-begin
+# ╔═╡ 626b24f7-8c9c-48c9-bb2b-0d4fbefafbb6
+begin 
+	# thermo and energy calc params
+	R = 8.31446261815324 / 1000 # Ideal Gas Constant, units: kJ/(mol-K)
+	T = 298.0                   # units: K
+	β = 1 / (R * T)             # units: (kJ/mol)⁻¹
+	ljff = LJForceField("UFF")
+
+	# structures
+	crystal_structures = Crystal.(["NiPyC2_experiment.cif", "Pn_Ni-PyC-NH2.cif"])
+	xtal_keys = [:nipyc, :nipycnh] # convenient for results Dict
+
+	# MC integration params
 	ln = 125
 	nb_ins = 1e6
 	qs = range(0.0, 1.0, length=ln)
-	Fs = [free_energy_on_plane(q, xtal, adsorbate, ljff, id_q_axis, segmented_grid, rep_factors, nb_total_insertions=nb_ins) for q in qs]
+
+	# results dictionary
+	results = Dict{Tuple{Symbol, Symbol}, Any}()
+	
+	# outter loop - adsorbates
+	for adsorbate in Molecule.(["Xe", "Kr"])
+		# molecular weight
+		if adsorbate.species == :Xe
+			mw_adsorbate = 131.293 / 1000 # kg/mol
+		elseif adsorbate.species == :Kr
+			mw_adsorbate = 83.798 / 1000
+		end
+		
+		# inner loop - crystals
+		for (i, xtal) in enumerate(crystal_structures)
+			xtal_key = xtal_keys[i]
+			# key for results Dict
+			results[(xtal_key, adsorbate.species)] = Dict{Symbol, Any}()
+
+			# get rep factors
+			rep_factors = replication_factors(xtal, ljff)
+			write_xyz(xtal)
+			write_vtk(xtal.box, "unit_cell")
+			
+			###
+			#  Get Grids
+			###
+			segmented_grid, connections = compute_seg_grid(xtal, adsorbate, ljff,
+				resolution=0.1)
+			
+			q_axis, id_q_axis = get_channel(connections)
+			
+			# store id_q_axis in results
+			push!(results[(xtal_key, adsorbate.species)], :id_q_axis => id_q_axis)
+
+			###
+			#  Get Free Energy Profile
+			###
+			Fs = [free_energy_on_plane(q, xtal, adsorbate, ljff, id_q_axis, segmented_grid, rep_factors, nb_total_insertions=nb_ins) for q in qs]
+
+			# store the result
+			push!(results[(xtal_key, adsorbate.species)], :free_energy => Fs)
+		
+			###
+			#  Calculate Diffusion Coefficient
+			###
+			F★ = maximum(Fs) # kJ/mol
+			energy_barrier = maximum(Fs) - minimum(Fs) # kJ/mol
+			λ = xtal.box.f_to_c[id_q_axis, id_q_axis] # length of hop
+			Δq = λ / (length(qs) - 1) # Å
+			
+			# dynamic update, correction, factor, is 1 at infinite dilution
+			κ = 1.0 # units: unitless
+		
+			# average velocity given by Boltzman dist.
+			#    mw_adsorbate [=] kg / mol
+			#    RT [=] kJ/mol, i.e. 1000RT [=] J / mol
+			#    [J] = [force * distance] = [N - m ] = [kg * m / s² - m] = [kg * m² / s²]
+			#    (1000 RT) / (2 π mw_adsorbate) [=] m² / s²
+			#    10 is for: 1 m/s = 10 Å/ns
+			#       1 m / 10^[10] Å
+			#       1 s / 10^9 ns
+			avg_velocity = 10 * sqrt((1000 * R * T) / (2 * π * mw_adsorbate)) # units: Å / ns 
+		
+			integral_botlzmann = sum(exp.(-β * Fs[1:end-1])) * Δq # mid-point rule
+		
+			hop_rate = κ * avg_velocity * exp(-β * F★) / integral_botlzmann # 1 / ns
+		
+			diff_coeff = (κ / 6) * λ^2 * hop_rate # units: [Å²/ns]
+			diff_coeff = diff_coeff * (1e-8)^2 / 1e-9 # units [cm²/s]
+			# store the result
+			push!(results[(xtal_key, adsorbate.species)], 
+				  :self_diffusion => diff_coeff)
+		end
+	end
 end
 
-# ╔═╡ fbb2532b-0f40-4e3d-b948-ad422025f6b6
-F★ = maximum(Fs) # kJ/mol
-
-# ╔═╡ 072a8de7-e631-44a8-b9f9-30e1e397ab68
-energy_barrier = maximum(Fs) - minimum(Fs) # kJ/mol
-
-# ╔═╡ 2d47b8c9-812c-4a31-a1e1-50994fd065b8
-λ = xtal.box.f_to_c[id_q_axis, id_q_axis] # length of hop
-
-# ╔═╡ b863b807-5edf-4564-8ea2-c822a7ec173b
-Δq = λ / (length(qs) - 1) # Å
-
-# ╔═╡ a8aaefa9-009e-43ab-bd14-a3958dd0ffd4
-# dynamic update, correction, factor, is 1 at infinite dilution
-κ = 1.0 # units: unitless
-
-# ╔═╡ 8343a4da-b40a-4f56-886b-6cc1f5c49d70
-# average velocity given by Boltzman dist.
-#    mw_adsorbate [=] kg / mol
-#    RT [=] kJ/mol, i.e. 1000RT [=] J / mol
-#    [J] = [force * distance] = [N - m ] = [kg * m / s² - m] = [kg * m² / s²]
-#    (1000 RT) / (2 π mw_adsorbate) [=] m² / s²
-#    10 is for: 1 m/s = 10 Å/ns
-#       1 m / 10^[10] Å
-#       1 s / 10^9 ns
-avg_velocity = 10 * sqrt((1000 * R * T) / (2 * π * mw_adsorbate)) # units: Å / ns 
-
-# ╔═╡ af1aca4e-bba3-42b0-9161-4d8d8385a7c8
-integral_botlzmann = sum(exp.(-β * Fs[1:end-1])) * Δq # mid-point rule
-
-# ╔═╡ 7a3d4fda-96a2-4afe-aae5-1011dca59bfd
-hop_rate = κ * avg_velocity * exp(-β * F★) / integral_botlzmann # 1 / ns
-
-# ╔═╡ 31bdc300-85db-42bf-bbb9-d9b59c3cda8d
+# ╔═╡ 12699c8b-4623-458e-8c6f-911d970fd6d1
 begin
-	diff_coeff = (κ / 6) * λ^2 * hop_rate # units: [Å²/ns]
-	diff_coeff = diff_coeff * (1e-8)^2 / 1e-9 # units [cm²/s]
+	###
+	#  add Henry Coefficients to the results dictionary for ease of use
+	###
+	push!(results[(:nipyc, :Xe)], :Henry => 53.78) # mmol/(g-bar)
+	push!(results[(:nipyc, :Kr)], :Henry =>  3.14) # mmol/(g-bar)
+	
+	push!(results[(:nipycnh, :Xe)], :Henry => 98.25) # mmol/(g-bar)
+	push!(results[(:nipycnh, :Kr)], :Henry =>  4.85) # mmol/(g-bar)
+	
+	###
+	#  Calculate Diffusive Selectivity
+	#  S_dif = Dₛ₁ / Dₛ₂
+	###
+	nipyc_dif_sel   = results[(:nipyc, :Xe)][:self_diffusion] / results[(:nipyc, :Kr)][:self_diffusion]
+	nipycnh_dif_sel = results[(:nipycnh, :Xe)][:self_diffusion] / results[(:nipycnh, :Kr)][:self_diffusion]
+	
+	###
+	#  Calculate Membrane Selectivity
+	#  S_mem = (Dₛ₁ H₁) / (Dₛ₂ H₂)
+	###
+	nipyc_mem_sel   = (results[(:nipyc, :Xe)][:self_diffusion] * results[(:nipyc, :Xe)][:Henry]) / 
+	                    (results[(:nipyc, :Kr)][:self_diffusion] * results[(:nipyc, :Kr)][:Henry])
+	
+	nipycnh_mem_sel = (results[(:nipycnh, :Xe)][:self_diffusion] * results[(:nipycnh, :Xe)][:Henry]) / 
+	                    (results[(:nipycnh, :Kr)][:self_diffusion] * results[(:nipycnh, :Kr)][:Henry])
+	
+	
+	println("Xtal - NiPyC2_experiment")
+	println("\tDiffusive Selectivity: S_{Xe/Kr} = $(nipyc_dif_sel)")
+	println("\tMembrane Selectivity:  S_{Xe/Kr} = $(nipyc_mem_sel)\n")
+	
+	println("Xtal - Pn_Ni-PyC-NH2.cif")
+	println("\tDiffusive Selectivity: S_{Xe/Kr} = $(nipycnh_dif_sel)")
+	println("\tMembrane Selectivity:  S_{Xe/Kr} = $(nipycnh_mem_sel)")
 end
+
+# ╔═╡ 61d19b40-33fe-48a5-aff7-bb2d170f1a8f
+results
 
 # ╔═╡ a43de6c1-1285-4360-9a86-3c135879c0d9
 begin
@@ -213,7 +265,7 @@ begin
 	title(mof_2_prettymof[xtal.name])
 	legend(title=@sprintf("Dₛ, %s = %.3e cm²/s", String(adsorbate.species), diff_coeff))
 	tight_layout()
-	savefig("diff_coeff_$(String(adsorbate.species))_$(xtal.name).pdf", format="pdf")
+	# savefig("diff_coeff_$(String(adsorbate.species))_$(xtal.name).pdf", format="pdf")
 	gcf()
 end
 
@@ -868,23 +920,13 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─4a070376-901b-458b-ab0b-ea1bb992098a
 # ╟─c15febf5-afe0-4e31-96ab-a98d530fb33d
 # ╠═63e4bfd0-d176-11ec-1b20-1b8ece55ecf7
-# ╠═1ef243c7-ba0d-437d-987b-db9522e50174
-# ╠═89deadc6-291d-4920-ab54-d9a134fbc4b1
-# ╠═5e771f12-1a74-4e70-8a11-e0391cf5a4f9
+# ╠═626b24f7-8c9c-48c9-bb2b-0d4fbefafbb6
 # ╠═f9a6c7f7-5aeb-4051-93be-11c2b28eecb2
 # ╠═bb290539-17b0-4b1f-acf6-5334af142111
 # ╠═b77fa782-5a58-43e0-9854-e5feffcdbc97
 # ╠═f95896c0-ef5f-43b3-b537-1566124f042b
-# ╠═d815302c-477d-4d02-80e9-677426000e8e
-# ╠═fbb2532b-0f40-4e3d-b948-ad422025f6b6
-# ╠═072a8de7-e631-44a8-b9f9-30e1e397ab68
-# ╠═2d47b8c9-812c-4a31-a1e1-50994fd065b8
-# ╠═b863b807-5edf-4564-8ea2-c822a7ec173b
-# ╠═a8aaefa9-009e-43ab-bd14-a3958dd0ffd4
-# ╠═8343a4da-b40a-4f56-886b-6cc1f5c49d70
-# ╠═af1aca4e-bba3-42b0-9161-4d8d8385a7c8
-# ╠═7a3d4fda-96a2-4afe-aae5-1011dca59bfd
-# ╠═31bdc300-85db-42bf-bbb9-d9b59c3cda8d
+# ╠═12699c8b-4623-458e-8c6f-911d970fd6d1
+# ╠═61d19b40-33fe-48a5-aff7-bb2d170f1a8f
 # ╠═a43de6c1-1285-4360-9a86-3c135879c0d9
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
