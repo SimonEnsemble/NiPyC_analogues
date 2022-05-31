@@ -52,8 +52,11 @@ function compute_seg_grid(xtal::Crystal, adsorbate::Molecule, ljff::LJForceField
 end
 
 # ╔═╡ bb290539-17b0-4b1f-acf6-5334af142111
+###
+#  TODO: set connection_id=2
+###
 function get_channel(connections::Vector{PorousMaterials.SegmentConnection};
-					 connection_id::Int=2)
+					 connection_id::Int=1)
 	for con in connections
 		if con.src == con.dst && con.src == connection_id
 			q_axis = con.direction
@@ -67,6 +70,9 @@ function get_channel(connections::Vector{PorousMaterials.SegmentConnection};
 end
 
 # ╔═╡ b77fa782-5a58-43e0-9854-e5feffcdbc97
+###
+#  TODO: set segmented_grid.data[xf_id...] == 2
+###
 # function to check if adsorbate is in the channel
 function in_my_channel(xf::Vector{Float64}, segmented_grid::Grid)  
 	xf_id = xf_to_id(segmented_grid.n_pts, xf)
