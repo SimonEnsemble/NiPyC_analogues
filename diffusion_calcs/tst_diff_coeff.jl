@@ -53,7 +53,7 @@ end
 
 # ╔═╡ bb290539-17b0-4b1f-acf6-5334af142111
 function get_channel(connections::Vector{PorousMaterials.SegmentConnection};
-					 connection_id::Int=1)
+					 connection_id::Int=2)
 	for con in connections
 		if con.src == con.dst && con.src == connection_id
 			q_axis = con.direction
@@ -165,7 +165,9 @@ begin
 			
 			q_axis, id_q_axis = get_channel(connections)
 			
-			# store id_q_axis in results
+			# store qs, q_axis, and id_q_axis in results
+			push!(results[(xtal_key, adsorbate.species)], :qs => qs)
+			push!(results[(xtal_key, adsorbate.species)], :q_axis => q_axis)
 			push!(results[(xtal_key, adsorbate.species)], :id_q_axis => id_q_axis)
 
 			###
@@ -251,22 +253,32 @@ end
 # ╔═╡ 61d19b40-33fe-48a5-aff7-bb2d170f1a8f
 results
 
-# ╔═╡ a43de6c1-1285-4360-9a86-3c135879c0d9
-begin
+# ╔═╡ d55f3e0b-caab-4ef5-b7bf-24d9827f24d9
+begin 
 	mof_2_prettymof = Dict("Pn_Ni-PyC-NH2.cif" => L"Ni(PyC-NH$_2$)$_2$",
 							"NiPyC2_experiment.cif" => L"Ni(PyC)$_2$")
 	
-	# fig = Figure()
-	figure()
-	xlabel("reaction coordinate, q [Å]")
-	ylabel("free energy of $(String(adsorbate.species)) [kJ/mol]")
-	plot(qs * xtal.box.f_to_c[id_q_axis, id_q_axis], Fs, marker="o", 
-		label="", color=adsorbate.species == :Xe ? "g" : "r")
-	title(mof_2_prettymof[xtal.name])
-	legend(title=@sprintf("Dₛ, %s = %.3e cm²/s", String(adsorbate.species), diff_coeff))
-	tight_layout()
-	# savefig("diff_coeff_$(String(adsorbate.species))_$(xtal.name).pdf", format="pdf")
-	gcf()
+	for (i, xtal) in enumerate(crystal_structures)
+		for adsorbate in Molecule.(["Xe", "Kr"])
+			# extract results to simplify plotting 
+			id_q_axis = results[(xtal_keys[i], adsorbate.species)][:id_q_axis]
+			free_energies = results[(xtal_keys[i], adsorbate.species)][:free_energy] 
+			sampled_qs = results[(xtal_keys[i], adsorbate.species)][:qs]
+			diffusion_coeff = results[(xtal_keys[i], adsorbate.species)][:self_diffusion]
+			
+			figure()
+			xlabel("reaction coordinate, q [Å]")
+			ylabel("free energy of $(String(adsorbate.species)) [kJ/mol]")
+			plot(sampled_qs * xtal.box.f_to_c[id_q_axis, id_q_axis], 
+				free_energies, marker="o", 
+				label="", color=adsorbate.species == :Xe ? "g" : "r")
+			# title(mof_2_prettymof[xtal.name])
+			legend(title=@sprintf("Dₛ, %s = %.3e cm²/s", String(adsorbate.species), diffusion_coeff))
+			tight_layout()
+			savefig("diff_coeff_$(String(adsorbate.species))_$(xtal.name).pdf", format="pdf")
+			gcf()
+		end
+	end
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -927,6 +939,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═f95896c0-ef5f-43b3-b537-1566124f042b
 # ╠═12699c8b-4623-458e-8c6f-911d970fd6d1
 # ╠═61d19b40-33fe-48a5-aff7-bb2d170f1a8f
-# ╠═a43de6c1-1285-4360-9a86-3c135879c0d9
+# ╠═d55f3e0b-caab-4ef5-b7bf-24d9827f24d9
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
