@@ -49,7 +49,7 @@ end
 
 # ╔═╡ 95bf2403-2ef4-406c-8be5-c8aaa0ff1ec3
 begin
-	temp_to_marker = Dict(298 => "s", 273 => "o", 258 => "^")
+	markers = Dict(zip(keys(data), ["s", "o", "^", "v", "D", "P"]))
 	
 	mof_label = Dict(:nipyc => "Ni(PyC)₂",
 					 :nipycnh => "Ni(PyC-"*L"m"*"-NH₂)₂")
@@ -65,16 +65,16 @@ begin
 			# adsorption barnch
 			ax.scatter(data[key][:pressure][1:des_id], 
 					   data[key][:sorption][1:des_id],
-					   label=mof_label[key[1]] * " $(key[2]) K ads.",
+					   label=mof_label[key[1]] * " $(key[2]) K",
 					   color=mof_color, 
-					   marker=temp_to_marker[key[2]])
+					   marker=markers[key]) 
 			
 			# desorption branch
 			ax.scatter(data[key][:pressure][des_id:end], 
 					   data[key][:sorption][des_id:end],
-					   label=mof_label[key[1]] * " $(key[2]) K des.",
+					   # label=mof_label[key[1]] * " $(key[2]) K des.",
 					   color=mof_color, 
-					   marker=temp_to_marker[key[2]], 
+					   marker=markers[key],
 					   facecolor="none")
 		end
 	end
@@ -455,6 +455,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═b31f87aa-dd43-11ec-158e-ebe9afe62f69
 # ╠═8ef7974b-ca70-4de1-8f68-919891a6f1e6
 # ╠═f3255809-ab4c-44c9-a8a9-50abdaf7f143
-# ╠═95bf2403-2ef4-406c-8be5-c8aaa0ff1ec3
+# ╟─95bf2403-2ef4-406c-8be5-c8aaa0ff1ec3
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
