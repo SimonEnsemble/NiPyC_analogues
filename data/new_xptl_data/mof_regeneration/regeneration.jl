@@ -29,7 +29,7 @@ begin
 	for cycle in 1:5
 		key = Symbol("cycle_$(cycle)")
 		filename = "NiPyC-NH2_Xe_298K-$(cycle).csv"
-		file  = joinpath(pwd(), "mof_regeneration_test/$(filename)")
+		file  = joinpath(pwd(), "$(filename)")
 		# read file
 		xptl_data = CSV.read(file, DataFrame, header=2)
 		# store in a dictionary
@@ -47,53 +47,16 @@ begin
 end
 
 # ╔═╡ 13541789-ccff-484c-a2f3-9bdce60fb0fa
-# how to label ads./des.?
-# how to fix xlabels?
-# respond to Cory's email - not the same isotherms, but it is just several measurements taken in succession. plotting them all on the same plot looks bad.
+# # how to label ads./des.?
+# # how to fix xlabels?
+# # respond to Cory's email - not the same isotherms, but it is just several measurements taken in succession. plotting them all on the same plot looks bad.
 
-begin
-	cycle_color = ["tab:orange", "tab:red", "tab:green", "tab:blue", "tab:purple"]
-	fig = figure()
-	gs = fig.add_gridspec(1, 5, wspace=0)
-	ax = gs.subplots(sharey="row")
-
-	for i in 1:5
-		cycle = Symbol("cycle_$(i)")
-
-		des_id = desorption_onset(data[cycle][:sorption])
-		
-		
-		# adsorption branch
-		ax[i].plot(data[cycle][:bar][1:des_id], 
-			       data[cycle][:sorption][1:des_id], 
-			       color="C$(i-1)",
-			       marker="o")
-		
-		# desorption branch
-		ax[i].plot(data[cycle][:bar][des_id:end], 
-			       data[cycle][:sorption][des_id:end],
-				   color="C$(i-1)",
-			       marker="s", fillstyle="none", zorder=1)
-	
-		ax[i].set_ylim(ymin=-0.05)
-		ax[i].set_xlim([-0.1, 1.25])
-		# ax[i].set_xticks(minor=true)
-
-		ax[i].set_title("cycle $(i)", fontsize=16)
-		ax[3].set_xlabel("Pressure [bar]")
-		ax[1].set_ylabel("Adsorption [mmol/g]")
-		
-		tight_layout()
-	end
-	tight_layout()
-	savefig("mof_regeneration_plot.pdf", format="pdf")
-	gcf()
-end
-
-# ╔═╡ 57930ba0-0209-4636-bb0c-1a99542c67df
 # begin
-# 	figure()
-	
+# 	cycle_color = ["tab:orange", "tab:red", "tab:green", "tab:blue", "tab:purple"]
+# 	fig = figure()
+# 	gs = fig.add_gridspec(1, 5, wspace=0)
+# 	ax = gs.subplots(sharey="row")
+
 # 	for i in 1:5
 # 		cycle = Symbol("cycle_$(i)")
 
@@ -101,28 +64,68 @@ end
 		
 		
 # 		# adsorption branch
-# 		plot(data[cycle][:bar][1:des_id], 
+# 		ax[i].plot(data[cycle][:bar][1:des_id], 
 # 			       data[cycle][:sorption][1:des_id], 
 # 			       color="C$(i-1)",
-# 			       label="cycle $i ads.", marker="o")
+# 			       marker="o")
 		
 # 		# desorption branch
-# 		plot(data[cycle][:bar][des_id:end], 
+# 		ax[i].plot(data[cycle][:bar][des_id:end], 
 # 			       data[cycle][:sorption][des_id:end],
 # 				   color="C$(i-1)",
-# 			       label="cycle $i des.", marker="s", fillstyle="none", zorder=1)
+# 			       marker="s", fillstyle="none", zorder=1)
+	
+# 		ax[i].set_ylim(ymin=-0.05)
+# 		ax[i].set_xlim([-0.1, 1.25])
+# 		# ax[i].set_xticks(minor=true)
+
+# 		ax[i].set_title("cycle $(i)", fontsize=16)
+# 		ax[3].set_xlabel("Pressure [bar]")
+# 		ax[1].set_ylabel("Adsorption [mmol/g]")
+		
+# 		tight_layout()
 # 	end
-# 	xlim(xmin=-0.02)
-# 	ylim(ymin=-0.05)
-# 	legend()
-# 	xlabel("Pressure [bar]")
-# 	ylabel("Adsorption [mmol/g]")
-
 # 	tight_layout()
-# 		savefig("mof_regeneration_plot.pdf", format="pdf")
-
+# 	savefig("mof_regeneration_plot.pdf", format="pdf")
 # 	gcf()
 # end
+
+# ╔═╡ 57930ba0-0209-4636-bb0c-1a99542c67df
+begin
+	figure()
+	
+	for i in 1:5
+		cycle = Symbol("cycle_$(i)")
+
+		des_id = desorption_onset(data[cycle][:sorption])
+		
+		
+		# adsorption branch
+		plot(data[cycle][:bar][1:des_id], 
+			       data[cycle][:sorption][1:des_id], 
+			       color="C$(i-1)",
+			       label="cycle $(i)", 
+					marker="o")
+		
+		# desorption branch
+		plot(data[cycle][:bar][des_id:end], 
+			data[cycle][:sorption][des_id:end],
+			color="C$(i-1)",
+			# label="cycle $i des.", 
+			marker="o", fillstyle="none", zorder=1)
+	end
+	axis()
+	xlim(xmin=-0.02)
+	ylim(ymin=-0.05)
+	legend()
+	xlabel("Pressure [bar]")
+	ylabel("Uptake [mmol/g]")
+
+	tight_layout()
+		savefig("mof_regeneration_plot.png", dpi=600,format="png")
+
+	gcf()
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -491,7 +494,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═6ea741b3-c848-4c40-8184-bda1fcf8d49e
 # ╠═394d8e11-724a-427f-9063-90876fd1e206
 # ╠═516e7ef7-8e56-4991-b9a4-eea3977101ac
-# ╠═13541789-ccff-484c-a2f3-9bdce60fb0fa
+# ╟─13541789-ccff-484c-a2f3-9bdce60fb0fa
 # ╠═57930ba0-0209-4636-bb0c-1a99542c67df
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

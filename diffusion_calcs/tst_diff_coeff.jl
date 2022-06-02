@@ -131,7 +131,7 @@ begin
 
 	# MC integration params
 	ln = 125
-	nb_ins = 1e6
+	nb_ins = 1e5
 	qs = range(0.0, 1.0, length=ln)
 
 	# results dictionary
@@ -209,6 +209,14 @@ begin
 			push!(results[(xtal_key, adsorbate.species)], 
 				  :self_diffusion => diff_coeff)
 		end
+	end
+end
+
+# ╔═╡ a1a60f06-2b8c-4d57-b131-b5c7d055060d
+begin
+	for key in keys(results)
+		energy_barrier = maximum(results[key][:free_energy]) - minimum(results[key][:free_energy]) # kJ/mol
+		push!(results[key], :energy_barrier => energy_barrier)
 	end
 end
 
@@ -937,6 +945,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═bb290539-17b0-4b1f-acf6-5334af142111
 # ╠═b77fa782-5a58-43e0-9854-e5feffcdbc97
 # ╠═f95896c0-ef5f-43b3-b537-1566124f042b
+# ╠═a1a60f06-2b8c-4d57-b131-b5c7d055060d
 # ╠═12699c8b-4623-458e-8c6f-911d970fd6d1
 # ╠═61d19b40-33fe-48a5-aff7-bb2d170f1a8f
 # ╠═d55f3e0b-caab-4ef5-b7bf-24d9827f24d9
