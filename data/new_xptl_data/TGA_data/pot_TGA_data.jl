@@ -31,11 +31,14 @@ begin
 						:nipycnh => "Ni(PyC-"*L"m"*"-NH₂)₂")
 	fig, ax = subplots()
 	for (i, mof_key) in enumerate([:nipyc, :nipycnh])
-		ax.plot(data[mof_key][!, names(data[mof_key])[1]], 
-				data[mof_key][!, names(data[mof_key])[2]],
+		# cap temperature at 220ᵒC
+		ind = findfirst(data[mof_key][!, names(data[mof_key])[1]] .> 220.0)
+		
+		ax.plot(data[mof_key][1:ind, names(data[mof_key])[1]], 
+				data[mof_key][1:ind, names(data[mof_key])[2]],
 				color="C$(i-1)", label=mof_to_label[mof_key], lw=2)
 	end
-	ax.set_xlim([0, 275])
+	ax.set_xlim([0, 225])
 	ax.set_ylim([80, 101])
 	
 	ax.set_xlabel("temperature [ᵒC]")
@@ -414,6 +417,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╔═╡ Cell order:
 # ╠═97edb384-dde9-11ec-0a34-4d94e1499f0a
 # ╠═54498ed0-f8e5-47db-a12c-9dd05a26c196
-# ╟─ec19c932-730a-4383-9457-a5b22b38edc1
+# ╠═ec19c932-730a-4383-9457-a5b22b38edc1
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
