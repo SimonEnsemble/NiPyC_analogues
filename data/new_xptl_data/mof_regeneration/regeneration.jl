@@ -118,11 +118,11 @@ begin
 	xlim(xmin=-0.02)
 	ylim(ymin=-0.05)
 	legend()
-	xlabel("Pressure [bar]")
-	ylabel("Uptake [mmol/g]")
+	xlabel("pressure [bar]")
+	ylabel("Xe uptake [mmol/g]")
 
 	tight_layout()
-		savefig("mof_regeneration_plot.png", dpi=600,format="png")
+	savefig("mof_regeneration_plot.pdf", format="pdf")
 
 	gcf()
 end
@@ -495,6 +495,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═394d8e11-724a-427f-9063-90876fd1e206
 # ╠═516e7ef7-8e56-4991-b9a4-eea3977101ac
 # ╟─13541789-ccff-484c-a2f3-9bdce60fb0fa
-# ╠═57930ba0-0209-4636-bb0c-1a99542c67df
+# ╟─57930ba0-0209-4636-bb0c-1a99542c67df
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
