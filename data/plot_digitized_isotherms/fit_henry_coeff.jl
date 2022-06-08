@@ -70,10 +70,10 @@ begin
 	adsorbates = ["Xe", "Kr"]
 	temp = 298
 
-	n_pts = Dict(("CROFOUR_1_Ni", "Xe") => 6, ("CROFOUR_1_Ni", "Kr") => 7,
-				 ("CROFOUR_2_Ni", "Xe") => 4, ("CROFOUR_2_Ni", "Kr") => 7, 
-				 ("Co_Squarate" , "Xe") => 6, ("Co_Squarate", "Kr") => 4,
-				 ("PAF_45S", "Xe") => 5, ("PAF_45S", "Kr") => 4)
+	n_pts = Dict(("CROFOUR_1_Ni", "Xe") => 3, ("CROFOUR_1_Ni", "Kr") => 3,
+				 ("CROFOUR_2_Ni", "Xe") => 3, ("CROFOUR_2_Ni", "Kr") => 4, 
+				 ("Co_Squarate" , "Xe") => 3, ("Co_Squarate", "Kr") => 4,
+				 ("PAF_45S", "Xe") => 4, ("PAF_45S", "Kr") => 3)
 	
 	# Henry Coefficients
 	HK_pm = Dict{Tuple{String, String}, Dict{String, Float64}}()
@@ -141,26 +141,6 @@ begin
 		savefig("Henry_fits_$(xtal_name).png", dpi=600, format="png")
 		gcf()	
 	end
-end
-
-# ╔═╡ de2f3de7-2d44-4e32-80c6-d270659b0c07
-###
-# fix data file
-###
-begin
-	filename = "Co_squarate_xe_298_K_remaining_of_isotherm.dat"
-	temp_file = CSV.read(joinpath(pwd(), "Co_Squarate", filename), DataFrame)
-
-	density = 1 / 2.19 # 1 / (cc / g)
-	factor = 1/ 22.4
-	temp_file[!, "pressure (bar)"] = temp_file[!, "pressure (kPa)"] / 100
-	temp_file[!, "uptake (mmol/g)"] = temp_file[!, "uptake (cc STP/cc)"] * density * factor
-	
-	select!(temp_file, Not("pressure (kPa)"))
-	select!(temp_file, Not("uptake (cc STP/cc)"))
-
-	# new_filename = "Co_squarate_xe_298_K_remaining_of_isotherm_FIXED.dat"
-	# CSV.write(joinpath(pwd(), "Co_Squarate", new_filename), temp_file)
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -819,6 +799,5 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═a69b484f-fe21-46a8-970c-ea3b9b865d26
 # ╠═33a5bd61-a89c-4b6c-936b-d876c77e51e2
 # ╠═26b94cc9-d2bc-4a0b-8b62-6c3530a4abd0
-# ╠═de2f3de7-2d44-4e32-80c6-d270659b0c07
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
