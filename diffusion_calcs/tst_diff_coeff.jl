@@ -205,7 +205,9 @@ begin
 		
 			diff_coeff = (κ / 6) * λ^2 * hop_rate # units: [Å²/ns]
 			diff_coeff = diff_coeff * (1e-8)^2 / 1e-9 # units [cm²/s]
-			# store the result
+			# store the results
+			push!(results[(xtal_key, adsorbate.species)], 
+				  :hop_rate => hop_rate)
 			push!(results[(xtal_key, adsorbate.species)], 
 				  :self_diffusion => diff_coeff)
 		end
@@ -259,33 +261,43 @@ begin
 end
 
 # ╔═╡ 61d19b40-33fe-48a5-aff7-bb2d170f1a8f
-results
+results # consider saving the results to a JLD2 file so that I don't have to constantly rerun the simulation...
 
-# ╔═╡ d55f3e0b-caab-4ef5-b7bf-24d9827f24d9
+# ╔═╡ 731d339c-4c68-4731-ab43-98a29bcdeff7
 begin 
 	mof_2_prettymof = Dict("Pn_Ni-PyC-NH2.cif" => L"Ni(PyC-NH$_2$)$_2$",
 							"NiPyC2_experiment.cif" => L"Ni(PyC)$_2$")
 	
 	for (i, xtal) in enumerate(crystal_structures)
+		figure()
 		for adsorbate in Molecule.(["Xe", "Kr"])
 			# extract results to simplify plotting 
 			id_q_axis = results[(xtal_keys[i], adsorbate.species)][:id_q_axis]
+			λ = xtal.box.f_to_c[id_q_axis, id_q_axis]
 			free_energies = results[(xtal_keys[i], adsorbate.species)][:free_energy] 
 			sampled_qs = results[(xtal_keys[i], adsorbate.species)][:qs]
 			diffusion_coeff = results[(xtal_keys[i], adsorbate.species)][:self_diffusion]
 			
-			figure()
+			# label
+			str = @sprintf("Dₛ, %s = %.3e cm²/s", String(adsorbate.species), diffusion_coeff)
+			
 			xlabel("reaction coordinate, q [Å]")
 			ylabel("free energy of $(String(adsorbate.species)) [kJ/mol]")
+			xlim([-0.1, λ+0.1])
+			ylim([-30, -10])
+
+			axvline(x=0, color="grey", alpha=0.5, linestyle="--")
+			axvline(x=λ, color="grey", alpha=0.5, linestyle="--")
+			
 			plot(sampled_qs * xtal.box.f_to_c[id_q_axis, id_q_axis], 
 				free_energies, marker="o", 
-				label="", color=adsorbate.species == :Xe ? "g" : "r")
+				label=str, color=adsorbate.species == :Xe ? "g" : "r")
 			# title(mof_2_prettymof[xtal.name])
-			legend(title=@sprintf("Dₛ, %s = %.3e cm²/s", String(adsorbate.species), diffusion_coeff))
-			tight_layout()
-			savefig("diff_coeff_$(String(adsorbate.species))_$(xtal.name).pdf", format="pdf")
-			gcf()
+			legend()
 		end
+		tight_layout()
+		savefig("diff_coeffs_$(xtal.name).pdf", format="pdf")
+		gcf()
 	end
 end
 
@@ -948,6 +960,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═a1a60f06-2b8c-4d57-b131-b5c7d055060d
 # ╠═12699c8b-4623-458e-8c6f-911d970fd6d1
 # ╠═61d19b40-33fe-48a5-aff7-bb2d170f1a8f
-# ╠═d55f3e0b-caab-4ef5-b7bf-24d9827f24d9
+# ╠═731d339c-4c68-4731-ab43-98a29bcdeff7
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

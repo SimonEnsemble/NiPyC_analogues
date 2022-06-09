@@ -54,7 +54,7 @@ begin
 	mof_label = Dict(:nipyc => "Ni(PyC)₂",
 					 :nipycnh => "Ni(PyC-"*L"m"*"-NH₂)₂")
 	
-	fig, ax = subplots(figsize=(10, 10))
+	fig, ax = subplots(figsize=(7, 7))
 	for mof_key in mof_keys
 		for temp in temperatures
 			key = (mof_key, temp) 

@@ -6,7 +6,7 @@ using InteractiveUtils
 
 # ╔═╡ 6ea741b3-c848-4c40-8184-bda1fcf8d49e
 begin
-	using DataFrames, PyPlot, CSV
+	using DataFrames, PyPlot, CSV, PyCall
 	
 	# PyPlot.matplotlib.style.use("ggplot")
 	rcParams = PyPlot.PyDict(PyPlot.matplotlib."rcParams")
@@ -92,27 +92,24 @@ end
 
 # ╔═╡ 57930ba0-0209-4636-bb0c-1a99542c67df
 begin
-	figure()
-	
+	figure()	
 	for i in 1:5
 		cycle = Symbol("cycle_$(i)")
 
 		des_id = desorption_onset(data[cycle][:sorption])
-		
-		
+
 		# adsorption branch
 		plot(data[cycle][:bar][1:des_id], 
-			       data[cycle][:sorption][1:des_id], 
-			       color="C$(i-1)",
-			       label="cycle $(i)", 
-					marker="o")
+			 data[cycle][:sorption][1:des_id],
+			 label="cycle $(i)", 
+			 color="C$(i-1)",
+			 marker="o")
 		
 		# desorption branch
 		plot(data[cycle][:bar][des_id:end], 
-			data[cycle][:sorption][des_id:end],
-			color="C$(i-1)",
-			# label="cycle $i des.", 
-			marker="o", fillstyle="none", zorder=1)
+			 data[cycle][:sorption][des_id:end],  
+			 color="C$(i-1)",
+			 marker="o", fillstyle="none", zorder=1)
 	end
 	axis()
 	xlim(xmin=-0.02)
@@ -132,11 +129,13 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
 PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
 
 [compat]
 CSV = "~0.10.4"
 DataFrames = "~1.3.4"
+PyCall = "~1.93.1"
 PyPlot = "~2.10.0"
 """
 
@@ -495,6 +494,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═394d8e11-724a-427f-9063-90876fd1e206
 # ╠═516e7ef7-8e56-4991-b9a4-eea3977101ac
 # ╟─13541789-ccff-484c-a2f3-9bdce60fb0fa
-# ╟─57930ba0-0209-4636-bb0c-1a99542c67df
+# ╠═57930ba0-0209-4636-bb0c-1a99542c67df
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
