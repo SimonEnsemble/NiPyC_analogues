@@ -5,7 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 63e4bfd0-d176-11ec-1b20-1b8ece55ecf7
-using PorousMaterials, PyPlot, Printf
+using PorousMaterials, PyPlot, Printf, JLD2
 
 # ╔═╡ 4a070376-901b-458b-ab0b-ea1bb992098a
 md"""
@@ -203,7 +203,7 @@ begin
 		
 			hop_rate = κ * avg_velocity * exp(-β * F★) / integral_botlzmann # 1 / ns
 		
-			diff_coeff = (κ / 6) * λ^2 * hop_rate # units: [Å²/ns]
+			diff_coeff = (κ / 2) * λ^2 * hop_rate # units: [Å²/ns]
 			diff_coeff = diff_coeff * (1e-8)^2 / 1e-9 # units [cm²/s]
 			# store the results
 			push!(results[(xtal_key, adsorbate.species)], 
@@ -263,6 +263,14 @@ end
 # ╔═╡ 61d19b40-33fe-48a5-aff7-bb2d170f1a8f
 results # consider saving the results to a JLD2 file so that I don't have to constantly rerun the simulation...
 
+# ╔═╡ 2e137276-3e87-483e-ac59-31440e68b1a9
+begin 
+	for key in keys(results)
+		file_loc = ""
+		save("diffusion_results_dict_$(String(key[2]))_in_$(String(key[1])).jld2", results[key])
+	end
+end
+
 # ╔═╡ 731d339c-4c68-4731-ab43-98a29bcdeff7
 begin 
 	mof_2_prettymof = Dict("Pn_Ni-PyC-NH2.cif" => L"Ni(PyC-NH$_2$)$_2$",
@@ -279,7 +287,8 @@ begin
 			diffusion_coeff = results[(xtal_keys[i], adsorbate.species)][:self_diffusion]
 			
 			# label
-			str = @sprintf("Dₛ, %s = %.2e cm²/s", String(adsorbate.species), diffusion_coeff)
+			diff_sigfig = round(diffusion_coeff, sigdigits=2)
+			str = @sprintf("Dₛ, %s = %3g cm²/s", String(adsorbate.species), diff_sigfig)
 			
 			xlabel("reaction coordinate, q [Å]")
 			ylabel("free energy, F(q) [kJ/mol]")
@@ -301,17 +310,16 @@ begin
 	end
 end
 
-# ╔═╡ de54791e-af03-4f5d-a6ca-8f22ff62e967
-round(.000012340000, sigdigits=3)
-
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
 PorousMaterials = "68953c7c-a3c7-538e-83d3-73516288599e"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
 
 [compat]
+JLD2 = "~0.4.22"
 PorousMaterials = "~0.4.0"
 PyPlot = "~2.10.0"
 """
@@ -963,7 +971,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═a1a60f06-2b8c-4d57-b131-b5c7d055060d
 # ╠═12699c8b-4623-458e-8c6f-911d970fd6d1
 # ╠═61d19b40-33fe-48a5-aff7-bb2d170f1a8f
+# ╠═2e137276-3e87-483e-ac59-31440e68b1a9
 # ╠═731d339c-4c68-4731-ab43-98a29bcdeff7
-# ╠═de54791e-af03-4f5d-a6ca-8f22ff62e967
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
