@@ -279,10 +279,10 @@ begin
 			diffusion_coeff = results[(xtal_keys[i], adsorbate.species)][:self_diffusion]
 			
 			# label
-			str = @sprintf("Dₛ, %s = %.3e cm²/s", String(adsorbate.species), diffusion_coeff)
+			str = @sprintf("Dₛ, %s = %.2e cm²/s", String(adsorbate.species), diffusion_coeff)
 			
 			xlabel("reaction coordinate, q [Å]")
-			ylabel("free energy of $(String(adsorbate.species)) [kJ/mol]")
+			ylabel("free energy, F(q) [kJ/mol]")
 			xlim([-0.1, λ+0.1])
 			ylim([-30, -10])
 
@@ -300,6 +300,9 @@ begin
 		gcf()
 	end
 end
+
+# ╔═╡ de54791e-af03-4f5d-a6ca-8f22ff62e967
+round(.000012340000, sigdigits=3)
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -961,5 +964,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═12699c8b-4623-458e-8c6f-911d970fd6d1
 # ╠═61d19b40-33fe-48a5-aff7-bb2d170f1a8f
 # ╠═731d339c-4c68-4731-ab43-98a29bcdeff7
+# ╠═de54791e-af03-4f5d-a6ca-8f22ff62e967
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
